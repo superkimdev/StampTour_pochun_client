@@ -79,8 +79,10 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
                         preferenceManager.normal_LoggedIn(nick,accesstoken);
                         if(preferenceManager.getFirstStart()){
                             Log.e("FIRST_CHECK",preferenceManager.getFirstStart()+"");
+                            preferenceManager.normal_LoggedIn(nick,accesstoken);
                         }else{
                             Log.e("FIRST_CHECK",preferenceManager.getFirstStart()+"");
+                            ((LoginActivity) context).downloadContents(nick,accesstoken,LoggedInCase.NORMAL.getLogin_case());
                         }
                     }
                 }catch (JSONException e){

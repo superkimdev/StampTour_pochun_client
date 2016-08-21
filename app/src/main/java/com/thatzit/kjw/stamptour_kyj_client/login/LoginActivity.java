@@ -1,13 +1,16 @@
 package com.thatzit.kjw.stamptour_kyj_client.login;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,20 +20,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.thatzit.kjw.stamptour_kyj_client.MainActivity;
 import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.user.User;
 import com.thatzit.kjw.stamptour_kyj_client.user.normal.NormalUser;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -41,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
+    private static final int MY_RMISSION_REQUEST_WRITE = 33;
 
     // UI references.
     private EditText mEmailView;
@@ -49,16 +60,23 @@ public class LoginActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private User user;
+    private boolean permission_on=false;
+    private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
+        preferenceManager = new PreferenceManager(this);
+        if(preferenceManager.getFirstStart()&&(!preferenceManager.getLoggedIn_Info().getAccesstoken().equals(""))){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         mEmailView = (EditText) findViewById(R.id.email);
-        populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-
+        checkPermission();
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -75,46 +93,62 @@ public class LoginActivity extends AppCompatActivity {
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }
-    }
+    private boolean checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.READ_CONTACTS)
+                    != PackageManager.PERMISSION_GRANTED){
 
-    private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    // Explain to the user why we need to write the permission.
+                    Toast.makeText(this, "앱 내의 컨텐츠 저장용으로 사용됩니다.", Toast.LENGTH_SHORT).show();
+                }
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.READ_CONTACTS
+                }, MY_RMISSION_REQUEST_WRITE);
+
+
+                // MY_PERMISSION_REQUEST_STORAGE is an
+                // app-defined int constant
+
+            } else {
+                // 다음 부분은 항상 허용일 경우에 해당이 됩니다.
+
+                return true;
+            }
         }
         return false;
     }
-
-    /**
-     * Callback received when a permissions request has been completed.
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
+        if(requestCode== MY_RMISSION_REQUEST_WRITE&&grantResults.length>0) {
+            Log.e("grant size",grantResults.length+"");
+            int apply_cnt=0;
+            for(int i=0;i<grantResults.length;i++)
+            {
+                Log.e("GrantResult"+i,grantResults[i]+":"+permissions[i]);
+                if(grantResults[i]==PackageManager.PERMISSION_GRANTED)apply_cnt++;
+            }
+            if(apply_cnt==3)
+            {
+                //허용됨
+
+            }else
+            {
+                Log.d("permission", "Permission always deny");
+                Toast.makeText(this,"앱 권한을 다시 설정해주세요",Toast.LENGTH_LONG).show();
             }
         }
     }
+
 
 
     /**
@@ -161,7 +195,7 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            //일반회원 로그인 로직
+            //일반회원 로그인 로
             user = new NormalUser(email,password,this);
             ((NormalUser) user).LoggedIn(email,password);
         }
@@ -212,9 +246,86 @@ public class LoginActivity extends AppCompatActivity {
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
-    public void downloadContents(){
-
+    public String checkLangauagelocale(){
+        String contents_down_url;
+        Locale systemLocale = getResources().getConfiguration().locale;
+        String strLanguage = systemLocale.getLanguage();
+        switch (strLanguage){
+            case "ko":contents_down_url=getString(R.string.req_url_download_kr);break;
+            case "en":contents_down_url=getString(R.string.req_url_download_en);break;
+            case "zh":contents_down_url=getString(R.string.req_url_download_ch);break;
+            case "ja":contents_down_url=getString(R.string.req_url_download_jp);break;
+            default:contents_down_url=getString(R.string.req_url_download_kr);break;
+        }
+        return contents_down_url;
     }
+    public void downloadContents(final String nick, final String accesstoken, final String loggedincase){
+        RequestParams params = new RequestParams();
+        params.put("nick",nick);
+        params.put("accesstoken",accesstoken);
+        String contents_down_url = checkLangauagelocale();
+        Log.e("download",nick+":"+accesstoken);
+        final ProgressDialog dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
+        dlg.setProgress(0);
+        dlg.setMessage("필요한 컨텐츠 다운로드중...");
+        dlg.setCancelable(false);
+        dlg.show();
+        //ko
+        //en
+        //zh
+        //ja
+
+        StampRestClient.get(contents_down_url,params,new FileAsyncHttpResponseHandler(this){
+            private String createDirectory(){
+                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
+                String dirPath = sdcard+"/StampTour_kyj/kr";
+                File dir = new File(dirPath);
+                if( !dir.exists() ) dir.mkdirs();
+                return dirPath;
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                Log.e("filedown","fail");
+                dlg.dismiss();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File file) {
+                Log.e("filedown", "File name :" + file.toString());
+                dlg.dismiss();
+
+                Log.e("dir", Environment.getExternalStorageDirectory().getAbsolutePath());
+                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
+
+                String path=createDirectory();
+                File jsonFile= new File(path,"kr.json");
+                StringBuilder text = new StringBuilder();
+                String line;
+
+                try{
+
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    while((line=br.readLine())!=null){
+                        text.append(line);
+                        Log.e("Text",line);
+                    }
+                    Writer writer = new OutputStreamWriter(new FileOutputStream(jsonFile), "UTF-8");
+                    writer.write(text.toString());
+                    writer.close();
+                    switch (loggedincase){
+                        case "NORMAL":preferenceManager.normal_LoggedIn(nick,accesstoken);break;
+                        case "FBLogin":preferenceManager.facebook_LoggedIn(nick,accesstoken);break;
+                        case "KAKAOLogin":preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);break;
+                    }
+                    preferenceManager.setFirstStart();
+                }catch (FileNotFoundException e) {
+                    Log.e("WriteFile", e.toString());
+                }catch (IOException e){
+                    Log.e("WriteFile",e.toString());
+                }
+            }
+        });
+    }
+
 }
 

@@ -50,4 +50,11 @@ public class PreferenceManager {
         editor.commit();
     }
 
+    public LoggedInInfo getLoggedIn_Info() {
+        String loggedincase=pref.getString(PreferenceKey.LOGGEDINCASE.getKey(),"");
+        String nick = pref.getString(PreferenceKey.NICK.getKey(),"");
+        String accesstoken = pref.getString(PreferenceKey.ACCESSTOKEN.getKey(),"");
+        LoggedInInfo info = new LoggedInInfo(nick,accesstoken,loggedincase);
+        return info;
+    }
 }

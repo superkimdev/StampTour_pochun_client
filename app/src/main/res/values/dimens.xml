@@ -5,4 +5,5 @@
     <dimen name="LoginTitleTextSize">20sp</dimen>
     <dimen name="Login_Social_layout_vertical_margin">30dp</dimen>
     <dimen name="JoinandFidLayout_vertical_margin">100dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>
