@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">StampTour_kyj_Client</string>
+
+    <!-- PreferenceManager -->
+    <string name="preference_private_name">stamp_tour_kyoungju</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">로그인</string>
+    <string name="action_sign_in_short">SignIn</string>
+    <string name="action_join">회원가입</string>
+    <string name="action_find_user">ID.PW 찾기</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="action_sign_in_facebook">페이스북 로그인</string>
+    <string name="req_url_loggedin">user/login</string>
+    <string name="loginTitle">계정 로그인</string>
+    <string name="loginSocialTitle">소셜 로그인</string>
+    <string name="Toast_login_Success">정상적으로 로그인 되었습니다.</string>
+</resources>

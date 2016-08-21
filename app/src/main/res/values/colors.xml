@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="emailInput">#313131</color>
+    <color name="pwInput">#A0A0A0</color>
+    <color name="loginBtn">#3DB693</color>
+    <color name="line312">#D1D1D1</color>
+    <color name="colorlogintitle">#313131</color>
+    <color name="colorFaceBookBtn">#3b5998</color>
+    <color name="colorKaKaoBtn">#FFEB00</color>
+    <color name="colorFaceBookBtn_text">#FFFFFF</color>
+    <color name="colorKaKaoBtn_text">#3C1E1E</color>
+    <color name="zxing_result_text">#FFFFFF</color>
+    <color name="zxing_result_minor_text">#ffffff</color>
+    <color name="zxing_camera_background">#222222</color>
+    <color name="zxing_camera_background2">#202020</color>
+    <color name="stdColorGreen">#3DB693</color>
+    <color name="stdColorWhite">#ffffff</color>
+    <color name="stdColorRed">#FF4081</color>
+    <color name="stdColorRed2">#FF0658</color>
+    <color name="stdColorBlack">#313131</color>
+    <color name="stdColorGrey">#707070</color>
+
+    <color name="stdColorLine">#d1d1d1</color>
+    <color name="stdColorHint">#b5b5b5</color>
+    <color name="stdColorHint2">#A0A0A0</color>
+    <color name="town_msg_default">#313131</color>
+    <color name="review_title_hint">#A0A0A0</color>
+    <color name="review_spinner_itme_color">#313131</color>
+    <color name="stdColorBlack2">#535353</color>
+    <color name="stdColorGrey2">#898989</color>
+    <color name="navheader_top_bg">#dcdcdc</color>
+
+</resources>
