@@ -161,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
+            //일반회원 로그인 로직
             user = new NormalUser(email,password,this);
             ((NormalUser) user).LoggedIn(email,password);
         }
