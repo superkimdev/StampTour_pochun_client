@@ -34,6 +34,7 @@ import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -41,6 +42,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Locale;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -263,79 +266,11 @@ public class LoginActivity extends AppCompatActivity {
         return contents_down_url;
     }
 
-    public void downloadContents(final String nick, final String accesstoken, final String loggedincase){
-        RequestParams params = new RequestParams();
-        params.put("nick",nick);
-        params.put("accesstoken",accesstoken);
-        String contents_down_url = checkLangauagelocale();
-        Log.e("download",nick+":"+accesstoken);
-        final ProgressDialog dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
-        dlg.setProgress(0);
-        dlg.setMessage("필요한 컨텐츠 다운로드중...");
-        dlg.setCancelable(false);
-        dlg.show();
-        //ko
-        //en
-        //zh
-        //ja
-
-        StampRestClient.get(contents_down_url,params,new FileAsyncHttpResponseHandler(this){
-            private String createDirectory(){
-                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
-                String dirPath = sdcard+"/StampTour_kyj/kr";
-                File dir = new File(dirPath);
-                if( !dir.exists() ) dir.mkdirs();
-                return dirPath;
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                Log.e("filedown","fail");
-                dlg.dismiss();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, File file) {
-                Log.e("filedown", "File name :" + file.toString());
-                dlg.dismiss();
-
-                Log.e("dir", Environment.getExternalStorageDirectory().getAbsolutePath());
-                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
-
-                String path=createDirectory();
-                File jsonFile= new File(path,"kr.json");
-                StringBuilder text = new StringBuilder();
-                String line;
-
-                try{
-
-                    BufferedReader br = new BufferedReader(new FileReader(file));
-                    while((line=br.readLine())!=null){
-                        text.append(line);
-                        Log.e("Text",line);
-                    }
-                    Writer writer = new OutputStreamWriter(new FileOutputStream(jsonFile), "UTF-8");
-                    writer.write(text.toString());
-                    writer.close();
-                    switch (loggedincase){
-                        case "NORMAL":preferenceManager.normal_LoggedIn(nick,accesstoken);break;
-                        case "FBLogin":preferenceManager.facebook_LoggedIn(nick,accesstoken);break;
-                        case "KAKAOLogin":preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);break;
-                    }
-                    preferenceManager.setFirstStart();
-                }catch (FileNotFoundException e) {
-                    Log.e("WriteFile", e.toString());
-                }catch (IOException e){
-                    Log.e("WriteFile",e.toString());
-                }
-            }
-        });
-    }
-
     public void downloadContents_zip(final String nick, final String accesstoken, final String loggedincase){
         RequestParams params = new RequestParams();
         params.put("nick",nick);
         params.put("accesstoken",accesstoken);
-        String contents_down_url = checkLangauagelocale();
+        String contents_down_url = getString(R.string.req_url_download_zip);
         Log.e("download",nick+":"+accesstoken);
         final ProgressDialog dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
         dlg.setProgress(0);
@@ -350,7 +285,14 @@ public class LoginActivity extends AppCompatActivity {
         StampRestClient.get(contents_down_url,params,new FileAsyncHttpResponseHandler(this){
             private String createDirectory(){
                 String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
-                String dirPath = sdcard+"/StampTour_kyj/kr";
+                String dirPath = sdcard+"/StampTour_kyj/download";
+                File dir = new File(dirPath);
+                if( !dir.exists() ) dir.mkdirs();
+                return dirPath;
+            }
+            private String createunzipDirectory(){
+                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
+                String dirPath = sdcard+"/StampTour_kyj/contents/";
                 File dir = new File(dirPath);
                 if( !dir.exists() ) dir.mkdirs();
                 return dirPath;
@@ -370,20 +312,21 @@ public class LoginActivity extends AppCompatActivity {
                 String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
 
                 String path=createDirectory();
-                File jsonFile= new File(path,"kr.json");
-                StringBuilder text = new StringBuilder();
-                String line;
+                File zipFile= new File(path,"contents.zip");
 
                 try{
+                    byte[] buffer = new byte[1024];
+                    FileInputStream in = new FileInputStream(file);
 
-                    BufferedReader br = new BufferedReader(new FileReader(file));
-                    while((line=br.readLine())!=null){
-                        text.append(line);
-                        Log.e("Text",line);
+                    int len;
+                    FileOutputStream writer = new FileOutputStream(zipFile);
+
+                    while ((len = in.read(buffer)) > 0) {
+                        writer.write(buffer, 0, len);
                     }
-                    Writer writer = new OutputStreamWriter(new FileOutputStream(jsonFile), "UTF-8");
-                    writer.write(text.toString());
                     writer.close();
+                    decompressor = new Decompress(zipFile.getAbsolutePath(),createunzipDirectory());
+                    decompressor.unzip();
                     switch (loggedincase){
                         case "NORMAL":preferenceManager.normal_LoggedIn(nick,accesstoken);break;
                         case "FBLogin":preferenceManager.facebook_LoggedIn(nick,accesstoken);break;
