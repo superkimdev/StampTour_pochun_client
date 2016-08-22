@@ -28,6 +28,7 @@ import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.user.User;
 import com.thatzit.kjw.stamptour_kyj_client.user.normal.NormalUser;
+import com.thatzit.kjw.stamptour_kyj_client.util.Decompress;
 
 import org.json.JSONException;
 
@@ -62,12 +63,14 @@ public class LoginActivity extends AppCompatActivity {
     private User user;
     private boolean permission_on=false;
     private PreferenceManager preferenceManager;
+    private Decompress decompressor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
         preferenceManager = new PreferenceManager(this);
+
         if(preferenceManager.getFirstStart()&&(!preferenceManager.getLoggedIn_Info().getAccesstoken().equals(""))){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
@@ -259,6 +262,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         return contents_down_url;
     }
+
     public void downloadContents(final String nick, final String accesstoken, final String loggedincase){
         RequestParams params = new RequestParams();
         params.put("nick",nick);
@@ -327,5 +331,72 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void downloadContents_zip(final String nick, final String accesstoken, final String loggedincase){
+        RequestParams params = new RequestParams();
+        params.put("nick",nick);
+        params.put("accesstoken",accesstoken);
+        String contents_down_url = checkLangauagelocale();
+        Log.e("download",nick+":"+accesstoken);
+        final ProgressDialog dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
+        dlg.setProgress(0);
+        dlg.setMessage("필요한 컨텐츠 다운로드중...");
+        dlg.setCancelable(false);
+        dlg.show();
+        //ko
+        //en
+        //zh
+        //ja
+
+        StampRestClient.get(contents_down_url,params,new FileAsyncHttpResponseHandler(this){
+            private String createDirectory(){
+                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
+                String dirPath = sdcard+"/StampTour_kyj/kr";
+                File dir = new File(dirPath);
+                if( !dir.exists() ) dir.mkdirs();
+                return dirPath;
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                Log.e("filedown","fail");
+                dlg.dismiss();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File file) {
+                Log.e("filedown", "File name :" + file.toString());
+                dlg.dismiss();
+
+                Log.e("dir", Environment.getExternalStorageDirectory().getAbsolutePath());
+                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
+
+                String path=createDirectory();
+                File jsonFile= new File(path,"kr.json");
+                StringBuilder text = new StringBuilder();
+                String line;
+
+                try{
+
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    while((line=br.readLine())!=null){
+                        text.append(line);
+                        Log.e("Text",line);
+                    }
+                    Writer writer = new OutputStreamWriter(new FileOutputStream(jsonFile), "UTF-8");
+                    writer.write(text.toString());
+                    writer.close();
+                    switch (loggedincase){
+                        case "NORMAL":preferenceManager.normal_LoggedIn(nick,accesstoken);break;
+                        case "FBLogin":preferenceManager.facebook_LoggedIn(nick,accesstoken);break;
+                        case "KAKAOLogin":preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);break;
+                    }
+                    preferenceManager.setFirstStart();
+                }catch (FileNotFoundException e) {
+                    Log.e("WriteFile", e.toString());
+                }catch (IOException e){
+                    Log.e("WriteFile",e.toString());
+                }
+            }
+        });
+    }
 }
 
