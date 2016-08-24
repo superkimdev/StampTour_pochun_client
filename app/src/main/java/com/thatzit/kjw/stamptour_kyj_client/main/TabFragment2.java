@@ -1,4 +1,4 @@
-package com.thatzit.kjw.stamptour_kyj_client;
+package com.thatzit.kjw.stamptour_kyj_client.main;
 
 /**
  * Created by kjw on 16. 8. 22..
@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TabFragment1 extends Fragment {
+import com.thatzit.kjw.stamptour_kyj_client.R;
+
+public class TabFragment2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_fragment_1, container, false);
+        return inflater.inflate(R.layout.tab_fragment_2, container, false);
     }
 }

@@ -21,7 +21,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
-import com.thatzit.kjw.stamptour_kyj_client.MainActivity;
+import com.thatzit.kjw.stamptour_kyj_client.checker.VersoinChecker;
+import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
 import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
 import com.loopj.android.http.RequestParams;
@@ -32,18 +33,12 @@ import com.thatzit.kjw.stamptour_kyj_client.util.Decompress;
 
 import org.json.JSONException;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.Locale;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -67,18 +62,25 @@ public class LoginActivity extends AppCompatActivity {
     private boolean permission_on=false;
     private PreferenceManager preferenceManager;
     private Decompress decompressor;
+    private ProgressDialog dlg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
         preferenceManager = new PreferenceManager(this);
+        dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
 
-        if(preferenceManager.getFirstStart()&&(!preferenceManager.getLoggedIn_Info().getAccesstoken().equals(""))){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        VersoinChecker versoinChecker = new VersoinChecker(this);
+        versoinChecker.check();
+
+
+//
+//        if(preferenceManager.getFirstStart()&&(!preferenceManager.getLoggedIn_Info().getAccesstoken().equals(""))){
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
         mEmailView = (EditText) findViewById(R.id.email);
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -201,7 +203,7 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            //일반회원 로그인 로
+            //일반회원 로그인 로직
             user = new NormalUser(email,password,this);
             ((NormalUser) user).LoggedIn(email,password);
         }
@@ -268,28 +270,24 @@ public class LoginActivity extends AppCompatActivity {
 
     public void downloadContents_zip(final String nick, final String accesstoken, final String loggedincase){
         RequestParams params = new RequestParams();
-        params.put("nick",nick);
-        params.put("accesstoken",accesstoken);
-        String contents_down_url = getString(R.string.req_url_download_zip);
-        Log.e("download",nick+":"+accesstoken);
-        final ProgressDialog dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
-        dlg.setProgress(0);
-        dlg.setMessage("필요한 컨텐츠 다운로드중...");
-        dlg.setCancelable(false);
-        dlg.show();
-        //ko
-        //en
-        //zh
-        //ja
+            params.put("nick",nick);
+            params.put("accesstoken",accesstoken);
+            String contents_down_url = getString(R.string.req_url_download_zip);
+            Log.e("download",nick+":"+accesstoken);
+            final ProgressDialog dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
+            dlg.setProgress(0);
+            dlg.setMessage("필요한 컨텐츠 다운로드중...");
+            dlg.setCancelable(false);
+            dlg.show();
 
-        StampRestClient.get(contents_down_url,params,new FileAsyncHttpResponseHandler(this){
-            private String createDirectory(){
-                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
-                String dirPath = sdcard+"/StampTour_kyj/download";
-                File dir = new File(dirPath);
-                if( !dir.exists() ) dir.mkdirs();
-                return dirPath;
-            }
+            StampRestClient.get(contents_down_url,params,new FileAsyncHttpResponseHandler(this){
+                private String createDirectory(){
+                    String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
+                    String dirPath = sdcard+"/StampTour_kyj/download";
+                    File dir = new File(dirPath);
+                    if( !dir.exists() ) dir.mkdirs();
+                    return dirPath;
+                }
             private String createunzipDirectory(){
                 String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
                 String dirPath = sdcard+"/StampTour_kyj/contents/";
@@ -325,8 +323,8 @@ public class LoginActivity extends AppCompatActivity {
                         writer.write(buffer, 0, len);
                     }
                     writer.close();
-                    decompressor = new Decompress(zipFile.getAbsolutePath(),createunzipDirectory());
-                    decompressor.unzip();
+                    decompressor = new Decompress(zipFile.getAbsolutePath(),createunzipDirectory(),getApplicationContext());
+                    //decompressor.unzip();
                     switch (loggedincase){
                         case "NORMAL":preferenceManager.normal_LoggedIn(nick,accesstoken);break;
                         case "FBLogin":preferenceManager.facebook_LoggedIn(nick,accesstoken);break;
@@ -340,6 +338,29 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void showCheckDialog(final boolean show){
+
+        if(show){
+
+            dlg.setProgress(0);
+            dlg.setMessage("콘텐츠 리소스 확인중...");
+            dlg.setCancelable(false);
+            dlg.show();
+        }else{
+            dlg.dismiss();
+        }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dlg.dismiss();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dlg.dismiss();
     }
 }
 

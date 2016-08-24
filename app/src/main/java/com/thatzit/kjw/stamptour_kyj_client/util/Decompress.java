@@ -1,6 +1,13 @@
 package com.thatzit.kjw.stamptour_kyj_client.util;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
+
+import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
+import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,18 +18,45 @@ import java.util.zip.ZipInputStream;
 /**
  * Created by kjw on 16. 8. 22..
  */
-public class Decompress {
+public class Decompress extends AsyncTask<Void, Void, Void> {
     private String _zipFile;
     private String _location;
-
-    public Decompress(String zipFile, String location) {
+    private Context context;
+    private ProgressDialog dlg;
+    public Decompress(String zipFile, String location,Context context) {
         _zipFile = zipFile;
         _location = location;
-
+        this.context = context;
         _dirChecker("");
     }
 
-    public void unzip() {
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        dlg = new ProgressDialog(this.context,ProgressDialog.STYLE_HORIZONTAL);
+        dlg.setProgress(0);
+        dlg.setMessage("컨텐츠 압축해제중...");
+        dlg.setCancelable(false);
+        dlg.show();
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        dlg.dismiss();
+        Intent intent = new Intent(context, MainActivity.class);
+        ((LoginActivity)context).startActivity(intent);
+        ((LoginActivity)context).finish();
+    }
+
+    @Override
+    protected Void doInBackground(Void... params) {
+        unzip();
+        return null;
+    }
+
+    private void unzip() {
+
         try  {
             FileInputStream fin = new FileInputStream(_zipFile);
             ZipInputStream zin = new ZipInputStream(fin);

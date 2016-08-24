@@ -1,14 +1,13 @@
-package com.thatzit.kjw.stamptour_kyj_client;
+package com.thatzit.kjw.stamptour_kyj_client.main;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.thatzit.kjw.stamptour_kyj_client.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override

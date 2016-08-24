@@ -27,6 +27,7 @@
     <string name="req_url_download_jp">town/contents/jp/jp.json</string>
     <string name="req_url_download_en">town/contents/en/eng.json</string>
     <string name="req_url_download_ch">town/contents/ch/ch.json</string>
+    <string name="req_url_user_check_version">user/check/version</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>

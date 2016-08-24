@@ -1,4 +1,4 @@
-package com.thatzit.kjw.stamptour_kyj_client;
+package com.thatzit.kjw.stamptour_kyj_client.main;
 
 /**
  * Created by kjw on 16. 8. 22..

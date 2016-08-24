@@ -6,6 +6,8 @@ package com.thatzit.kjw.stamptour_kyj_client.preference;
 public enum PreferenceKey {
     FIRST("first"),
     NICK("nick"),
+    VERSION("version"),
+    SIZE("size"),
     ACCESSTOKEN("accesstoken"),
     LOGGEDINCASE("loggedincase");
     private String key;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.checker.VersionDTO;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 
 /**
@@ -28,6 +29,14 @@ public class PreferenceManager {
     }
     public boolean getFirstStart(){
         return pref.getBoolean("first",false);
+    }
+    public void setVersion(VersionDTO version){
+        editor.putInt(PreferenceKey.VERSION.getKey(),version.getVersion());
+        editor.putInt(PreferenceKey.SIZE.getKey(),version.getSize());
+        editor.commit();
+    }
+    public VersionDTO getVersion(){
+        return new VersionDTO(pref.getInt(PreferenceKey.VERSION.getKey(),0),pref.getInt(PreferenceKey.SIZE.getKey(),0));
     }
     //로그인 정보 저장
     //유형별 유저에서 각각 호출
@@ -57,4 +66,5 @@ public class PreferenceManager {
         LoggedInInfo info = new LoggedInInfo(nick,accesstoken,loggedincase);
         return info;
     }
+
 }
