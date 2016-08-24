@@ -12,7 +12,7 @@
         android:text="마을리스트"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
     <ListView
-        android:id="@+id/listview1"
+        android:id="@+id/TownListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
