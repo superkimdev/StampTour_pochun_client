@@ -20,6 +20,7 @@ import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
+import com.thatzit.kjw.stamptour_kyj_client.splash.SplashActivity;
 import com.thatzit.kjw.stamptour_kyj_client.util.Decompress;
 
 import org.json.JSONArray;
@@ -52,14 +53,21 @@ public class VersoinChecker implements Check,DownLoad{
         this.context = context;
         this.preferenceManager = new PreferenceManager(context);
     }
-
+    public void typeCheck_dlg(Context context,boolean show){
+        if(context.getClass().getName().contains("LoginActivity")){
+            ((LoginActivity)context).showCheckDialog(show);
+        }
+        else if(context.getClass().getName().contains("SplashActivity")){
+            ((SplashActivity)context).showCheckDialog(show);
+        }
+    }
     @Override
     public void check() {
         final String nick = preferenceManager.getLoggedIn_Info().getNick();
         final String accesstoken = preferenceManager.getLoggedIn_Info().getAccesstoken();
         VersionDTO lastversion = preferenceManager.getVersion();
         Log.e("CHECK VERSION ",lastversion.getVersion()+":"+lastversion.getSize());
-        ((LoginActivity)context).showCheckDialog(true);
+        typeCheck_dlg(context,true);
         RequestParams params = new RequestParams();
         Log.e("Errror","eeeee");
         params.put("nick",nick);
@@ -72,7 +80,7 @@ public class VersoinChecker implements Check,DownLoad{
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 Log.e("ClassName",context.getClass().getName());
-                ((LoginActivity)context).showCheckDialog(false);
+                typeCheck_dlg(context,false);
                 String code = null;
                 String msg = null;
                 JSONObject resultData = null;
@@ -85,9 +93,16 @@ public class VersoinChecker implements Check,DownLoad{
                         Log.e("Version Response",version.getVersion()+":"+version.getSize());
                         if(version.getVersion() ==-1 && version.getSize() == -1){
                             if(preferenceManager.getLoggedIn_Info().getAccesstoken()!=""){
-                                Intent intent = new Intent(context, MainActivity.class);
-                                ((LoginActivity)context).startActivity(intent);
-                                ((LoginActivity)context).finish();
+                                if(context.getClass().getName().contains("LoginActivity")){
+                                    Intent intent = new Intent(context, MainActivity.class);
+                                    ((LoginActivity)context).startActivity(intent);
+                                    ((LoginActivity)context).finish();
+                                }else if (context.getClass().getName().contains("SplashActivity")){
+                                    Intent intent = new Intent(context, MainActivity.class);
+                                    ((SplashActivity)context).startActivity(intent);
+                                    ((SplashActivity)context).finish();
+                                }
+
                             }
                             else{
                                 return;
@@ -107,19 +122,19 @@ public class VersoinChecker implements Check,DownLoad{
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                ((LoginActivity)context).showCheckDialog(false);
+                typeCheck_dlg(context,false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                ((LoginActivity)context).showCheckDialog(false);
+                typeCheck_dlg(context,false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-                ((LoginActivity)context).showCheckDialog(false);
+                typeCheck_dlg(context,false);
             }
         });
     }

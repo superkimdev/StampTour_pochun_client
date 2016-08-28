@@ -23,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("랭킹"));
         tabLayout.addTab(tabLayout.newTab().setText("더보기"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setLayoutDirection(TabLayout.LAYOUT_DIRECTION_INHERIT);
         tabLayout.setTabTextColors(getColor(R.color.cardview_dark_background),getColor(R.color.com_facebook_blue));
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PageAdapter adapter = new PageAdapter
+        final MainPageAdapter adapter = new MainPageAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

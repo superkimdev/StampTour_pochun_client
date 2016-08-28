@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:drawable="@drawable/animation_splash01_harvest"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/animation_splash02_tradition"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/animation_splash03_nature"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/animation_splash04_leports"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/animation_splash05_master"
+        android:duration="200"/>
+
+
+</animation-list>

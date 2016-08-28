@@ -7,10 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class PageAdapter extends FragmentStatePagerAdapter {
+public class MainPageAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public PageAdapter(FragmentManager fm, int NumOfTabs) {
+    public MainPageAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }

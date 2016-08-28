@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
+import com.thatzit.kjw.stamptour_kyj_client.splash.SplashActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,7 +30,19 @@ public class Decompress extends AsyncTask<Void, Void, Void> {
         this.context = context;
         _dirChecker("");
     }
+    public void typeCheck_Move_Activity(Context context){
+        if(context.getClass().getName().contains("LoginActivity")){
+            Intent intent = new Intent(context, MainActivity.class);
+            ((LoginActivity)context).startActivity(intent);
+            ((LoginActivity)context).finish();
+        }
+        else if(context.getClass().getName().contains("SplashActivity")){
+            Intent intent = new Intent(context, MainActivity.class);
+            ((SplashActivity)context).startActivity(intent);
+            ((SplashActivity)context).finish();
+        }
 
+    }
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -44,9 +57,8 @@ public class Decompress extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         dlg.dismiss();
-        Intent intent = new Intent(context, MainActivity.class);
-        ((LoginActivity)context).startActivity(intent);
-        ((LoginActivity)context).finish();
+        typeCheck_Move_Activity(context);
+
     }
 
     @Override
