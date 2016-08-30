@@ -22,7 +22,6 @@ public class SplashActivity extends Activity {
     private PreferenceManager preferenceManger;
     private ImageView splashAnimation;
     private Activity self;
-    private String localesetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +30,6 @@ public class SplashActivity extends Activity {
         self = this;
         preferenceManger = new PreferenceManager(this);
         dlg = new ProgressDialog(self);
-        localesetting = getResources().getConfiguration().locale.getLanguage();
-        Log.e("LanguageSettingvalue",localesetting);
         setLayout();
     }
     private void setLayout() {

@@ -1,6 +1,7 @@
 package com.thatzit.kjw.stamptour_kyj_client.checker;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.thatzit.kjw.stamptour_kyj_client.checker.action.Check;
 import com.thatzit.kjw.stamptour_kyj_client.checker.action.Check_return_locale;
@@ -22,6 +23,7 @@ public class LocaleChecker implements Check,Check_return_locale {
     public void check() {
         String locale = context.getResources().getConfiguration().locale.getLanguage();
         preferenceManager.setLocale(locale);
+        Log.e("LocaleChecker-check",locale);
 
     }
 

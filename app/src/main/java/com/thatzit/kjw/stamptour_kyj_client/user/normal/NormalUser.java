@@ -86,11 +86,10 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
                             VersoinChecker versoinChecker = new VersoinChecker(context);
                             versoinChecker.check();
                         }else{
-                            Log.e("FIRST_CHECK",preferenceManager.getVersion().getVersion()+"");
+                            Log.e("SECOND_CHECK",preferenceManager.getVersion().getVersion()+"");
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);
                             ((LoginActivity) context).finish();
-                            //((LoginActivity) context).downloadContents_zip(nick,accesstoken,LoggedInCase.NORMAL.getLogin_case());
                         }
                     }
                 }catch (JSONException e){

@@ -2,6 +2,7 @@ package com.thatzit.kjw.stamptour_kyj_client.main.fileReader;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import com.thatzit.kjw.stamptour_kyj_client.checker.LocaleChecker;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
@@ -49,7 +50,7 @@ public class ReadJson {
                 //default AppDir value = "StampTour_kyj/contents/contents_test/kr.json"
                AppDir = getPath(locale);
             }
-//            File yourFile = new File(Environment.getExternalStorageDirectory(), "StampTour_kyj/contents/contents_test/kr.json");
+            Log.e("ReadJson-ReadFile","AppDir : "+AppDir);
             File yourFile = new File(Environment.getExternalStorageDirectory(), AppDir);
             FileInputStream stream = new FileInputStream(yourFile);
             String jsonStr = null;
@@ -89,9 +90,9 @@ public class ReadJson {
         return mListData;
     }
 
-    private String getPath(String locale) {ß
+    private String getPath(String locale) {
         switch (locale){
-            case "kr": return "StampTour_kyj/contents/contents_test/kr.json";
+            case "ko": return "StampTour_kyj/contents/contents_test/kr.json";
             case "en": return "StampTour_kyj/contents/contents_test/eng.json";
             default: return "StampTour_kyj/contents/contents_test/kr.json";
         }
