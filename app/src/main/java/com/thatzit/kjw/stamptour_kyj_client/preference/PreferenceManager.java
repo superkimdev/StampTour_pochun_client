@@ -28,7 +28,14 @@ public class PreferenceManager {
         editor.commit();
     }
     public boolean getFirstStart(){
-        return pref.getBoolean("first",false);
+        return pref.getBoolean(PreferenceKey.FIRST.getKey(),false);
+    }
+    public void setLocale(String locale){
+        editor.putString(PreferenceKey.LOCALE.getKey(),locale);
+        editor.commit();
+    }
+    public String getLocale(){
+        return pref.getString(PreferenceKey.LOCALE.getKey(),"kr");
     }
     public void setVersion(VersionDTO version){
         editor.putInt(PreferenceKey.VERSION.getKey(),version.getVersion());

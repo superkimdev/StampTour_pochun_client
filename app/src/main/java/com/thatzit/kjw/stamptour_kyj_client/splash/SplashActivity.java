@@ -31,7 +31,7 @@ public class SplashActivity extends Activity {
         self = this;
         preferenceManger = new PreferenceManager(this);
         dlg = new ProgressDialog(self);
-        localesetting = getResources().getConfiguration().locale.getDisplayLanguage();
+        localesetting = getResources().getConfiguration().locale.getLanguage();
         Log.e("LanguageSettingvalue",localesetting);
         setLayout();
     }

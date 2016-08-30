@@ -1,4 +1,4 @@
-package com.thatzit.kjw.stamptour_kyj_client.checker;
+package com.thatzit.kjw.stamptour_kyj_client.checker.action;
 
 import android.app.ProgressDialog;
 

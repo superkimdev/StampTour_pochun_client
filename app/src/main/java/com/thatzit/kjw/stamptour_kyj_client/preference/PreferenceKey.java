@@ -9,7 +9,8 @@ public enum PreferenceKey {
     VERSION("version"),
     SIZE("size"),
     ACCESSTOKEN("accesstoken"),
-    LOGGEDINCASE("loggedincase");
+    LOGGEDINCASE("loggedincase"),
+    LOCALE("locale");
     private String key;
 
     PreferenceKey() {
