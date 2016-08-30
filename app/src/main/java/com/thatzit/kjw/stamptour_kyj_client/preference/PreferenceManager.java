@@ -35,7 +35,7 @@ public class PreferenceManager {
         editor.commit();
     }
     public String getLocale(){
-        return pref.getString(PreferenceKey.LOCALE.getKey(),"kr");
+        return pref.getString(PreferenceKey.LOCALE.getKey(),"");
     }
     public void setVersion(VersionDTO version){
         editor.putInt(PreferenceKey.VERSION.getKey(),version.getVersion());

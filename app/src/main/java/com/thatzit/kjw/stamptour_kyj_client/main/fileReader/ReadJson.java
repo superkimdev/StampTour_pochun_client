@@ -1,7 +1,9 @@
 package com.thatzit.kjw.stamptour_kyj_client.main.fileReader;
 
+import android.content.Context;
 import android.os.Environment;
 
+import com.thatzit.kjw.stamptour_kyj_client.checker.LocaleChecker;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownJson;
 
@@ -21,15 +23,34 @@ import java.util.HashMap;
  */
 public class ReadJson {
     private ArrayList<TownJson> mListData;
-    public ReadJson() {
+    private LocaleChecker checker;
+    private Context context;
+    private String AppDir;
+
+    public ReadJson(Context context) {
+
         this.mListData = new ArrayList<TownJson>();
+        this.context = context;
+        this.checker = new LocaleChecker(context);
     }
 
     public ArrayList<TownJson> ReadFile (){
         try {
             //시스템설정에 따라 파일 변경(kr.json, jp.json, eng.json, ch.json, etc...)
-
-            File yourFile = new File(Environment.getExternalStorageDirectory(), "StampTour_kyj/contents/contents_test/kr.json");
+            checker.check();
+            String locale=checker.check_return_locale();
+            if(locale.equals("")){
+                //Can't read System locale value
+                //Error
+                return mListData;
+            }else{
+                //read System locale value
+                //case by set dir for json parsing
+                //default AppDir value = "StampTour_kyj/contents/contents_test/kr.json"
+               AppDir = getPath(locale);
+            }
+//            File yourFile = new File(Environment.getExternalStorageDirectory(), "StampTour_kyj/contents/contents_test/kr.json");
+            File yourFile = new File(Environment.getExternalStorageDirectory(), AppDir);
             FileInputStream stream = new FileInputStream(yourFile);
             String jsonStr = null;
             try {
@@ -66,5 +87,13 @@ public class ReadJson {
             e.printStackTrace();
         }
         return mListData;
+    }
+
+    private String getPath(String locale) {ß
+        switch (locale){
+            case "kr": return "StampTour_kyj/contents/contents_test/kr.json";
+            case "en": return "StampTour_kyj/contents/contents_test/eng.json";
+            default: return "StampTour_kyj/contents/contents_test/kr.json";
+        }
     }
 }

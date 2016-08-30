@@ -38,6 +38,6 @@ public class TabFragment1 extends Fragment {
         // 데이터를 지정하지 않은 adapter 생성하여 listview에 지정.
         madapter = new ListViewAdapter(view.getContext()) ;
         listview.setAdapter(madapter) ;
-        new LoadAsyncTask(madapter).execute();
+        new LoadAsyncTask(madapter,getContext()).execute();
     }
 }

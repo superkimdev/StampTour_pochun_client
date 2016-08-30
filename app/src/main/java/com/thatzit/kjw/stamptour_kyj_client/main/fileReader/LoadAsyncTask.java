@@ -1,5 +1,6 @@
 package com.thatzit.kjw.stamptour_kyj_client.main.fileReader;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ListView;
 
@@ -17,8 +18,10 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private ReadJson readJson;
     private ArrayList<TownJson> list;
     private ListViewAdapter madapter;
-    public LoadAsyncTask(ListViewAdapter madapter) {
-        readJson = new ReadJson();
+    private Context context;
+    public LoadAsyncTask(ListViewAdapter madapter, Context context) {
+        this.context = context;
+        readJson = new ReadJson(context);
         this.madapter = madapter;
     }
 
