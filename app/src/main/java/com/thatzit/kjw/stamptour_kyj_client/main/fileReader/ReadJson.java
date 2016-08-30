@@ -27,6 +27,8 @@ public class ReadJson {
 
     public ArrayList<TownJson> ReadFile (){
         try {
+            //시스템설정에 따라 파일 변경(kr.json, jp.json, eng.json, ch.json, etc...)
+
             File yourFile = new File(Environment.getExternalStorageDirectory(), "StampTour_kyj/contents/contents_test/kr.json");
             FileInputStream stream = new FileInputStream(yourFile);
             String jsonStr = null;
@@ -42,12 +44,7 @@ public class ReadJson {
             finally {
                 stream.close();
             }
-//            JSONObject jsonObj = new JSONObject(jsonStr);
-//
-//            // Getting data JSON Array nodes
-//            JSONArray data  = jsonObj.getJSONArray("data");
                 JSONArray data = new JSONArray(jsonStr);
-            // looping through All nodes
             for (int i = 0; i < data.length(); i++) {
                 JSONObject c = data.getJSONObject(i);
 
@@ -59,10 +56,6 @@ public class ReadJson {
                 String range = c.getString("반경");
                 String subtitle = c.getString("경도");
                 String contents = c.getString("반경");
-                //use >  int id = c.getInt("duration"); if you want get an int
-
-
-                // tmp hashmap for single node
 
                 mListData.add(new TownJson(no,name,region,lat,lon,range,subtitle,contents));
 

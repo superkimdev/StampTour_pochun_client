@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ public class SplashActivity extends Activity {
     private PreferenceManager preferenceManger;
     private ImageView splashAnimation;
     private Activity self;
+    private String localesetting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,8 @@ public class SplashActivity extends Activity {
         self = this;
         preferenceManger = new PreferenceManager(this);
         dlg = new ProgressDialog(self);
+        localesetting = getResources().getConfiguration().locale.getDisplayLanguage();
+        Log.e("LanguageSettingvalue",localesetting);
         setLayout();
     }
     private void setLayout() {
@@ -50,9 +55,12 @@ public class SplashActivity extends Activity {
                 SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
                 return;
             }else{
+                //loggedin after version check, Not loggedIn don't do this
+                //because version check needs parameters nick & accesstoken
                 if(preferenceManger.getLoggedIn_Info().getNick()=="")
                 {
                     startActivity(new Intent(getApplication(), LoginActivity.class)); // 로딩이 끝난후 이동할 Activity
+                    SplashActivity.this.finish();
                 }else{
                     //startActivity(new Intent(getApplicationContext(),ThemeActivity.class));
                     Toast.makeText(getApplicationContext(),"로그인 안되있음 처음은"+preferenceManger.getFirstStart(),Toast.LENGTH_LONG).show();

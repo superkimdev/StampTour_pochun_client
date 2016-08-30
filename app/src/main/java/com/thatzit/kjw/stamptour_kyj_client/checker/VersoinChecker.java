@@ -69,7 +69,6 @@ public class VersoinChecker implements Check,DownLoad{
         Log.e("CHECK VERSION ",lastversion.getVersion()+":"+lastversion.getSize());
         typeCheck_dlg(context,true);
         RequestParams params = new RequestParams();
-        Log.e("Errror","eeeee");
         params.put("nick",nick);
         params.put("accesstoken",accesstoken);
         params.put("lastversion",lastversion.getVersion());

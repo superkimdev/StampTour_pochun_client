@@ -80,12 +80,14 @@ public class ListViewAdapter extends BaseAdapter {
         }
         String sdcard= Environment.getExternalStorageDirectory().getAbsolutePath();
         String no;
-        if(position<10){
-            if(position == 9) no = ""+(position+1);
-            else no = "0"+(position+1);
+        if(position<9){
+//            if(position == 9) no = ""+(position+1);
+//            else no = "0"+(position+1);
+            no = "0"+(position+1);
         }else{
-            no = position+"";
+            no = position+1+"";
         }
+        Log.e("GetView no",no);
         String dirPath = sdcard+"/StampTour_kyj/contents/contents_test/img_list_heap_"+no+"@2x.png";
         Log.e("ListAdapter",dirPath);
         File img = new File(dirPath);

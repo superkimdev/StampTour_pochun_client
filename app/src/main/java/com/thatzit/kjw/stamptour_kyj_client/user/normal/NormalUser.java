@@ -1,6 +1,7 @@
 package com.thatzit.kjw.stamptour_kyj_client.user.normal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
+import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.user.User;
 import com.thatzit.kjw.stamptour_kyj_client.user.normal.action.NormalLoggedIn_Behavior;
@@ -78,13 +80,16 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
                         accesstoken = resultData.getString(ResponseKey.TOKEN.getKey());
                         Toast.makeText(context,context.getString(R.string.Toast_login_Success),Toast.LENGTH_LONG).show();
                         preferenceManager.normal_LoggedIn(nick,accesstoken);
-                        if(preferenceManager.getFirstStart()){
-                            Log.e("FIRST_CHECK",preferenceManager.getFirstStart()+"");
+                        if(preferenceManager.getVersion().getVersion() == 0 && preferenceManager.getVersion().getSize() == 0){
+                            Log.e("FIRST_CHECK",preferenceManager.getVersion().getVersion()+"");
                             preferenceManager.normal_LoggedIn(nick,accesstoken);
-                        }else{
-                            Log.e("FIRST_CHECK",preferenceManager.getFirstStart()+"");
                             VersoinChecker versoinChecker = new VersoinChecker(context);
                             versoinChecker.check();
+                        }else{
+                            Log.e("FIRST_CHECK",preferenceManager.getVersion().getVersion()+"");
+                            Intent intent = new Intent(context, MainActivity.class);
+                            context.startActivity(intent);
+                            ((LoginActivity) context).finish();
                             //((LoginActivity) context).downloadContents_zip(nick,accesstoken,LoggedInCase.NORMAL.getLogin_case());
                         }
                     }
