@@ -90,14 +90,17 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
                         if(preferenceManager.getVersion().getVersion() == 0 && preferenceManager.getVersion().getSize() == 0){
                             Log.e("FIRST_CHECK",preferenceManager.getVersion().getVersion()+"");
                             preferenceManager.normal_LoggedIn(nick,accesstoken);
-                            VersoinChecker versoinChecker = new VersoinChecker(context);
-                            versoinChecker.check();
+
                         }else{
+                            //로그아웃한 후에는 스플래쉬에서 버전체크가 안됨
+                            //이곳에서 추가로 체크 해야함
                             Log.e("SECOND_CHECK",preferenceManager.getVersion().getVersion()+"");
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);
                             ((LoginActivity) context).finish();
                         }
+                        VersoinChecker versoinChecker = new VersoinChecker(context);
+                        versoinChecker.check();
                     }
                 }catch (JSONException e){
                     Log.e("NormalUser",e.toString());
