@@ -92,13 +92,13 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
                             preferenceManager.normal_LoggedIn(nick,accesstoken);
 
                         }else{
-                            //로그아웃한 후에는 스플래쉬에서 버전체크가 안됨
-                            //이곳에서 추가로 체크 해야함
                             Log.e("SECOND_CHECK",preferenceManager.getVersion().getVersion()+"");
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);
                             ((LoginActivity) context).finish();
                         }
+                        //버전 체크에 accesstoken이 필요하므로 로그아웃 했다가 다시 로그인할 시 스플래쉬에선 체크 불가
+                        //로그인에서 다시 한번 체크할 수 있도록 로그인에서는 항상 버전 체크
                         VersoinChecker versoinChecker = new VersoinChecker(context);
                         versoinChecker.check();
                     }
