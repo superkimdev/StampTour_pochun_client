@@ -73,5 +73,11 @@ public class PreferenceManager {
         LoggedInInfo info = new LoggedInInfo(nick,accesstoken,loggedincase);
         return info;
     }
+    public void user_LoggedOut(){
+        editor.putString(PreferenceKey.NICK.getKey(),"");
+        editor.putString(PreferenceKey.ACCESSTOKEN.getKey(),"");
+        editor.putString(PreferenceKey.LOGGEDINCASE.getKey(), "");
+        editor.commit();
+    }
 
 }

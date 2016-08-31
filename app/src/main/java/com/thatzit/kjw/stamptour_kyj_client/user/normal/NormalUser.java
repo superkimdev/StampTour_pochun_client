@@ -17,6 +17,7 @@ import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
+import com.thatzit.kjw.stamptour_kyj_client.splash.SplashActivity;
 import com.thatzit.kjw.stamptour_kyj_client.user.User;
 import com.thatzit.kjw.stamptour_kyj_client.user.normal.action.NormalLoggedIn_Behavior;
 import com.thatzit.kjw.stamptour_kyj_client.user.normal.action.NormalLoggedOut_Behavior;
@@ -40,7 +41,13 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
     public NormalUser() {
         super();
     }
+    public NormalUser(String accesstoken,Context context){
+        this.context = context;
+        preferenceManager = new PreferenceManager(context);
+        this.nick = preferenceManager.getLoggedIn_Info().getNick();
+        this.accesstoken = accesstoken;
 
+    }
     public NormalUser(String id, String password,Context context) {
         this.id = id;
         this.password = password;
@@ -120,7 +127,46 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
     }
 
     @Override
-    public void LoggeOut(String accesstoken) {
-        return;
+    public void LoggeOut() {
+        RequestParams params = new RequestParams();
+        params.put("nick",nick);
+        params.put("accesstoken",accesstoken);
+        Toast.makeText(context,"일반유저 로그아웃",Toast.LENGTH_LONG).show();
+        StampRestClient.post(context.getString(R.string.req_url_loggedout),params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.e("NormalUser",response.toString());
+                String code = null;
+                String msg = null;
+                String resultData = null;
+                try{
+                    code = response.getString(ResponseKey.CODE.getKey());
+                    msg = response.getString(ResponseKey.MESSAGE.getKey());
+                    resultData = response.getString(ResponseKey.RESULTDATA.getKey());
+                    if(code.equals("00")){
+                        Toast.makeText(context,"로그아웃 성공",Toast.LENGTH_LONG).show();
+                        preferenceManager.user_LoggedOut();
+                        Intent intent = new Intent(context, SplashActivity.class);
+                        context.startActivity(intent);
+                        ((MainActivity)context).finish();
+                    }else if(code.equals("03")){
+                        Toast.makeText(context,"로그아웃 실패 계속되면 다시 설치해주세요",Toast.LENGTH_LONG).show();
+                    }
+                }catch (JSONException e){
+                    Log.e("NormalUser",e.toString());
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
     }
 }

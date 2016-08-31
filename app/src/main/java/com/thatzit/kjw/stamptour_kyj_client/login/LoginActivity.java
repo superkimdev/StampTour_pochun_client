@@ -254,91 +254,91 @@ public class LoginActivity extends AppCompatActivity {
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-    public String checkLangauagelocale(){
-        String contents_down_url;
-        Locale systemLocale = getResources().getConfiguration().locale;
-        String strLanguage = systemLocale.getLanguage();
-        switch (strLanguage){
-            case "ko":contents_down_url=getString(R.string.req_url_download_kr);break;
-            case "en":contents_down_url=getString(R.string.req_url_download_en);break;
-            case "zh":contents_down_url=getString(R.string.req_url_download_ch);break;
-            case "ja":contents_down_url=getString(R.string.req_url_download_jp);break;
-            default:contents_down_url=getString(R.string.req_url_download_kr);break;
-        }
-        return contents_down_url;
-    }
-
-    public void downloadContents_zip(final String nick, final String accesstoken, final String loggedincase){
-        RequestParams params = new RequestParams();
-            params.put("nick",nick);
-            params.put("accesstoken",accesstoken);
-            String contents_down_url = getString(R.string.req_url_download_zip);
-            Log.e("download",nick+":"+accesstoken);
-            final ProgressDialog dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
-            dlg.setProgress(0);
-            dlg.setMessage("필요한 컨텐츠 다운로드중...");
-            dlg.setCancelable(false);
-            dlg.show();
-
-            StampRestClient.get(contents_down_url,params,new FileAsyncHttpResponseHandler(this){
-                private String createDirectory(){
-                    String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
-                    String dirPath = sdcard+"/StampTour_kyj/download";
-                    File dir = new File(dirPath);
-                    if( !dir.exists() ) dir.mkdirs();
-                    return dirPath;
-                }
-            private String createunzipDirectory(){
-                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
-                String dirPath = sdcard+"/StampTour_kyj/contents/";
-                File dir = new File(dirPath);
-                if( !dir.exists() ) dir.mkdirs();
-                return dirPath;
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                Log.e("filedown","fail");
-                dlg.dismiss();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, File file) {
-                Log.e("filedown", "File name :" + file.toString());
-                dlg.dismiss();
-
-                Log.e("dir", Environment.getExternalStorageDirectory().getAbsolutePath());
-                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
-
-                String path=createDirectory();
-                File zipFile= new File(path,"contents.zip");
-
-                try{
-                    byte[] buffer = new byte[1024];
-                    FileInputStream in = new FileInputStream(file);
-
-                    int len;
-                    FileOutputStream writer = new FileOutputStream(zipFile);
-
-                    while ((len = in.read(buffer)) > 0) {
-                        writer.write(buffer, 0, len);
-                    }
-                    writer.close();
-                    decompressor = new Decompress(zipFile.getAbsolutePath(),createunzipDirectory(),getApplicationContext());
-                    //decompressor.unzip();
-                    switch (loggedincase){
-                        case "NORMAL":preferenceManager.normal_LoggedIn(nick,accesstoken);break;
-                        case "FBLogin":preferenceManager.facebook_LoggedIn(nick,accesstoken);break;
-                        case "KAKAOLogin":preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);break;
-                    }
-                    preferenceManager.setFirstStart();
-                }catch (FileNotFoundException e) {
-                    Log.e("WriteFile", e.toString());
-                }catch (IOException e){
-                    Log.e("WriteFile",e.toString());
-                }
-            }
-        });
-    }
+//    public String checkLangauagelocale(){
+//        String contents_down_url;
+//        Locale systemLocale = getResources().getConfiguration().locale;
+//        String strLanguage = systemLocale.getLanguage();
+//        switch (strLanguage){
+//            case "ko":contents_down_url=getString(R.string.req_url_download_kr);break;
+//            case "en":contents_down_url=getString(R.string.req_url_download_en);break;
+//            case "zh":contents_down_url=getString(R.string.req_url_download_ch);break;
+//            case "ja":contents_down_url=getString(R.string.req_url_download_jp);break;
+//            default:contents_down_url=getString(R.string.req_url_download_kr);break;
+//        }
+//        return contents_down_url;
+//    }
+//
+//    public void downloadContents_zip(final String nick, final String accesstoken, final String loggedincase){
+//        RequestParams params = new RequestParams();
+//            params.put("nick",nick);
+//            params.put("accesstoken",accesstoken);
+//            String contents_down_url = getString(R.string.req_url_download_zip);
+//            Log.e("download",nick+":"+accesstoken);
+//            final ProgressDialog dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
+//            dlg.setProgress(0);
+//            dlg.setMessage("필요한 컨텐츠 다운로드중...");
+//            dlg.setCancelable(false);
+//            dlg.show();
+//
+//            StampRestClient.get(contents_down_url,params,new FileAsyncHttpResponseHandler(this){
+//                private String createDirectory(){
+//                    String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
+//                    String dirPath = sdcard+"/StampTour_kyj/download";
+//                    File dir = new File(dirPath);
+//                    if( !dir.exists() ) dir.mkdirs();
+//                    return dirPath;
+//                }
+//            private String createunzipDirectory(){
+//                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
+//                String dirPath = sdcard+"/StampTour_kyj/contents/";
+//                File dir = new File(dirPath);
+//                if( !dir.exists() ) dir.mkdirs();
+//                return dirPath;
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+//                Log.e("filedown","fail");
+//                dlg.dismiss();
+//            }
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, File file) {
+//                Log.e("filedown", "File name :" + file.toString());
+//                dlg.dismiss();
+//
+//                Log.e("dir", Environment.getExternalStorageDirectory().getAbsolutePath());
+//                String sdcard=Environment.getExternalStorageDirectory().getAbsolutePath();
+//
+//                String path=createDirectory();
+//                File zipFile= new File(path,"contents.zip");
+//
+//                try{
+//                    byte[] buffer = new byte[1024];
+//                    FileInputStream in = new FileInputStream(file);
+//
+//                    int len;
+//                    FileOutputStream writer = new FileOutputStream(zipFile);
+//
+//                    while ((len = in.read(buffer)) > 0) {
+//                        writer.write(buffer, 0, len);
+//                    }
+//                    writer.close();
+//                    decompressor = new Decompress(zipFile.getAbsolutePath(),createunzipDirectory(),getApplicationContext());
+//                    //decompressor.unzip();
+//                    switch (loggedincase){
+//                        case "NORMAL":preferenceManager.normal_LoggedIn(nick,accesstoken);break;
+//                        case "FBLogin":preferenceManager.facebook_LoggedIn(nick,accesstoken);break;
+//                        case "KAKAOLogin":preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);break;
+//                    }
+//                    preferenceManager.setFirstStart();
+//                }catch (FileNotFoundException e) {
+//                    Log.e("WriteFile", e.toString());
+//                }catch (IOException e){
+//                    Log.e("WriteFile",e.toString());
+//                }
+//            }
+//        });
+//    }
     public void showCheckDialog(final boolean show){
 
         if(show){

@@ -27,7 +27,7 @@ public class ReadJson {
     private LocaleChecker checker;
     private Context context;
     private String AppDir;
-
+    public static ArrayList<TownJson> memCashList;
     public ReadJson(Context context) {
 
         this.mListData = new ArrayList<TownJson>();
@@ -76,13 +76,15 @@ public class ReadJson {
                 String lat = c.getString("위도");
                 String lon = c.getString("경도");
                 String range = c.getString("반경");
-                String subtitle = c.getString("경도");
-                String contents = c.getString("반경");
+                String subtitle = c.getString("서브타이틀");
+                String contents = c.getString("소개내용");
 
                 mListData.add(new TownJson(no,name,region,lat,lon,range,subtitle,contents));
 
                 // do what do you want on your interface
             }
+            memCashList = mListData;
+            Log.e("Data Cashing","Call");
             return mListData;
         } catch (Exception e) {
             e.printStackTrace();

@@ -2,6 +2,7 @@ package com.thatzit.kjw.stamptour_kyj_client.main.fileReader;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
@@ -46,6 +47,7 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
             if(data.getRegion() == "")region = "북구";
             madapter.additem(new TownDTO(data.getName(),region,data.getRange(),data.getRange()));
         }
+
         madapter.notifyDataSetChanged();
     }
 }
