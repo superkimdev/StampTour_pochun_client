@@ -70,17 +70,11 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         preferenceManager = new PreferenceManager(this);
         dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
-
-        VersoinChecker versoinChecker = new VersoinChecker(this);
-        versoinChecker.check();
-
-
-//
-//        if(preferenceManager.getFirstStart()&&(!preferenceManager.getLoggedIn_Info().getAccesstoken().equals(""))){
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        if(!preferenceManager.getLoggedIn_Info().getAccesstoken().equals("")){
+            VersoinChecker versoinChecker = new VersoinChecker(this);
+            versoinChecker.check();
+        }
+        
         mEmailView = (EditText) findViewById(R.id.email);
 
         mPasswordView = (EditText) findViewById(R.id.password);

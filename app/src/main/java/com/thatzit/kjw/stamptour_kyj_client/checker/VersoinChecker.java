@@ -84,6 +84,7 @@ public class VersoinChecker implements Check,DownLoad{
                 try{
                     code = response.getString(ResponseKey.CODE.getKey());
                     msg = response.getString(ResponseKey.MESSAGE.getKey());
+                    Log.e("CheckResponse",code+":"+msg);
                     if(code.equals(ResponseCode.SUCCESS.getCode())&&msg.equals(ResponseMsg.SUCCESS.getMessage())){
                         resultData = response.getJSONObject(ResponseKey.RESULTDATA.getKey());
                         VersionDTO version = new VersionDTO(resultData.getInt("Version"),resultData.getInt("Size"));
@@ -102,14 +103,29 @@ public class VersoinChecker implements Check,DownLoad{
 
                             }
                             else{
-                                return;
+                                Intent intent = new Intent(context, LoginActivity.class);
+                                ((SplashActivity)context).startActivity(intent);
+                                ((SplashActivity)context).finish();
+
                             }
                         }else{
+                            Log.e("Down?","down");
                             preferenceManager.setVersion(version);
                             downloadAndLoggedin(nick,accesstoken);
                         }
 
                         Log.e("VersionChecker",preferenceManager.getVersion().getVersion()+":"+preferenceManager.getVersion().getSize());
+                    }else if(code.equals(ResponseCode.NOTENOUGHDATA.getCode())&&msg.equals(ResponseMsg.INVALIDACCESSTOKEN.getMessage())){
+                        Log.e("invlid Accsestoken",context.getClass().getName());
+                        if(context.getClass().getName().contains("LoginActivity")){
+//                            Intent intent = new Intent(context, MainActivity.class);
+//                            ((LoginActivity)context).startActivity(intent);
+//                            ((LoginActivity)context).finish();
+                        }else if (context.getClass().getName().contains("SplashActivity")){
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            ((SplashActivity)context).startActivity(intent);
+                            ((SplashActivity)context).finish();
+                        }
                     }
                 }catch (JSONException e){
                     Log.e("VersionChecker",e.toString());

@@ -54,7 +54,7 @@ public class SplashActivity extends Activity {
             }else{
                 //loggedin after version check, Not loggedIn don't do this
                 //because version check needs parameters nick & accesstoken
-                if(preferenceManger.getLoggedIn_Info().getNick()=="")
+                if(preferenceManger.getLoggedIn_Info().getNick().equals(""))
                 {
                     startActivity(new Intent(getApplication(), LoginActivity.class)); // 로딩이 끝난후 이동할 Activity
                     SplashActivity.this.finish();
