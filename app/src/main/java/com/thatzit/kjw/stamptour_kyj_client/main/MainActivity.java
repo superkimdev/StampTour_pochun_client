@@ -1,13 +1,23 @@
 package com.thatzit.kjw.stamptour_kyj_client.main;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -16,7 +26,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.thatzit.kjw.stamptour_kyj_client",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+//                String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+//                Log.d("Mainrefresh:",refreshedToken);
+//                PreferenceManager preferenceManager = new PreferenceManager(this);
+//                if(preferenceManager.getGCMaccesstoken().equals("")){
+//                    preferenceManager.setGCMaccesstoken(refreshedToken);
+//                }
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("KeyHash NameNotFound:",e.toString());
 
+        } catch (NoSuchAlgorithmException e) {
+            Log.d("KeyHash Nosuch :",e.toString());
+        }
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("스탬프"));
         tabLayout.addTab(tabLayout.newTab().setText("지도"));

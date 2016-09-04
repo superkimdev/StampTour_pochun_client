@@ -10,7 +10,8 @@ public enum PreferenceKey {
     SIZE("size"),
     ACCESSTOKEN("accesstoken"),
     LOGGEDINCASE("loggedincase"),
-    LOCALE("locale");
+    LOCALE("locale"),
+    GCMTOKEN("gcmtoken");
     private String key;
 
     PreferenceKey() {

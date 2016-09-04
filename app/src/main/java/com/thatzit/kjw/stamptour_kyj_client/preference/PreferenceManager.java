@@ -79,5 +79,11 @@ public class PreferenceManager {
         editor.putString(PreferenceKey.LOGGEDINCASE.getKey(), "");
         editor.commit();
     }
-
+    public void setGCMaccesstoken(String refreshedToken){
+        editor.putString(PreferenceKey.GCMTOKEN.getKey(),refreshedToken);
+        editor.commit();
+    }
+    public String getGCMaccesstoken(){
+        return pref.getString(PreferenceKey.GCMTOKEN.getKey(),"");
+    }
 }
