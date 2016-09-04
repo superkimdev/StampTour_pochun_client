@@ -52,20 +52,18 @@ public class MyInstanceIDListenerService extends FirebaseInstanceIdService {
         preferenceManager = new PreferenceManager(context);
         preferenceManager.setGCMaccesstoken(refreshedToken);
         params.put("devicetoken",refreshedToken);
-        if(context!=null) Log.e("Context",context.getResources().getString(R.string.req_url_regist_device));
-        else Log.e("Context","null");
         AsyncHttpClient client = StampRestClient.getClient();
         client.post(context,StampRestClient.BASE_URL+context.getResources().getString(R.string.req_url_regist_device),params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.e("Success",response.toString());
+                Log.e("GCM_Regist_SUCCESS",response.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                Log.e("Fail",errorResponse+"");
+                Log.e("GCM_Regist_Fail",errorResponse+"");
             }
         });
     }

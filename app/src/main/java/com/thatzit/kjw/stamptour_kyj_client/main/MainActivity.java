@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.thatzit.kjw.stamptour_kyj_client",
@@ -33,12 +31,6 @@ public class MainActivity extends AppCompatActivity {
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-//                String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-//                Log.d("Mainrefresh:",refreshedToken);
-//                PreferenceManager preferenceManager = new PreferenceManager(this);
-//                if(preferenceManager.getGCMaccesstoken().equals("")){
-//                    preferenceManager.setGCMaccesstoken(refreshedToken);
-//                }
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
