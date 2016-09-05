@@ -41,6 +41,8 @@ public class VersoinChecker implements Check,DownLoad{
     private Context context;
     private Decompress decompressor;
     private PreferenceManager preferenceManager;
+    public int value;
+    public ProgressDialog dlg;
     public VersoinChecker(Context context) {
         this.context = context;
         this.preferenceManager = new PreferenceManager(context);
@@ -127,6 +129,7 @@ public class VersoinChecker implements Check,DownLoad{
                             ((SplashActivity)context).finish();
                         }
                     }
+
                 }catch (JSONException e){
                     Log.e("VersionChecker",e.toString());
                 }
@@ -159,19 +162,21 @@ public class VersoinChecker implements Check,DownLoad{
 
     @Override
     public void downloadAndLoggedin(final String nick,final String accesstoken) {
+//        new ProgressAsyncTask(context,preferenceManager,nick,accesstoken).execute();
         RequestParams params = new RequestParams();
         params.put("nick",nick);
         params.put("accesstoken",accesstoken);
         String contents_down_url = context.getString(R.string.req_url_download_zip);
         final int filesize = preferenceManager.getVersion().getSize();
         Log.e("download",nick+":"+accesstoken);
-        final ProgressDialog dlg = new ProgressDialog(this.context,ProgressDialog.STYLE_HORIZONTAL);
+        dlg = new ProgressDialog(this.context,ProgressDialog.STYLE_HORIZONTAL);
         dlg.setProgress(0);
         dlg.setMessage("필요한 컨텐츠 다운로드중...");
         dlg.setCancelable(false);
         dlg.show();
 
         StampRestClient.get(contents_down_url,params,new FileAsyncHttpResponseHandler(context){
+
             private String createDirectory(){
                 String sdcard= Environment.getExternalStorageDirectory().getAbsolutePath();
                 String dirPath = sdcard+"/StampTour_kyj/download";
@@ -189,6 +194,7 @@ public class VersoinChecker implements Check,DownLoad{
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
                 Log.e("filedown","fail");
+                preferenceManager.setVersion(new VersionDTO(0,0));
                 dlg.dismiss();
             }
 
@@ -229,11 +235,13 @@ public class VersoinChecker implements Check,DownLoad{
             @Override
             public void onProgress(long bytesWritten, long totalSize) {
                 super.onProgress(bytesWritten, totalSize);
-                int value = (int) (bytesWritten*100/filesize);
+                value = (int) (bytesWritten*100/filesize);
+                Log.e("DownLoad value",value+"");
                 dlg.setProgress(value);
 
             }
         });
         return;
     }
+
 }

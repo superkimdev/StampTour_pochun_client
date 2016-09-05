@@ -13,13 +13,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
+import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
+import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.MyFcmListenerService;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.msgListener.PushMessageChangeListener;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.msgListener.PushMessageEvent;
+
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MainActivity extends AppCompatActivity {
+import cz.msebera.android.httpclient.Header;
+
+public class MainActivity extends AppCompatActivity implements PushMessageChangeListener{
+    private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +82,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        preferenceManager = new PreferenceManager(this);
+        
+        pushRequest();
+    }
+
+    private void pushRequest() {
+        LoggedInInfo loggedIn_Info = preferenceManager.getLoggedIn_Info();
+        RequestParams params = new RequestParams();
+        params.put(ResponseKey.TOKEN.getKey(),loggedIn_Info.getAccesstoken());
+        params.put(ResponseKey.NICK.getKey(),loggedIn_Info.getNick());
+        StampRestClient.post(getResources().getString(R.string.req_url_push_test), params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.e("pushRequest",response+"");
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.e("pushRequest",errorResponse+"");
+            }
+        });
     }
 
     @Override
@@ -84,5 +120,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void OnReceived(PushMessageEvent event) {
+
     }
 }

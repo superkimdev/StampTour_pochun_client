@@ -30,7 +30,8 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="req_url_download_zip">town/contents/contents.zip</string>
-    <string name="req_url_regist_device">user/push/test</string>
+    <string name="req_url_regist_device">user/device/regist</string>
+    <string name="req_url_push_test">user/push/test</string>
     <!-- TextView Text -->
     <string name="account_view_container">계정관리</string>
     <string name="hidemanage_view_container">숨김관리</string>

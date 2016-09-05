@@ -61,6 +61,12 @@ public class MyInstanceIDListenerService extends FirebaseInstanceIdService {
             }
 
             @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.e("GCM_Regist_Fail",errorResponse+"");
+            }
+
+            @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 Log.e("GCM_Regist_Fail",errorResponse+"");
