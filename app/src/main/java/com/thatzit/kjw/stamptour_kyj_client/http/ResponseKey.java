@@ -8,6 +8,7 @@ public enum ResponseKey {
     RESULTDATA("resultData"),
     MESSAGE("message"),
     TOKEN("accesstoken"),
+    DEVICETOKEN("devicetoken"),
     NICK("nick");
     private String key;
 

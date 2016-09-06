@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
             }
         });
         preferenceManager = new PreferenceManager(this);
-        
+
         pushRequest();
     }
 
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
         RequestParams params = new RequestParams();
         params.put(ResponseKey.TOKEN.getKey(),loggedIn_Info.getAccesstoken());
         params.put(ResponseKey.NICK.getKey(),loggedIn_Info.getNick());
+        params.put(ResponseKey.DEVICETOKEN.getKey(),preferenceManager.getGCMaccesstoken());
         StampRestClient.post(getResources().getString(R.string.req_url_push_test), params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
