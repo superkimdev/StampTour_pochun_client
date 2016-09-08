@@ -38,4 +38,5 @@
     <string name="present_view_container">선물 신청</string>
     <string name="research_view_container">설문</string>
     <string name="logout_view_container">로그아웃</string>
+
 </resources>

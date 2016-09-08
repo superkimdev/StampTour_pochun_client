@@ -20,7 +20,7 @@ public class MainPageAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                TabFragment1 tab1 = new TabFragment1();
+                AnimateToolbar tab1 = new AnimateToolbar();
                 return tab1;
             case 1:
                 TabFragment2 tab2 = new TabFragment2();

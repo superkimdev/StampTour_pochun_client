@@ -7,76 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/toolbar"
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/stdColorWhite"
-        android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
 
-        <TextView
-            android:id="@+id/hide_manage_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/activity_vertical_margin"
-            android:text="숨김관리"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="@dimen/LoginTitleTextSize" />
-
-        <TextView
-            android:id="@+id/main_layout_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:text="거리순"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="@dimen/LoginTitleTextSize" />
-
-        <TextView
-            android:id="@+id/contents_sort_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:text="정렬"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="@dimen/LoginTitleTextSize" />
-    </RelativeLayout>
-
+        />
     <LinearLayout
-        android:id="@+id/horizontal_line1"
+        android:id="@+id/horizontal_line2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/toolbar"
-        android:background="@color/cardview_dark_background" />
-
+        android:layout_below="@id/pager"
+        android:orientation="horizontal"
+        android:background="@color/com_facebook_blue" />
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
+        app:tabMode="fixed"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/horizontal_line1"
         android:background="@color/stdColorWhite"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <LinearLayout
-        android:id="@+id/horizontal_line2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/tab_layout"
-        android:background="@color/cardview_dark_background" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/tab_layout" />
 
 </RelativeLayout>

@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e("GrantResult"+i,grantResults[i]+":"+permissions[i]);
                 if(grantResults[i]==PackageManager.PERMISSION_GRANTED)apply_cnt++;
             }
-            if(apply_cnt==3)
+            if(apply_cnt==permissions.length)
             {
                 //허용됨
 

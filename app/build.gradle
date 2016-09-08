@@ -25,6 +25,7 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
+    compile 'com.roughike:bottom-bar:2.0.2'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.github.bumptech.glide:glide:3.6.0'
@@ -32,5 +33,10 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     //GCM 라이브러리
     compile 'com.google.firebase:firebase-messaging:9.0.0'
-    apply plugin: 'com.google.gms.google-services'
+    //google map 라이브러리
+    compile 'com.google.android.gms:play-services:9.0.0'
+    //flexible space with image list library(ObservableScrollView)
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+    compile 'com.nineoldandroids:library:2.4.0'
 }
+apply plugin: 'com.google.gms.google-services'

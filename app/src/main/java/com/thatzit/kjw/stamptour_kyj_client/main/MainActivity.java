@@ -4,8 +4,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -16,6 +19,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.thatzit.kjw.stamptour_kyj_client",
@@ -53,12 +59,13 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
         } catch (NoSuchAlgorithmException e) {
             Log.d("KeyHash Nosuch :",e.toString());
         }
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+          TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("스탬프"));
         tabLayout.addTab(tabLayout.newTab().setText("지도"));
         tabLayout.addTab(tabLayout.newTab().setText("랭킹"));
         tabLayout.addTab(tabLayout.newTab().setText("더보기"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setSelectedTabIndicatorHeight(0);
         tabLayout.setLayoutDirection(TabLayout.LAYOUT_DIRECTION_INHERIT);
         tabLayout.setTabTextColors(getColor(R.color.cardview_dark_background),getColor(R.color.com_facebook_blue));
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -85,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
         preferenceManager = new PreferenceManager(this);
 
         pushRequest();
+
     }
 
     private void pushRequest() {
@@ -116,9 +124,9 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
