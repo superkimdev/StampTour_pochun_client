@@ -39,6 +39,19 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
     private LocationEvent locationEvent;
     private GpsStateEventListener myGpsStateEventListener;
     private GpsStateEvent gpsStateEvent;
+    /*
+    콘텐츠 다운로드 후 압축해제가 정상적으로 된후에 이벤트 발생시켜주면 리슨하는 리스너와 콘텐츠 다운로드 시작시 발생시킨 이벤트 리슨하는 리스너 필요
+    gps값 리슨하는건 상관없지만 리슨한 값과 데이터 비교하여 푸쉬요청보낼 때 필요
+    또한 콘텐츠 버전업으로 인해 다시 다운로드 했을 때 알려줘야하기때문에
+    현재 메인 액티비티에서 어싱크로 스태틱변수로 데이터 캐쉬하기때문에 캐쉬된 후 이벤트 발생시킴
+    처리순서 - 1. 파일 다운시작시 발생한 이벤트 리슨하면 서비스내의 LocatioinChanged리스너에서 어싱크 호출하는 부분 블록(boolean)
+             2. 파일 파싱 후 스태틱 어레이에 데이터가 전부 들어가면 정상파싱 이벤트 발생
+             3. 2번 이벤트 리슨하면 서비스내의 LocatioinChanged리스너에서 어싱크 호출하는 부분 논블록(boolean)
+
+     */
+
+
+
     public class MyLocalBinder extends Binder {
         public GpsService getService(){
             return GpsService.this;

@@ -47,11 +47,13 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     private boolean mBound;
     private AppCompatActivity self;
     private GpsService mService;
+    private Context myapplication= MyApplication.getContext();
     private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         self = this;
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
@@ -159,8 +161,8 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
             Log.d("servicebinding", "come0");
             MyLocalBinder binder = (MyLocalBinder)service;
             mService = binder.getService();
-            if(mService==null)Log.d("service null", "null");
-            else Log.d("service not null", "not null");
+            if(mService==null)Log.d(TAG, "null");
+            else Log.d(TAG, "not null");
             mBound = true;
             mService.setOnLocationEventListener(MainActivity.this);
             mService.setOnGpsStateEventListener(MainActivity.this);
@@ -180,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        bindService(new Intent(MyApplication.getContext(), GpsService.class), mConnection, Context.BIND_AUTO_CREATE);
+        bindService(new Intent(this, GpsService.class), mConnection, Context.BIND_AUTO_CREATE);
 
     }
 
@@ -188,7 +190,6 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     protected void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
-
     }
 
     @Override
@@ -201,11 +202,17 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
-        if(mBound)
+        if(mBound == true && mService != null)
         {
+            mService.setOnGpsStateEventListener(null);
             mService.setOnLocationEventListener(null);
-            Log.d("onPause", "unbindService");
+            Log.d(TAG, "unbindService");
             unbindService(mConnection);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
     }
 }
