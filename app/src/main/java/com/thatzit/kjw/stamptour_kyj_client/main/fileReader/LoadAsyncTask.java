@@ -1,26 +1,13 @@
 package com.thatzit.kjw.stamptour_kyj_client.main.fileReader;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
 
-import com.bumptech.glide.Glide;
-import com.github.ksoichiro.android.observablescrollview.ObservableListView;
-import com.thatzit.kjw.stamptour_kyj_client.R;
-import com.thatzit.kjw.stamptour_kyj_client.main.SimpleRecyclerAdapter;
+import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownJson;
-import com.thatzit.kjw.stamptour_kyj_client.main.adapter.ListViewAdapter;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -30,11 +17,11 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private ReadJson readJson;
     private ArrayList<TownJson> list;
-    private SimpleRecyclerAdapter madapter;
+    private MainRecyclerAdapter madapter;
     private Context context;
     private RecyclerView recyclerView;
 
-    public LoadAsyncTask(SimpleRecyclerAdapter madapter,Context context) {
+    public LoadAsyncTask(MainRecyclerAdapter madapter, Context context) {
         this.context = context;
         this.madapter = madapter;
         readJson = new ReadJson(context);
@@ -65,8 +52,10 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
             TownJson data = list.get(i);
             String region = "광산구";
             if(data.getRegion() == "")region = "북구";
-            madapter.additem(new TownDTO(data.getName(),region,data.getRange(),data.getRange()));
+            madapter.additem(new TownDTO(data.getNo(),data.getName(),region,data.getRange(),data.getRange()));
         }
+
         madapter.notifyDataSetChanged();
+
     }
 }

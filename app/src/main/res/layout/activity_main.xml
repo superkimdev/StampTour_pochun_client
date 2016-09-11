@@ -12,15 +12,9 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:background="@color/common_bg_color2"
         />
-    <LinearLayout
-        android:id="@+id/horizontal_line2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/pager"
-        android:orientation="horizontal"
-        android:background="@color/com_facebook_blue" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         app:tabMode="fixed"
@@ -31,6 +25,11 @@
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-
+    <LinearLayout
+        android:id="@+id/horizontal_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@id/tab_layout"
+        android:orientation="horizontal"
+        android:background="@color/com_facebook_blue" />
 </RelativeLayout>

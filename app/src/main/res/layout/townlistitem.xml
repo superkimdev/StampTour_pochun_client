@@ -1,38 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_height="79dp"
+    android:id="@+id/item_container"
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/town_img_view"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
         android:src="@mipmap/ic_launcher" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:layout_toRightOf="@id/town_img_view"
-        android:id="@+id/town_name_view"
-        android:layout_alignTop="@id/town_img_view"
-        android:text="이름"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/town_img_view"
-        android:id="@+id/town_region_view"
-        android:layout_alignBottom="@id/town_img_view"
-        android:text="권역"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/town_distance_view"
-        android:text="거리"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="16dp"/>
+        android:id="@+id/textcontainer">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/textdivider"
+            android:layout_centerInParent="true"></LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/town_distance_view"
+            android:text="거리"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/stamp_list_item_distance_text_color"
+            android:textStyle="normal"
+            android:textSize="@dimen/stamp_list_item_text_distance_dimen"
+            />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/textdivider"
+            android:id="@+id/town_name_view"
+            android:textColor="@color/stamp_list_item_text_color_off"
+            android:textStyle="normal"
+            android:textSize="@dimen/stamp_list_item_text_name_dimen"
+            android:text="이름"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textdivider"
+            android:id="@+id/town_region_view"
+            android:text="권역"
+            android:textColor="@color/stamp_list_item_text_color_off"
+            android:textStyle="normal"
+            android:textSize="@dimen/stamp_list_item_text_region_dimen"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/cardview_dark_background"
+        android:id="@+id/item_divider"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

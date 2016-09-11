@@ -2,6 +2,7 @@ package com.thatzit.kjw.stamptour_kyj_client.splash;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import com.thatzit.kjw.stamptour_kyj_client.checker.VersoinChecker;
 import com.thatzit.kjw.stamptour_kyj_client.help.HelpActivity;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.GpsService;
+import com.thatzit.kjw.stamptour_kyj_client.util.MyApplication;
 
 public class SplashActivity extends Activity {
     private ProgressDialog dlg;
@@ -22,7 +25,7 @@ public class SplashActivity extends Activity {
     private PreferenceManager preferenceManger;
     private ImageView splashAnimation;
     private Activity self;
-
+    private Context myApplication= MyApplication.getContext();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +33,11 @@ public class SplashActivity extends Activity {
         self = this;
         preferenceManger = new PreferenceManager(this);
         dlg = new ProgressDialog(self);
+        Intent findGPS = new Intent(myApplication, GpsService.class);
+        startService(findGPS);
         setLayout();
     }
     private void setLayout() {
-        splashAnimation = (ImageView)findViewById(R.id.splashAnimation);
-        splashAnimation.setBackgroundResource(R.drawable.anim_splash_icon);
-        aniFrame = (AnimationDrawable)splashAnimation.getBackground();
-        aniFrame.start();
-
         Handler hd = new Handler();
         hd.postDelayed(new splashhandler(), 2000); // 3초 후에 hd Handler 실행
     }

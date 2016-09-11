@@ -1,4 +1,4 @@
-package com.thatzit.kjw.stamptour_kyj_client.main;
+package com.thatzit.kjw.stamptour_kyj_client.main.adapter;
 
 /**
  * Created by kjw on 16. 8. 22..
@@ -6,6 +6,11 @@ package com.thatzit.kjw.stamptour_kyj_client.main;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.thatzit.kjw.stamptour_kyj_client.main.AnimateToolbar;
+import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment2;
+import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment3;
+import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment4;
 
 public class MainPageAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
