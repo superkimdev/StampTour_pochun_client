@@ -1,4 +1,4 @@
-package com.thatzit.kjw.stamptour_kyj_client.push.service;
+package com.thatzit.kjw.stamptour_kyj_client.push.service.event;
 
 import android.location.Location;
 /**
@@ -15,7 +15,7 @@ public class LocationEvent {
 	 * LocationEvent���ڷ� �̺�Ʈ�߻�� ���� �� 
 	 * Location��ü�� �Ķ���ͷ� ����Ѵ�.
 	 * </pre>
-	 * @param Location
+	 * @param location
 	 */
 	public LocationEvent(Location location) {
 		super();

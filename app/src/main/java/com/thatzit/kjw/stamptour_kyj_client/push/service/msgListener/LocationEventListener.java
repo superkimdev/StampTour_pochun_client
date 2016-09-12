@@ -1,5 +1,7 @@
-package com.thatzit.kjw.stamptour_kyj_client.push.service;
+package com.thatzit.kjw.stamptour_kyj_client.push.service.msgListener;
 
+
+import com.thatzit.kjw.stamptour_kyj_client.push.service.event.LocationEvent;
 
 /**
  * <pre>

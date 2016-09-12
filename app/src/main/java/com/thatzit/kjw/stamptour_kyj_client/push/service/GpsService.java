@@ -20,13 +20,19 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.event.GpsStateEvent;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.event.LocationEvent;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.fileReader.InServiceLoadAsyncTask;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.msgListener.GpsStateEventListener;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.msgListener.LocationEventListener;
 import com.thatzit.kjw.stamptour_kyj_client.util.MyApplication;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class GpsService extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class GpsService extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
     private static final String TAG = "GPS_SERVICE";
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -39,6 +45,8 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
     private LocationEvent locationEvent;
     private GpsStateEventListener myGpsStateEventListener;
     private GpsStateEvent gpsStateEvent;
+
+
     /*
     콘텐츠 다운로드 후 압축해제가 정상적으로 된후에 이벤트 발생시켜주면 리슨하는 리스너와 콘텐츠 다운로드 시작시 발생시킨 이벤트 리슨하는 리스너 필요
     gps값 리슨하는건 상관없지만 리슨한 값과 데이터 비교하여 푸쉬요청보낼 때 필요
@@ -47,7 +55,10 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
     처리순서 - 1. 파일 다운시작시 발생한 이벤트 리슨하면 서비스내의 LocatioinChanged리스너에서 어싱크 호출하는 부분 블록(boolean)
              2. 파일 파싱 후 스태틱 어레이에 데이터가 전부 들어가면 정상파싱 이벤트 발생
              3. 2번 이벤트 리슨하면 서비스내의 LocatioinChanged리스너에서 어싱크 호출하는 부분 논블록(boolean)
-
+     처리로직 변경
+             다운로드시 프리퍼런스에 다운플래그 셋
+             다운완료시 프리퍼런스에 다운플래그 언셋
+             어싱크의 전처리에서 다운플래그 검사하고 체크할지 여부 결정
      */
 
 
@@ -74,7 +85,9 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
     }
 
     public void afterBulid() {
-        //mGoogleApiClient.disconnect();
+        if(mGoogleApiClient!=null){
+            if(mGoogleApiClient.isConnected()) mGoogleApiClient.disconnect();
+        }
         mGoogleApiClient = new GoogleApiClient.Builder(MyApplication.getContext()).
                 addApi(LocationServices.API).
                 addConnectionCallbacks(this).
@@ -100,13 +113,15 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
                     afterBulid();
                 }
                 gpsStateEvent = new GpsStateEvent(isGPSTurnOn);
-                if (myGpsStateEventListener != null)
-                    myGpsStateEventListener.OnReceivedStateEvent(gpsStateEvent);
+                if (myGpsStateEventListener != null) myGpsStateEventListener.OnReceivedStateEvent(gpsStateEvent);
+                else Log.d(TAG,"Why");
             } else {
                 Log.d("GPS-TURNOFF", "off");
                 Log.d("mgpsTask-Listen-stop", "off");
                 m_gpsState = false;
-                mGoogleApiClient.disconnect();
+                if(mGoogleApiClient!=null){
+                    if(mGoogleApiClient.isConnected()) mGoogleApiClient.disconnect();
+                }
                 gpsStateEvent = new GpsStateEvent(isGPSTurnOn);
                 if (myGpsStateEventListener != null)
                     myGpsStateEventListener.OnReceivedStateEvent(gpsStateEvent);
@@ -166,8 +181,10 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
+        Log.d(TAG, "Request Location");
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
@@ -178,9 +195,10 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("changed Location", location.getLatitude()+"-----"+location.getLongitude());
+        Log.d("changed Location", location.getLatitude()+":"+location.getLongitude());
         locationEvent=new LocationEvent(location);
         if(myLocationListener!=null)myLocationListener.OnReceivedEvent(locationEvent);
+        new InServiceLoadAsyncTask(location,MyApplication.getContext()).execute();
 
     }
 

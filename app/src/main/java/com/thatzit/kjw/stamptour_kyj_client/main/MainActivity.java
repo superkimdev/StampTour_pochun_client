@@ -26,10 +26,10 @@ import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainPageAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.GpsService;
-import com.thatzit.kjw.stamptour_kyj_client.push.service.GpsStateEvent;
-import com.thatzit.kjw.stamptour_kyj_client.push.service.GpsStateEventListener;
-import com.thatzit.kjw.stamptour_kyj_client.push.service.LocationEvent;
-import com.thatzit.kjw.stamptour_kyj_client.push.service.LocationEventListener;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.event.GpsStateEvent;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.msgListener.GpsStateEventListener;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.event.LocationEvent;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.msgListener.LocationEventListener;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.msgListener.PushMessageChangeListener;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.msgListener.PushMessageEvent;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.GpsService.MyLocalBinder;
@@ -172,11 +172,13 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     @Override
     public void OnReceivedEvent(LocationEvent event) {
         Log.e(TAG,event.getLocation().getLatitude()+":"+event.getLocation().getLongitude());
+
     }
 
     @Override
     public void OnReceivedStateEvent(GpsStateEvent event) {
         Log.e(TAG,event.isState()+"");
+
     }
     @Override
     protected void onStart() {

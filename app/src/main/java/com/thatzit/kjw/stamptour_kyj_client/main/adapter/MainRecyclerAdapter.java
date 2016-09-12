@@ -62,7 +62,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Log.e("onBindViewHolder",position+":"+mListData.get(position).getRegion());
             ((NormalViewHolder)viewHolder).name_text_view.setText(mListData.get(position).getName());
             ((NormalViewHolder)viewHolder).region_text_view.setText(mListData.get(position).getRegion());
-            String dirPath = sdcard+"/StampTour_kyj/contents/contents_test/img_list_heap_"+no+"@2x.png";
+            String dirPath = sdcard+"/StampTour_kyj/contents/contents/img_list_heap_"+no+"@2x.png";
             Log.e("ListAdapter",dirPath);
             File img = new File(dirPath);
             Glide.with(((NormalViewHolder)viewHolder).town_img_view.getContext())

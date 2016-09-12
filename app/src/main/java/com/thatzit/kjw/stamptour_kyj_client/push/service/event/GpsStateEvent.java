@@ -1,4 +1,4 @@
-package com.thatzit.kjw.stamptour_kyj_client.push.service;
+package com.thatzit.kjw.stamptour_kyj_client.push.service.event;
 /**
  * �̺�Ʈ Ŭ������ ������� state�� gps ������¿��� true, �񿬰���¿��� false�� ��ȴ�.
  * state���� isState()�޼��� ȣ��� �����´�.

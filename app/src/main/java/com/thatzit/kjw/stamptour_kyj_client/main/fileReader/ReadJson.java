@@ -7,6 +7,8 @@ import android.util.Log;
 import com.thatzit.kjw.stamptour_kyj_client.checker.LocaleChecker;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownJson;
+import com.thatzit.kjw.stamptour_kyj_client.main.event.ReadEvent;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ReadEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +29,9 @@ public class ReadJson {
     private LocaleChecker checker;
     private Context context;
     private String AppDir;
+    private ReadEventListener readEventListener;
+    public final int READSTART = 1;
+    public final int READEND = 2;
     public static ArrayList<TownJson> memCashList;
     public ReadJson(Context context) {
 
@@ -94,9 +99,12 @@ public class ReadJson {
 
     private String getPath(String locale) {
         switch (locale){
-            case "ko": return "StampTour_kyj/contents/contents_test/kr.json";
-            case "en": return "StampTour_kyj/contents/contents_test/eng.json";
-            default: return "StampTour_kyj/contents/contents_test/kr.json";
+            case "ko": return "StampTour_kyj/contents/contents/kr.json";
+            case "en": return "StampTour_kyj/contents/contents/eng.json";
+            default: return "StampTour_kyj/contents/contents/kr.json";
         }
+    }
+    public void setReadEventListener(ReadEventListener readEventListener){
+        this.readEventListener = readEventListener;
     }
 }
