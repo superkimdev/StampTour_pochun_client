@@ -18,14 +18,21 @@ import android.widget.Toast;
 import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.fileReader.LoadAsyncTask;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentGpsStateListener;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentLocationListener;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.event.GpsStateEvent;
+import com.thatzit.kjw.stamptour_kyj_client.push.service.event.LocationEvent;
 
-public class AnimateToolbar extends Fragment implements MainRecyclerAdapter.OnItemClickListener, View.OnClickListener, MainRecyclerAdapter.OnItemLongClickListener {
+public class AnimateToolbar extends Fragment implements MainRecyclerAdapter.OnItemClickListener, View.OnClickListener, MainRecyclerAdapter.OnItemLongClickListener, ParentLocationListener, ParentGpsStateListener {
     CollapsingToolbarLayout collapsingToolbar;
     RecyclerView recyclerView;
     int mutedColor = R.attr.colorPrimary;
     MainRecyclerAdapter mainRecyclerAdapter;
     private LinearLayoutManager linearLayoutManager;
     private View view;
+    private LocationEvent currentLocation;
+    private final String TAG = "AnimateToolbar";
+    private static boolean turnOff=true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_animate_toolbar, container, false);
@@ -53,7 +60,9 @@ public class AnimateToolbar extends Fragment implements MainRecyclerAdapter.OnIt
         recyclerView.setAdapter(mainRecyclerAdapter);
         mainRecyclerAdapter.SetOnItemClickListener(this);
         mainRecyclerAdapter.SetOnItemLongClickListener(this);
-        new LoadAsyncTask(mainRecyclerAdapter,getActivity()).execute();
+        ((MainActivity)getActivity()).setParentLocationListener(this);
+        ((MainActivity)getActivity()).setParentGpsStateListener(this);
+        if(currentLocation == null) new LoadAsyncTask(currentLocation,mainRecyclerAdapter,getActivity()).execute();
 
     }
 
@@ -94,5 +103,29 @@ public class AnimateToolbar extends Fragment implements MainRecyclerAdapter.OnIt
     @Override
     public void onItemLongClick(View view, int position) {
         Log.e("RecycleitemLong","position = "+position);
+    }
+
+    @Override
+    public void OnReceivedLocation(LocationEvent locationEvent) {
+        Log.e(TAG,locationEvent.getLocation().getLatitude()+":"+locationEvent.getLocation().getLongitude());
+        currentLocation = locationEvent;
+        new LoadAsyncTask(currentLocation,mainRecyclerAdapter,getActivity()).execute();
+    }
+
+    @Override
+    public void OnReceivedParentStateEvent(GpsStateEvent event) {
+        if(event.isState() == false){
+            if(turnOff == false)
+            {
+                return;
+            }else{
+                turnOff = event.isState();
+                currentLocation = null;
+                new LoadAsyncTask(currentLocation,mainRecyclerAdapter,getActivity()).execute();
+            }
+
+        }else{
+            turnOff = event.isState();
+        }
     }
 }

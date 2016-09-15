@@ -102,7 +102,7 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
                 }
                 gpsStateEvent = new GpsStateEvent(isGPSTurnOn);
                 if (myGpsStateEventListener != null) myGpsStateEventListener.OnReceivedStateEvent(gpsStateEvent);
-                else Log.d(TAG,"Why");
+                else Log.d(TAG,"myGpsStateEventListener is null");
             } else {
                 Log.d("GPS-TURNOFF", "off");
                 Log.d("mgpsTask-Listen-stop", "off");

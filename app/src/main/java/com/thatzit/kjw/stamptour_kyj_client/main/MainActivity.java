@@ -23,6 +23,8 @@ import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainPageAdapter;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentGpsStateListener;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentLocationListener;
 import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.GpsService;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     private GpsService mService;
     private Context myapplication= MyApplication.getContext();
     private static final String TAG = "MainActivity";
+    private ParentLocationListener parentLocationListener;
+    private ParentGpsStateListener parentGpsStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,13 +176,13 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     @Override
     public void OnReceivedEvent(LocationEvent event) {
         Log.e(TAG,event.getLocation().getLatitude()+":"+event.getLocation().getLongitude());
-
+        if(parentLocationListener != null)parentLocationListener.OnReceivedLocation(event);
     }
 
     @Override
     public void OnReceivedStateEvent(GpsStateEvent event) {
         Log.e(TAG,event.isState()+"");
-
+        if(parentGpsStateListener != null)parentGpsStateListener.OnReceivedParentStateEvent(event);
     }
     @Override
     protected void onStart() {
@@ -216,5 +220,12 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     @Override
     public void onBackPressed() {
         this.finish();
+    }
+
+    public void setParentLocationListener(ParentLocationListener listener){
+        this.parentLocationListener = listener;
+    }
+    public void setParentGpsStateListener(ParentGpsStateListener listener){
+        this.parentGpsStateListener = listener;
     }
 }

@@ -27,6 +27,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     Context context;
     OnItemClickListener clickListener;
     OnItemLongClickListener longClickListener;
+    private final String TAG ="MainRecyclerAdapter";
     public MainRecyclerAdapter(Context context) {
         this.context = context;
 
@@ -40,6 +41,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
     public void additem(TownDTO data){
         this.mListData.add(data);
+    }
+    public void removeitem(int position){
+        this.mListData.remove(position);
+    }
+    public void removelist(){
+        for(int i = mListData.size()-1 ;i>=0 ;i--)this.removeitem(i);
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -58,9 +65,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }else{
                 no = position+1+"";
             }
-            Log.e("onBindViewHolder",position+":"+mListData.get(position).getName());
-            Log.e("onBindViewHolder",position+":"+mListData.get(position).getRegion());
+            Log.e(TAG,position+":"+mListData.get(position).getName());
+            Log.e(TAG,position+":"+mListData.get(position).getRegion());
+            Log.e(TAG,position+":"+mListData.get(position).getDistance());
             ((NormalViewHolder)viewHolder).name_text_view.setText(mListData.get(position).getName());
+            ((NormalViewHolder)viewHolder).distance_text_view.setText(mListData.get(position).getDistance());
             ((NormalViewHolder)viewHolder).region_text_view.setText(mListData.get(position).getRegion());
             String dirPath = sdcard+"/StampTour_kyj/contents/contents/img_list_heap_"+no+"@2x.png";
             Log.e("ListAdapter",dirPath);
