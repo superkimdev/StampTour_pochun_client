@@ -86,4 +86,12 @@ public class PreferenceManager {
     public String getGCMaccesstoken(){
         return pref.getString(PreferenceKey.GCMTOKEN.getKey(),"");
     }
+
+    public void setDownFlag(boolean flag){
+        editor.putBoolean(PreferenceKey.DOWNFLAG.getKey(),flag);
+        editor.commit();
+    }
+    public boolean getDownFlag(){
+        return pref.getBoolean(PreferenceKey.DOWNFLAG.getKey(),true);
+    }
 }

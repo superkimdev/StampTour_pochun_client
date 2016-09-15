@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
+import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.splash.SplashActivity;
 
 import java.io.File;
@@ -24,10 +25,12 @@ public class Decompress extends AsyncTask<Void, Void, Void> {
     private String _location;
     private Context context;
     private ProgressDialog dlg;
+    private PreferenceManager preferenceManager;
     public Decompress(String zipFile, String location,Context context) {
         _zipFile = zipFile;
         _location = location;
         this.context = context;
+        preferenceManager = new PreferenceManager(context);
         _dirChecker("");
     }
     public void typeCheck_Move_Activity(Context context){
@@ -41,7 +44,7 @@ public class Decompress extends AsyncTask<Void, Void, Void> {
             ((SplashActivity)context).startActivity(intent);
             ((SplashActivity)context).finish();
         }
-
+        preferenceManager.setDownFlag(false);
     }
     @Override
     protected void onPreExecute() {

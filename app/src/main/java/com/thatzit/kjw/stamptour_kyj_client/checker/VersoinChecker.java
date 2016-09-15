@@ -113,6 +113,7 @@ public class VersoinChecker implements Check,DownLoad{
                         }else{
                             Log.e("Down?","down");
                             preferenceManager.setVersion(version);
+                            preferenceManager.setDownFlag(true);
                             downloadAndLoggedin(nick,accesstoken);
                         }
 
