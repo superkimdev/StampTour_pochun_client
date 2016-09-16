@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.thatzit.kjw.stamptour_kyj_client.main.AnimateToolbar;
+import com.thatzit.kjw.stamptour_kyj_client.main.MainFragment;
 import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment2;
 import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment3;
 import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment4;
@@ -25,7 +25,7 @@ public class HelpPageAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                AnimateToolbar tab1 = new AnimateToolbar();
+                MainFragment tab1 = new MainFragment();
                 return tab1;
             case 1:
                 TabFragment2 tab2 = new TabFragment2();

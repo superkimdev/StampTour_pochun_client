@@ -2,10 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.thatzit.kjw.stamptour_kyj_client.main.MainActivity">
-    <!--<item-->
-        <!--android:id="@+id/action_sort"-->
-        <!--android:orderInCategory="100"-->
-        <!--android:title="정렬"-->
-        <!--app:showAsAction="ifRoom"></item>-->
+    <item
+        android:id="@+id/action_sort_region"
+        android:orderInCategory="100"
+        android:title="권역"
+        app:showAsAction="collapseActionView"></item>
+    <item
+        android:id="@+id/action_sort_name"
+        android:orderInCategory="200"
+        android:title="이름"
+        app:showAsAction="collapseActionView"></item>
+    <item
+        android:id="@+id/action_sort_distance"
+        android:orderInCategory="300"
+        android:title="거리"
+        app:showAsAction="collapseActionView"></item>
 
 </menu>

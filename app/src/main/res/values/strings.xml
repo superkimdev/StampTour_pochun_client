@@ -38,5 +38,7 @@
     <string name="present_view_container">선물 신청</string>
     <string name="research_view_container">설문</string>
     <string name="logout_view_container">로그아웃</string>
-
+    <string name="hide_btn">숨김관리</string>
+    <string name="sort_btn">정렬</string>
+    <string name="main_toolbar_title">스탬프</string>
 </resources>

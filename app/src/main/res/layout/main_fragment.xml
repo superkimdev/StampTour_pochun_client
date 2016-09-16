@@ -50,13 +50,14 @@
                         android:layout_height="16dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:text="숨김관리"
+                        android:id="@+id/hide_btn"
+                        android:text="@string/hide_btn"
                         android:textSize="14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_centerInParent="true"
-                        android:text="스탬프"
+                        android:text="@string/main_toolbar_title"
                         android:textSize="14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -64,7 +65,8 @@
                         android:layout_marginRight="16dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:text="정렬"
+                        android:id="@+id/sort_btn"
+                        android:text="@string/sort_btn"
                         android:textSize="14sp"/>
                 </RelativeLayout>
 

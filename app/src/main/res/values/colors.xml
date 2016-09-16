@@ -39,11 +39,11 @@
     <!-- Common usable Color Resource-->
     <color name="common_bg_color1">#EFEFF4</color>
     <color name="common_bg_color2">#FFFFFF</color>
-    <!-- AnimateToolbar Fragment Color Resource-->
+    <!-- MainFragment Fragment Color Resource-->
     <color name="toolbar_bg_color">#9a9a9a</color>
     <color name="toolbar_cnt_text_color">#00CCCC</color>
     <color name="toolbar_second_text_color">#4b4b4b</color>
-    <!-- AnimateToolbar Fragment in Recycler View list Color Resouce-->
+    <!-- MainFragment Fragment in Recycler View list Color Resouce-->
     <color name="stamp_list_item_text_color_off">#000000</color>
     <color name="stamp_list_item_text_color_on">#FFFFFF</color>
     <color name="stamp_list_item_distance_text_color">#666666</color>

@@ -7,13 +7,18 @@
     <dimen name="JoinandFidLayout_vertical_margin">100dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
-    <!-- AnimateToolbar Fragment in Recycler View list dimen Resouce-->
+    <!-- MainFragment Fragment in Recycler View list dimen Resource-->
     <dimen name="stamp_list_item_text_name_dimen">16sp</dimen>
     <dimen name="stamp_list_item_text_region_dimen">14sp</dimen>
     <dimen name="stamp_list_item_text_distance_dimen">13sp</dimen>
 
-    <!-- SplashActivity dimen Resouce -->
+    <!-- SplashActivity dimen Resource -->
     <dimen name="logo_horizontal_size">100dp</dimen>
     <dimen name="logo_vertical_size">100dp</dimen>
     <dimen name="logo_top_margin">224dp</dimen>
+
+    <!-- MainFragment Toolbar Custom popup dimen Resource-->
+    <dimen name="popup_width">150dp</dimen>
+    <dimen name="popup_height">150dp</dimen>
+    <dimen name="popup_item_height">40dp</dimen>
 </resources>

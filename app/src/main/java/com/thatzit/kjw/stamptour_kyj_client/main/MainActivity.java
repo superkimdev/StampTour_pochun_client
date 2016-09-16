@@ -152,21 +152,7 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void OnReceived(PushMessageEvent event) {
