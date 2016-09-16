@@ -95,7 +95,7 @@ public class AnimateToolbar extends Fragment implements MainRecyclerAdapter.OnIt
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.header){
-            linearLayoutManager.scrollToPositionWithOffset(10, 20);
+            linearLayoutManager.scrollToPositionWithOffset(7, collapsingToolbar.getBottom());
             Toast.makeText(getContext(),"이미지클릭",Toast.LENGTH_LONG).show();
         }
     }

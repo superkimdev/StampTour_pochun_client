@@ -16,6 +16,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -74,11 +75,13 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
         } catch (NoSuchAlgorithmException e) {
             Log.d("KeyHash Nosuch :",e.toString());
         }
-          TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.btn_tabs_stamp_on)));
-        tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.btn_tabs_map_on)));
-        tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.btn_tabs_ranking_on)));
-        tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.btn_tabs_more_on)));
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        setTabIcon(tabLayout);
+
+//        tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.btn_tabs_stamp_on)));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.btn_tabs_map_on)));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.btn_tabs_ranking_on)));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.btn_tabs_more_on)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorHeight(0);
         tabLayout.setLayoutDirection(TabLayout.LAYOUT_DIRECTION_INHERIT);
@@ -109,6 +112,25 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
         pushRequest();
 
     }
+
+    private void setTabIcon(TabLayout tabLayout) {
+        View view1 = getLayoutInflater().inflate(R.layout.tabiconview, null);
+        view1.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_stamp_on);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view1));
+
+        View view2 = getLayoutInflater().inflate(R.layout.tabiconview, null);
+        view2.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_map_on);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view2));
+
+        View view3 = getLayoutInflater().inflate(R.layout.tabiconview, null);
+        view3.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_ranking_on);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view3));
+
+        View view4 = getLayoutInflater().inflate(R.layout.tabiconview, null);
+        view4.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_more_on);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view4));
+    }
+
 
     private void pushRequest() {
         LoggedInInfo loggedIn_Info = preferenceManager.getLoggedIn_Info();

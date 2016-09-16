@@ -30,6 +30,10 @@ public class TownDTO {
         this.stamp_on = stamp_on;
     }
 
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
     public String getNo() { return no; }
     public String getName() {
         return name;
