@@ -95,15 +95,18 @@ public class TabFragment2 extends Fragment implements OnMapReadyCallback{
         this.googleMap.setMyLocationEnabled(true);
 
         // For dropping a marker at a point on the Map
-        LatLng kyoungju = new LatLng(35.8533949, 129.1693306);
+        // 포천 : 위도 - 37.8949148, 경도 - 127.20035510000002
+        LatLng kyoungju = new LatLng(37.8949148, 127.20035510000002);
         Log.e("kyoungju",kyoungju.longitude+":"+kyoungju.latitude);
         for(int i =0 ; i < ReadJson.memCashList.size(); ++i){
-            marker= this.googleMap.addMarker(new MarkerOptions().position(new LatLng(35.8533949+i*10, 129.1693306+i*10))
+            marker= this.googleMap
+                    .addMarker(new MarkerOptions()
+                            .position(new LatLng(Double.parseDouble(ReadJson.memCashList.get(i).getLat()), Double.parseDouble(ReadJson.memCashList.get(i).getLon())))
                     .title(ReadJson.memCashList.get(i).getName())
                     .snippet("Marker Description"));
             marker.showInfoWindow();
         }
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kyoungju, 16));
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kyoungju, 10));
 
 //
 //// Zoom in, animating the camera.

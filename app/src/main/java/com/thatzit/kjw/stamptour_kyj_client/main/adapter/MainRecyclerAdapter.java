@@ -36,6 +36,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.context = context;
         this.mListData = mListData;
     }
+
+    public TownDTO getmListData(int position) {
+        return mListData.get(position);
+    }
+
     public MainRecyclerAdapter(ArrayList<TownDTO> mtownlist) {
         this.mListData = mtownlist;
     }
@@ -60,18 +65,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if(viewHolder instanceof NormalViewHolder){
             String sdcard= Environment.getExternalStorageDirectory().getAbsolutePath();
             String no;
-            if(position<9){
-                no = "0"+(position+1);
-            }else{
-                no = position+1+"";
-            }
+            no = position + 1+"";
             Log.e(TAG,position+":"+mListData.get(position).getName());
             Log.e(TAG,position+":"+mListData.get(position).getRegion());
             Log.e(TAG,position+":"+mListData.get(position).getDistance());
             ((NormalViewHolder)viewHolder).name_text_view.setText(mListData.get(position).getName());
             ((NormalViewHolder)viewHolder).distance_text_view.setText(mListData.get(position).getDistance());
             ((NormalViewHolder)viewHolder).region_text_view.setText(mListData.get(position).getRegion());
-            String dirPath = sdcard+"/StampTour_kyj/contents/contents/img_list_heap_"+no+"@2x.png";
+            String dirPath = sdcard+"/StampTour_kyj/contents/contents/town"+no+"_1.png";
             Log.e("ListAdapter",dirPath);
             File img = new File(dirPath);
             Glide.with(((NormalViewHolder)viewHolder).town_img_view.getContext())

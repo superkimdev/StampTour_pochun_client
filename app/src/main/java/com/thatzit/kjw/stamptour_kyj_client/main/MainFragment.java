@@ -147,9 +147,9 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         Log.e("RecycleitemLong","position = "+position);
 
         Intent intent = new Intent(getActivity(),DetailActivity.class);
-        intent.putExtra("town",position+1);
+        TownDTO town = mainRecyclerAdapter.getmListData(position);
+        intent.putExtra("town",Integer.parseInt(town.getNo()));
         getActivity().startActivity(intent);
-        getActivity().finish();
     }
 
     @Override

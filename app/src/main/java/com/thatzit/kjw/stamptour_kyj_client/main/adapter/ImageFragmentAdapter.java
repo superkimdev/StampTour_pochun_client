@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Environment;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.main.ImageFragment;
@@ -16,31 +17,25 @@ public class ImageFragmentAdapter extends FragmentPagerAdapter implements IconPa
     private final String sdcard;
     private final String no;
     private final String dirPath;
-    private int mCount = CONTENT.length;
+    private int mCount = 5;
     protected static final String[] CONTENT = new String[] { "This", "Is", "A", "Test", };
-    protected static final int[] ICONS = new int[] {
-            R.drawable.perm_group_calendar,
-            R.drawable.perm_group_camera,
-            R.drawable.perm_group_device_alarms,
-            R.drawable.perm_group_location
-    };
     private int town_code;
+    private final String TAG = "ImageFragmentAdapter";
+
     public ImageFragmentAdapter(FragmentManager fm, int town_code) {
         super(fm);
         this.town_code = town_code;
         sdcard= Environment.getExternalStorageDirectory().getAbsolutePath();
-        if(town_code<10){
-            no = "0"+(town_code);
-        }else{
-            no = town_code+"";
-        }
-        dirPath = sdcard+"/StampTour_kyj/contents/contents/img_list_heap_"+no+"@2x.png";
+        no = town_code+"";
+        dirPath = sdcard+"/StampTour_kyj/contents/contents/town"+no;
     }
 
 
     @Override
     public Fragment getItem(int position) {
-        return ImageFragment.newInstance(dirPath);
+        position = position+1;
+        Log.e(TAG,"getItem : "+dirPath+"_"+position+".png");
+        return ImageFragment.newInstance(dirPath+"_"+position+".png");
     }
 
     @Override
@@ -55,7 +50,7 @@ public class ImageFragmentAdapter extends FragmentPagerAdapter implements IconPa
 
     @Override
     public int getIconResId(int index) {
-        return ICONS[index % ICONS.length];
+        return 0;
     }
 
     public void setCount(int count) {

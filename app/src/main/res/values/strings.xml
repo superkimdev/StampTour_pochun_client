@@ -51,4 +51,7 @@
     <string name="grade_pre_text">님은</string>
     <string name="grade_after_text">등급입니다.</string>
     <string name="grade_default_text">홍길동은 성골 등급입니다.</string>
+    <string name="image_fragment_detail_text">SubTitle</string>
+    <string name="image_description_contents">description</string>
+    <string name="detail_toolbar_town_name_textview">마을이름</string>
 </resources>

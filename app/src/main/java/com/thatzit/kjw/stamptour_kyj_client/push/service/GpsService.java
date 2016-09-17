@@ -190,9 +190,11 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
         downFlag=preferenceManager.getDownFlag();
         if(downFlag == false) {
             //Load contents, download finished
+            Log.e(TAG,"DownLoading contents finished");
             new InServiceLoadAsyncTask(location, MyApplication.getContext()).execute();
         }else{
             //current contents downloading...
+            Log.e(TAG,"DownLoading contents...");
         }
 
     }

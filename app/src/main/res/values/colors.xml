@@ -43,8 +43,12 @@
     <color name="toolbar_bg_color">#9a9a9a</color>
     <color name="toolbar_cnt_text_color">#00CCCC</color>
     <color name="toolbar_second_text_color">#4b4b4b</color>
-    <!-- MainFragment Fragment in Recycler View list Color Resouce-->
+    <!-- MainFragment Fragment in Recycler View list Color Resource-->
     <color name="stamp_list_item_text_color_off">#000000</color>
     <color name="stamp_list_item_text_color_on">#FFFFFF</color>
     <color name="stamp_list_item_distance_text_color">#666666</color>
+    <!-- ImageFragment in TextView Color Resource-->
+    <color name="town_subtitle_text_color">#000000</color>
+    <color name="image_description_contents_text_color">#000000</color>
+    <color name="image_indicator_selected_color">#00CCCC</color>
 </resources>

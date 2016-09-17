@@ -3,7 +3,7 @@
     android:shape="oval" android:useLevel="true"
     android:dither="true">
 
-    <size android:height="6dip" android:width="6dip"/>
+    <size android:height="7dp" android:width="7dp"/>
+    <solid android:color="@color/cardview_shadow_start_color"/>
 
-    <solid android:color="@color/com_facebook_blue"/>
 </shape>
