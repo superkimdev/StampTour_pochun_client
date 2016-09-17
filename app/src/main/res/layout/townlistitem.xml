@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/town_distance_view"
-            android:text="거리"
+            android:text="@string/main_list_item_distance"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:textColor="@color/stamp_list_item_distance_text_color"
@@ -45,7 +45,7 @@
             android:textColor="@color/stamp_list_item_text_color_off"
             android:textStyle="normal"
             android:textSize="@dimen/stamp_list_item_text_name_dimen"
-            android:text="이름"
+            android:text="@string/main_list_item_name"
             />
 
         <TextView
@@ -53,10 +53,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textdivider"
             android:id="@+id/town_region_view"
-            android:text="권역"
             android:textColor="@color/stamp_list_item_text_color_off"
             android:textStyle="normal"
             android:textSize="@dimen/stamp_list_item_text_region_dimen"
+            android:text="@string/main_list_item_region"
             />
     </RelativeLayout>
     <LinearLayout

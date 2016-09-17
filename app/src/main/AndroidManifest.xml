@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".help.HelpActivity"></activity>
+        <activity android:name=".main.DetailActivity"></activity>
         <service
             android:name=".push.service.MyInstanceIDListenerService">
             <intent-filter>

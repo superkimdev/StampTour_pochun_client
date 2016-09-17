@@ -41,4 +41,14 @@
     <string name="hide_btn">숨김관리</string>
     <string name="sort_btn">정렬</string>
     <string name="main_toolbar_title">스탬프</string>
+    <string name="main_list_item_name">이름</string>
+    <string name="main_list_item_distance">거리</string>
+    <string name="main_list_item_region">권역</string>
+    <string name="main_header_secondview_text">찍은 스탬프</string>
+    <string name="main_header_secondview_next_text">다음 선물까지</string>
+    <string name="grade_1">성골</string>
+    <string name="grade_2">진골</string>
+    <string name="grade_pre_text">님은</string>
+    <string name="grade_after_text">등급입니다.</string>
+    <string name="grade_default_text">홍길동은 성골 등급입니다.</string>
 </resources>

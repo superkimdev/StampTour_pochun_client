@@ -32,6 +32,10 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.6.0'
     compile 'com.android.support:support-v13:23.4.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    //indicator
+    compile project(':ViewPagerIndicator')
+    //Butterknife
+    compile 'com.jakewharton:butterknife:7.0.1'
     //GCM 라이브러리
     compile 'com.google.firebase:firebase-messaging:9.0.0'
     //google map 라이브러리

@@ -1,5 +1,6 @@
 package com.thatzit.kjw.stamptour_kyj_client.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -120,12 +121,6 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
     @Override
     public void onItemClick(View view, int position) {
-        Log.e("Recycleitem","position = "+position);
-        Log.e("Recycleitem","포커싱여부1 = "+view.isFocusable());
-        view.setFocusable(true); // 포커스 여부
-        Log.e("Recycleitem","포커싱여부2 = "+view.isFocusable());
-        view.setBackground(getResources().getDrawable(R.drawable.town_list_item_bg));
-        view.invalidate();
 
 
     }
@@ -150,6 +145,11 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     @Override
     public void onItemLongClick(View view, int position) {
         Log.e("RecycleitemLong","position = "+position);
+
+        Intent intent = new Intent(getActivity(),DetailActivity.class);
+        intent.putExtra("town",position+1);
+        getActivity().startActivity(intent);
+        getActivity().finish();
     }
 
     @Override
