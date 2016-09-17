@@ -26,7 +26,8 @@ public class DetailActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        mAdapter = new ImageFragmentAdapter(getFragmentManager());
+        town_code = getTownCode();
+        mAdapter = new ImageFragmentAdapter(getFragmentManager(),town_code);
 
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
@@ -35,7 +36,7 @@ public class DetailActivity extends AppCompatActivity{
         mIndicator.setViewPager(mPager);
         mIndicator.setCurrentItem(mAdapter.getCount() - 1);
 
-        town_code = getTownCode();
+
 
     }
 

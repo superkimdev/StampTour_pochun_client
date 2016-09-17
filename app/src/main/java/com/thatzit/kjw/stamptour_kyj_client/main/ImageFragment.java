@@ -6,29 +6,30 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.thatzit.kjw.stamptour_kyj_client.R;
+
+import java.io.File;
 
 /**
  * Created by kjw on 16. 9. 17..
  */
 public class ImageFragment extends android.app.Fragment{
     private static final String KEY_CONTENT = "ImageFragment:Content";
-
+    private String mContent = "???";
+    private View view;
+    private ImageView item;
     public static android.app.Fragment newInstance(String content) {
         ImageFragment fragment = new ImageFragment();
-
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < 20; i++) {
-            builder.append(content).append(" ");
-        }
-        builder.deleteCharAt(builder.length() - 1);
-        fragment.mContent = builder.toString();
-
+        fragment.mContent = content;
         return fragment;
     }
 
-    private String mContent = "???";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,18 +42,18 @@ public class ImageFragment extends android.app.Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        TextView text = new TextView(getActivity());
-        text.setGravity(Gravity.CENTER);
-        text.setText(mContent);
-        text.setTextSize(20 * getResources().getDisplayMetrics().density);
-        text.setPadding(20, 20, 20, 20);
+        view = inflater.inflate(R.layout.image_fragment, container, false);
+        setLayout();
+        return view;
+    }
 
-        LinearLayout layout = new LinearLayout(getActivity());
-        layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-        layout.setGravity(Gravity.CENTER);
-        layout.addView(text);
-
-        return layout;
+    private void setLayout() {
+        item = (ImageView) view.findViewById(R.id.pager_img);
+        File img = new File(mContent);
+        Glide.with(item.getContext())
+                .load(img)
+                .centerCrop()
+                .into(item);
     }
 
     @Override
