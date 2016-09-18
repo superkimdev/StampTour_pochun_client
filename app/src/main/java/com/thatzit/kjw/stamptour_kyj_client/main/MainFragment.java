@@ -20,19 +20,37 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
+import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
+import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
+import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.PopUpAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.fileReader.LoadAsyncTask;
-import com.thatzit.kjw.stamptour_kyj_client.main.http.TownStamplistAsyncTask;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentGpsStateListener;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentLocationListener;
+import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
+import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.event.GpsStateEvent;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.event.LocationEvent;
+import com.thatzit.kjw.stamptour_kyj_client.util.MyApplication;
+import com.thatzit.kjw.stamptour_kyj_client.util.ProgressWaitDaialog;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItemClickListener, View.OnClickListener, MainRecyclerAdapter.OnItemLongClickListener, ParentLocationListener, ParentGpsStateListener, PopupMenu.OnMenuItemClickListener {
+import cz.msebera.android.httpclient.Header;
+
+public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItemClickListener, View.OnClickListener,
+        MainRecyclerAdapter.OnItemLongClickListener, ParentLocationListener, ParentGpsStateListener,
+        PopupMenu.OnMenuItemClickListener {
+
     CollapsingToolbarLayout collapsingToolbar;
     RecyclerView recyclerView;
     int mutedColor = R.attr.colorPrimary;
@@ -47,10 +65,19 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private int sort_mode;
     private int setting_flag = 0;
     private View progressbar;
+    private PreferenceManager preferenceManager;
+    private ProgressWaitDaialog progressWaitDaialog;
+    private LoggedInInfo user;
+    private boolean req_flag;
+    private ArrayList<TempTownDTO> UserTownInfo_arr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_fragment, container, false);
+        preferenceManager = new PreferenceManager(getActivity());
+        progressWaitDaialog = new ProgressWaitDaialog(view.getContext());
+        req_flag = false;
+        UserTownInfo_arr = ((MainActivity)getActivity()).UserTownInfo_arr;
         setLayout();
         return view;
     }
@@ -83,9 +110,76 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         ((MainActivity)getActivity()).setParentLocationListener(this);
         ((MainActivity)getActivity()).setParentGpsStateListener(this);
         progressbar = view.findViewById(R.id.list_progressbar);
-        new TownStamplistAsyncTask(view.getContext()).execute();
+        request_TownUserInfo();
         sort_load_before_check();
 
+    }
+
+
+    private void request_TownUserInfo() {
+        user = preferenceManager.getLoggedIn_Info();
+        progressWaitDaialog.show();
+        String req_url = this.getString(R.string.req_url_town_list);
+        RequestParams requestParams = new RequestParams();
+        requestParams.put(ResponseKey.NICK.getKey(),user.getNick());
+        requestParams.put(ResponseKey.TOKEN.getKey(),user.getAccesstoken());
+        StampRestClient.post(req_url,requestParams,new JsonHttpResponseHandler(){
+            private ArrayList<TempTownDTO> make_TownDataList(JSONArray resultData) {
+                ArrayList<TempTownDTO> array = new ArrayList<TempTownDTO>();
+                JSONObject town;
+                for(int i = 0 ; i < resultData.length() ; i++){
+                    try {
+                        town = (JSONObject) resultData.get(i);
+                        array.add(new TempTownDTO(town.getString("TOWN_CODE"),town.getString("Nick"),town.getString("CheckTime")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                return array;
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                progressWaitDaialog.dismiss();
+                String code = null;
+                String msg = null;
+
+                try {
+                    code = response.getString(ResponseKey.CODE.getKey());
+                    msg = response.getString(ResponseKey.MESSAGE.getKey());
+                    if(code.equals(ResponseCode.SUCCESS.getCode())&&msg.equals(ResponseMsg.SUCCESS.getMessage())){
+                        JSONArray resultData = response.getJSONArray(ResponseKey.RESULTDATA.getKey());
+                        JSONObject data = (JSONObject) resultData.get(0);
+                        UserTownInfo_arr = make_TownDataList(resultData);
+                        Log.e(TAG,"town_code : "+data.getString("TOWN_CODE")+"\nCheckTime : "+data.getString("CheckTime")+"\nRange : "+data.getString("valid_range"));
+                        req_flag = true;
+                        sort_load_before_check();
+                    }else{
+                        Log.e(TAG,code+":"+msg);
+                        JSONObject resultData = null;
+                        req_flag = false;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    req_flag = false;
+                }
+            }
+
+
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                progressWaitDaialog.dismiss();
+                req_flag = false;
+            }
+        });
     }
 
     private void popUpShow() {
@@ -159,7 +253,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     public void OnReceivedLocation(LocationEvent locationEvent) {
         Log.e(TAG,locationEvent.getLocation().getLatitude()+":"+locationEvent.getLocation().getLongitude());
         currentLocation = locationEvent;
-        new LoadAsyncTask(sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+        new LoadAsyncTask(UserTownInfo_arr,sort_mode,currentLocation,mainRecyclerAdapter, MyApplication.getContext()).execute();
 
     }
 
@@ -172,7 +266,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             }else{
                 turnOff = event.isState();
                 currentLocation = null;
-                new LoadAsyncTask(sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
             }
 
         }else{
@@ -190,12 +284,12 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.action_sort_name:
                 Toast.makeText(getContext(),"이름클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 1;
-                new LoadAsyncTask(sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
                 break;
             case R.id.action_sort_region:
                 Toast.makeText(getContext(),"권역클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 2;
-                new LoadAsyncTask(sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
                 break;
             default:
                 return false;
@@ -209,19 +303,22 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             if(currentLocation == null) {
                 //gps 안켜지거나 못잡으면 0번은 안됨 기본 이름으로
                 sort_mode = 1;
-                new LoadAsyncTask(sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
             }else{
                 sort_mode = 0;
-                new LoadAsyncTask(sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
             }
             setting_flag=1;
         }else{
             if(currentLocation == null){
-                Toast.makeText(getContext(),"GPS켜주세요",Toast.LENGTH_LONG).show();
-                new LoadAsyncTask(sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                if(turnOff == false){
+                    Toast.makeText(getContext(),"GPS켜주세요",Toast.LENGTH_LONG).show();
+                }
+
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
             }else{
                 sort_mode = 0;
-                new LoadAsyncTask(sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
             }
         }
 

@@ -8,19 +8,9 @@ public class TownDTO {
     private String name;
     private String region;
     private String distance;
-    private String checked;
+    private String range;
+    private String stamp_checked;
     private boolean stamp_on;
-    public TownDTO() {
-    }
-
-    public TownDTO(String no,String name, String region, String distance, String checked) {
-        this.no = no;
-        this.name = name;
-        this.region = region;
-        this.distance = distance;
-        this.checked = checked;
-        this.stamp_on = false;
-    }
 
     public boolean isStamp_on() {
         return stamp_on;
@@ -28,6 +18,27 @@ public class TownDTO {
 
     public void setStamp_on(boolean stamp_on) {
         this.stamp_on = stamp_on;
+    }
+
+    public TownDTO() {
+    }
+
+    public TownDTO(String no,String name, String region, String distance, String range,String stamp_checked,boolean stamp_on) {
+        this.no = no;
+        this.name = name;
+        this.region = region;
+        this.distance = distance;
+        this.range = range;
+        this.stamp_checked = stamp_checked;
+        this.stamp_on = stamp_on;
+    }
+
+    public String getStamp_checked() {
+        return stamp_checked;
+    }
+
+    public void setStamp_checked(String stamp_checked) {
+        this.stamp_checked = stamp_checked;
     }
 
     public void setDistance(String distance) {
@@ -47,7 +58,7 @@ public class TownDTO {
         return distance;
     }
 
-    public String getChecked() {
-        return checked;
+    public String getRange() {
+        return range;
     }
 }

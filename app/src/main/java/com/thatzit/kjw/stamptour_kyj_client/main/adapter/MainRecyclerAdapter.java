@@ -79,9 +79,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     .load(img)
                     .centerCrop()
                     .into(((NormalViewHolder)viewHolder).town_img_view);
+            if(!mListData.get(position).getStamp_checked().equals("")){
+                ((NormalViewHolder)viewHolder).stamp_checked_imgview.setVisibility(View.VISIBLE);
+            }
             if(mListData.get(position).isStamp_on()){
-                ((NormalViewHolder)viewHolder).item_container.setBackground(
-                        context.getResources().getDrawable(R.drawable.town_list_item_bg));
+                if(!mListData.get(position).getStamp_checked().equals("")){
+                    ((NormalViewHolder)viewHolder).item_container.setBackground(
+                            context.getResources().getDrawable(R.drawable.town_list_item_bg));
+                }
             }
         }
 
@@ -101,12 +106,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public TextView region_text_view;
         public TextView distance_text_view;
         public RelativeLayout item_container;
+        public ImageView stamp_checked_imgview;
         public NormalViewHolder(View itemView) {
             super(itemView);
             town_img_view = (ImageView)itemView.findViewById(R.id.town_img_view);
             name_text_view = (TextView)itemView.findViewById(R.id.town_name_view);
             region_text_view = (TextView)itemView.findViewById(R.id.town_region_view);
             distance_text_view = (TextView)itemView.findViewById(R.id.town_distance_view);
+            stamp_checked_imgview = (ImageView)itemView.findViewById(R.id.stamp_checked_imgview);
             item_container = (RelativeLayout)itemView.findViewById(R.id.item_container);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);

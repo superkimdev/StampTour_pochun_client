@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
+import com.thatzit.kjw.stamptour_kyj_client.main.TempTownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownJson;
@@ -29,6 +30,7 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private ReadJson readJson;
     private ArrayList<TownJson> list;
     private ArrayList<TownDTO> sorted_array;
+    private ArrayList<TempTownDTO> userTownInfo_arr;
     private MainRecyclerAdapter madapter;
     private Context context;
     private RecyclerView recyclerView;
@@ -41,11 +43,12 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private final int SORT_BY_REGION = 2;
 
 
-    public LoadAsyncTask(int sort_mode, LocationEvent locationEvent, MainRecyclerAdapter madapter, Context context) {
+    public LoadAsyncTask(ArrayList<TempTownDTO> userTownInfo_arr, int sort_mode, LocationEvent locationEvent, MainRecyclerAdapter madapter, Context context) {
         this.context = context;
         this.madapter = madapter;
         this.locationEvent=locationEvent;
         this.sort_mode = sort_mode;
+        this.userTownInfo_arr = userTownInfo_arr;
         readJson = new ReadJson(context);
         sorted_array = new ArrayList<TownDTO>();
 
@@ -63,26 +66,30 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
         if(locationEvent == null){
             for(int i=0 ;i<list.size();i++){
                 TownJson data = list.get(i);
+                TempTownDTO tempTownDTO= userTownInfo_arr.get(i);
                 String region = "광산구";
                 if(i%2 == 0)region = "북구";
                 if(i%3 == 0)region = "남구";
-                sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange()));
+                sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),false));
             }
             sort_by_mode();
             return null;
         }else{
             for(int i=0 ;i<list.size();i++){
                 TownJson data = list.get(i);
+                TempTownDTO tempTownDTO= userTownInfo_arr.get(i);
                 String region = "광산구";
                 if(i%2 == 0)region = "북구";
                 if(i%3 == 0)region = "남구";
                 distance = calculate_Distance(i);
                 if(distance <= Float.parseFloat(list.get(i).getRange())){
                     Log.e(TAG,"STAMPON"+list.get(i).getName());
+                    sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),true));
                 }else{
                     Log.e(TAG,"STAMPOFF"+list.get(i).getName());
+                    sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),false));
                 }
-                sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange()));
+
             }
             sort_by_mode();
             for(int i = 0; i < sorted_array.size() ; i++){

@@ -69,6 +69,15 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
         Log.e("NormalUser-Call","Call");
         ((LoginActivity)context).showProgress(true);
         StampRestClient.post(context.getString(R.string.req_url_loggedin),params,new JsonHttpResponseHandler(){
+            public String login_success_check(String nick,String accesstoken){
+                String message;
+                if(nick.equals("0")&&accesstoken.equals("-1")){
+                    return message = "잘못된 비밀번호입니다.";
+                }else if(nick.equals("-1")&&accesstoken.equals("-1")){
+                    return message = "잘못된 아이디이거나 회원이 아닙니다.";
+                }
+                return message = "성공";
+            }
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
@@ -83,8 +92,15 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
                     msg = response.getString(ResponseKey.MESSAGE.getKey());
                     if(code.equals(ResponseCode.SUCCESS.getCode())&&msg.equals(ResponseMsg.SUCCESS.getMessage())){
                         resultData = response.getJSONObject(ResponseKey.RESULTDATA.getKey());
+
                         nick = resultData.getString(ResponseKey.NICK.getKey());
                         accesstoken = resultData.getString(ResponseKey.TOKEN.getKey());
+                        String result = login_success_check(nick,accesstoken);
+                        if(!result.equals("성공")){
+                            Toast.makeText(context,result,Toast.LENGTH_LONG).show();
+                            ((LoginActivity)context).showProgress(false);
+                            return;
+                        }
                         Toast.makeText(context,context.getString(R.string.Toast_login_Success),Toast.LENGTH_LONG).show();
                         preferenceManager.normal_LoggedIn(nick,accesstoken);
                         if(preferenceManager.getVersion().getVersion() == 0 && preferenceManager.getVersion().getSize() == 0){

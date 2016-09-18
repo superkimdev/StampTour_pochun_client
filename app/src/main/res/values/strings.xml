@@ -32,6 +32,7 @@
     <string name="req_url_download_zip">town/contents/contents.zip</string>
     <string name="req_url_regist_device">user/device/regist</string>
     <string name="req_url_push_test">user/push/test</string>
+    <string name="req_url_town_list">town/list</string>
     <!-- TextView Text -->
     <string name="account_view_container">계정관리</string>
     <string name="hidemanage_view_container">숨김관리</string>
@@ -54,4 +55,5 @@
     <string name="image_fragment_detail_text">SubTitle</string>
     <string name="image_description_contents">description</string>
     <string name="detail_toolbar_town_name_textview">마을이름</string>
+
 </resources>

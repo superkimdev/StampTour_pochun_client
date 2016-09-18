@@ -14,6 +14,29 @@
         android:layout_marginLeft="5dp"
         android:src="@mipmap/ic_launcher" />
     <RelativeLayout
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/stamp_checked_status_view_container">
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:src="@drawable/img_stmap"
+            android:id="@+id/stamp_checked_imgview"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/stamp_checked_date_textview"
+            android:visibility="invisible"
+            android:text="test"
+            android:textColor="@color/cardview_dark_background"/>
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="79dp"
         android:paddingLeft="16dp"

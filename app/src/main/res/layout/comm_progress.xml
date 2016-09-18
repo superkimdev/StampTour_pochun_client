@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProgressBar android:id="@+id/wait_progress"
-    android:progressDrawable="@drawable/list_progress_style"
+    style="?android:progressBarStyleSmall"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"

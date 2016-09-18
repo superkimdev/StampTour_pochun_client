@@ -183,6 +183,10 @@ public class VersoinChecker implements Check,DownLoad{
                 String dirPath = sdcard+"/StampTour_kyj/download";
                 File dir = new File(dirPath);
                 if( !dir.exists() ) dir.mkdirs();
+                else {
+                    int result = deleteDir(dirPath);
+                    dir.mkdirs();
+                }
                 return dirPath;
             }
             private String createunzipDirectory(){
@@ -190,8 +194,32 @@ public class VersoinChecker implements Check,DownLoad{
                 String dirPath = sdcard+"/StampTour_kyj/contents/";
                 File dir = new File(dirPath);
                 if( !dir.exists() ) dir.mkdirs();
+                else {
+                    int result = deleteDir(dirPath);
+                    dir.mkdirs();
+                }
                 return dirPath;
             }
+            public int deleteDir(String a_path){
+                File file = new File(a_path);
+                if(file.exists()){
+                    File[] childFileList = file.listFiles();
+                    for(File childFile : childFileList){
+                        if(childFile.isDirectory()){
+                            deleteDir(childFile.getAbsolutePath());
+                        }
+                        else{
+                            Log.e("DeleteFile",childFile.getAbsolutePath());
+                            childFile.delete();
+                        }
+                    }
+                    file.delete();
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
                 Log.e("filedown","fail");
