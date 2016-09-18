@@ -1,179 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="?attr/actionBarSize"
+    android:background="@color/common_bg_color1"
     android:fitsSystemWindows="true">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarStyle="outsideOverlay">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:gravity="start"
+            android:orientation="vertical"
             android:id="@+id/more_fragment_container">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/morefragment_menu_item_container_height"
+                android:layout_marginTop="@dimen/morefragment_menu_item_container_margin_top"
+
+                android:background="@color/common_bg_color2"
                 android:id="@+id/account_view_container">
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/account_view_container_iconview"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="@dimen/morefragment_menu_item_iconview_width"
+                    android:layout_height="@dimen/morefragment_menu_item_iconview_height"
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginLeft="5dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_iconview_margin_left"
+                    android:src="@drawable/img_account" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/account_view_container_iconview"
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_textview_margin_left"
                     android:layout_centerVertical="true"
-                    android:paddingBottom="30dp"
                     android:textColor="@color/colorFaceBookBtn"
                     android:text="@string/account_view_container"
-                    android:textSize="30sp" />
+                    android:textSize="16sp"
+                    android:id="@+id/account_manage_menu_textview"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/account_view_container_iconview"
+                    android:layout_height="@dimen/common_line_heigth"
+                    android:layout_alignStart="@id/account_manage_menu_textview"
+                    android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
                     android:id="@+id/more_fragment_container_line_account"
-                    android:background="@color/cardview_dark_background">
+                    android:background="@color/common_line_color">
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/morefragment_menu_item_container_height"
+                android:background="@color/common_bg_color2"
+                android:layout_below="@id/account_view_container"
+                android:id="@+id/present_view_container">
+                <ImageView
+                    android:id="@+id/present_view_container_iconview"
+                    android:layout_width="@dimen/morefragment_menu_item_iconview_width"
+                    android:layout_height="@dimen/morefragment_menu_item_iconview_height"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_iconview_margin_left"
+                    android:src="@drawable/img_gift" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/present_view_container_iconview"
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_textview_margin_left"
+                    android:layout_centerVertical="true"
+                    android:text="@string/present_view_container"
+                    android:textColor="@color/colorFaceBookBtn"
+                    android:textSize="16sp"
+                    android:id="@+id/present_sent_menu_textview"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_line_heigth"
+                    android:layout_alignStart="@id/present_sent_menu_textview"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal"
+                    android:id="@+id/more_fragment_container_line_present"
+                    android:background="@color/common_line_color">
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:layout_below="@id/account_view_container"
+                android:layout_height="@dimen/morefragment_menu_item_container_height"
+                android:background="@color/common_bg_color2"
+                android:layout_below="@id/present_view_container"
                 android:id="@+id/hidemanage_view_container">
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/hidemanage_view_container_iconview"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="@dimen/morefragment_menu_item_iconview_width"
+                    android:layout_height="@dimen/morefragment_menu_item_iconview_height"
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginLeft="5dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_iconview_margin_left"
+                    android:src="@drawable/img_hiding" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/hidemanage_view_container_iconview"
                     android:layout_centerVertical="true"
-                    android:paddingBottom="30dp"
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_textview_margin_left"
                     android:textColor="@color/colorFaceBookBtn"
                     android:text="@string/hidemanage_view_container"
-                    android:textSize="30sp"/>
+                    android:textSize="16sp"
+                    android:id="@+id/hide_manage_menu_textview"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/hidemanage_view_container_iconview"
+                    android:layout_height="@dimen/common_line_heigth"
+                    android:layout_alignStart="@id/hide_manage_menu_textview"
+                    android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
                     android:id="@+id/more_fragment_container_line_hidemanage"
-                    android:background="@color/cardview_dark_background">
+                    android:background="@color/common_line_color">
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="@dimen/morefragment_menu_item_container_height"
+                android:background="@color/common_bg_color2"
                 android:layout_below="@id/hidemanage_view_container"
-                android:id="@+id/present_view_container">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/present_view_container_iconview"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="5dp"
-                    android:src="@mipmap/ic_launcher" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/present_view_container_iconview"
-                    android:layout_centerVertical="true"
-                    android:paddingBottom="30dp"
-                    android:text="@string/present_view_container"
-                    android:textColor="@color/colorFaceBookBtn"
-                    android:textSize="30sp"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/present_view_container_iconview"
-                    android:orientation="horizontal"
-                    android:id="@+id/more_fragment_container_line_present"
-                    android:background="@color/cardview_dark_background">
-                </LinearLayout>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/present_view_container"
                 android:id="@+id/research_view_container">
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/research_view_container_iconview"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="@dimen/morefragment_menu_item_iconview_width"
+                    android:layout_height="@dimen/morefragment_menu_item_iconview_height"
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginLeft="5dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_iconview_margin_left"
+                    android:src="@drawable/img_survey" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/research_view_container_iconview"
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_textview_margin_left"
                     android:layout_centerVertical="true"
-                    android:paddingBottom="30dp"
                     android:text="@string/research_view_container"
                     android:textColor="@color/colorFaceBookBtn"
-                    android:textSize="30sp"/>
+                    android:textSize="16sp"
+                    android:id="@+id/research_menu_textview"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/research_view_container_iconview"
+                    android:layout_height="@dimen/common_line_heigth"
+                    android:layout_alignStart="@id/research_menu_textview"
+                    android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
                     android:id="@+id/more_fragment_container_line_research"
-                    android:background="@color/cardview_dark_background">
+                    android:background="@color/common_line_color">
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:layout_marginBottom="20dp"
+                android:layout_height="@dimen/morefragment_menu_item_container_height"
+                android:layout_marginTop="@dimen/morefragment_menu_item_container_margin_top"
+                android:background="@color/common_bg_color2"
+                android:layout_marginBottom="60dp"
                 android:layout_below="@id/research_view_container"
                 android:id="@+id/logout_view_container">
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/logout_view_container_iconview"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="@dimen/morefragment_menu_item_iconview_width"
+                    android:layout_height="@dimen/morefragment_menu_item_iconview_height"
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginLeft="5dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_iconview_margin_left"
+                    android:src="@drawable/img_logout" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/logout_view_container_iconview"
+                    android:layout_marginLeft="@dimen/morefragment_menu_item_textview_margin_left"
                     android:layout_centerVertical="true"
-                    android:paddingBottom="30dp"
                     android:text="@string/logout_view_container"
                     android:textColor="@color/colorFaceBookBtn"
-                    android:textSize="30sp"/>
+                    android:textSize="16sp"
+                    android:id="@+id/logout_menu_textview"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/logout_view_container_iconview"
+                    android:layout_height="@dimen/common_line_heigth"
+                    android:layout_alignStart="@id/logout_menu_textview"
+                    android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
                     android:id="@+id/more_fragment_container_line_logout"
-                    android:background="@color/cardview_dark_background">
+                    android:background="@color/common_line_color">
                 </LinearLayout>
             </RelativeLayout>
-        </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

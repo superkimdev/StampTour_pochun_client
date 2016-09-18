@@ -110,7 +110,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         ((MainActivity)getActivity()).setParentLocationListener(this);
         ((MainActivity)getActivity()).setParentGpsStateListener(this);
         progressbar = view.findViewById(R.id.list_progressbar);
-        request_TownUserInfo();
+
         sort_load_before_check();
 
     }
@@ -246,7 +246,8 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     @Override
     public void onItemLongClick(View view, int position) {
         Log.e("RecycleitemLongClick","position = "+position);
-
+        //스탬프 찍은후 뷰 업데이팅 할 때 호출해야함
+        //request_TownUserInfo();
     }
 
     @Override
@@ -266,7 +267,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             }else{
                 turnOff = event.isState();
                 currentLocation = null;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }
 
         }else{
@@ -284,12 +285,12 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.action_sort_name:
                 Toast.makeText(getContext(),"이름클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 1;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
                 break;
             case R.id.action_sort_region:
                 Toast.makeText(getContext(),"권역클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 2;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
                 break;
             default:
                 return false;
@@ -303,10 +304,10 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             if(currentLocation == null) {
                 //gps 안켜지거나 못잡으면 0번은 안됨 기본 이름으로
                 sort_mode = 1;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }else{
                 sort_mode = 0;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }
             setting_flag=1;
         }else{
@@ -315,10 +316,10 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                     Toast.makeText(getContext(),"GPS켜주세요",Toast.LENGTH_LONG).show();
                 }
 
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }else{
                 sort_mode = 0;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,getActivity()).execute();
+                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }
         }
 

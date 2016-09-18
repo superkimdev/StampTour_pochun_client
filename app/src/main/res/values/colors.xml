@@ -51,4 +51,5 @@
     <color name="town_subtitle_text_color">#000000</color>
     <color name="image_description_contents_text_color">#000000</color>
     <color name="image_indicator_selected_color">#00CCCC</color>
+    <color name="common_line_color">#ceced2</color>
 </resources>

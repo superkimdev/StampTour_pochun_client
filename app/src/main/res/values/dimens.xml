@@ -32,4 +32,11 @@
     <dimen name="image_description_contents_text_size">16sp</dimen>
     <dimen name="image_description_text_linespace">30dip</dimen>
     <dimen name="image_description_contents_text_margin_top">30dp</dimen>
+    <dimen name="morefragment_menu_item_container_height">48dp</dimen>
+    <dimen name="morefragment_menu_item_container_margin_top">35dp</dimen>
+    <dimen name="morefragment_menu_item_iconview_width">24dp</dimen>
+    <dimen name="morefragment_menu_item_iconview_height">24dp</dimen>
+    <dimen name="morefragment_menu_item_iconview_margin_left">16dp</dimen>
+    <dimen name="morefragment_menu_item_textview_margin_left">32dp</dimen>
+    <dimen name="common_line_heigth">1px</dimen>
 </resources>
