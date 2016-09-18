@@ -29,7 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.main.fileReader.ReadJson;
 
-public class TabFragment2 extends Fragment implements OnMapReadyCallback{
+public class MapFragment extends Fragment implements OnMapReadyCallback{
     MapView mMapView;
     private GoogleMap googleMap;
 
@@ -96,17 +96,17 @@ public class TabFragment2 extends Fragment implements OnMapReadyCallback{
 
         // For dropping a marker at a point on the Map
         // 포천 : 위도 - 37.8949148, 경도 - 127.20035510000002
-        LatLng kyoungju = new LatLng(37.8949148, 127.20035510000002);
-        Log.e("kyoungju",kyoungju.longitude+":"+kyoungju.latitude);
+        LatLng center = new LatLng(37.8949148, 127.20035510000002);
+        Log.e("center",center.longitude+":"+center.latitude);
         for(int i =0 ; i < ReadJson.memCashList.size(); ++i){
             marker= this.googleMap
                     .addMarker(new MarkerOptions()
                             .position(new LatLng(Double.parseDouble(ReadJson.memCashList.get(i).getLat()), Double.parseDouble(ReadJson.memCashList.get(i).getLon())))
                     .title(ReadJson.memCashList.get(i).getName())
                     .snippet("Marker Description"));
-            marker.showInfoWindow();
+//            marker.showInfoWindow();
         }
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kyoungju, 10));
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 10));
 
 //
 //// Zoom in, animating the camera.

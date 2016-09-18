@@ -24,6 +24,7 @@ import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.PopUpAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.fileReader.LoadAsyncTask;
+import com.thatzit.kjw.stamptour_kyj_client.main.http.TownStamplistAsyncTask;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentGpsStateListener;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentLocationListener;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.event.GpsStateEvent;
@@ -45,6 +46,8 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private TextView hide_btn;
     private int sort_mode;
     private int setting_flag = 0;
+    private View progressbar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_fragment, container, false);
@@ -79,7 +82,8 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         mainRecyclerAdapter.SetOnItemLongClickListener(this);
         ((MainActivity)getActivity()).setParentLocationListener(this);
         ((MainActivity)getActivity()).setParentGpsStateListener(this);
-
+        progressbar = view.findViewById(R.id.list_progressbar);
+        new TownStamplistAsyncTask(view.getContext()).execute();
         sort_load_before_check();
 
     }
@@ -121,8 +125,11 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
     @Override
     public void onItemClick(View view, int position) {
-
-
+        Log.e("RecycleitemClick","position = "+position);
+        Intent intent = new Intent(getActivity(),DetailActivity.class);
+        TownDTO town = mainRecyclerAdapter.getmListData(position);
+        intent.putExtra("town",Integer.parseInt(town.getNo()));
+        getActivity().startActivity(intent);
     }
 
     @Override
@@ -144,12 +151,8 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
     @Override
     public void onItemLongClick(View view, int position) {
-        Log.e("RecycleitemLong","position = "+position);
+        Log.e("RecycleitemLongClick","position = "+position);
 
-        Intent intent = new Intent(getActivity(),DetailActivity.class);
-        TownDTO town = mainRecyclerAdapter.getmListData(position);
-        intent.putExtra("town",Integer.parseInt(town.getNo()));
-        getActivity().startActivity(intent);
     }
 
     @Override

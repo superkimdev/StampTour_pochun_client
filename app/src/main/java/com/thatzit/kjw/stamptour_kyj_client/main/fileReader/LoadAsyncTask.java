@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
@@ -40,13 +41,14 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private final int SORT_BY_REGION = 2;
 
 
-    public LoadAsyncTask(int sort_mode,LocationEvent locationEvent,MainRecyclerAdapter madapter, Context context) {
+    public LoadAsyncTask(int sort_mode, LocationEvent locationEvent, MainRecyclerAdapter madapter, Context context) {
         this.context = context;
         this.madapter = madapter;
         this.locationEvent=locationEvent;
         this.sort_mode = sort_mode;
         readJson = new ReadJson(context);
         sorted_array = new ArrayList<TownDTO>();
+
     }
 
 

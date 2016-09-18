@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.thatzit.kjw.stamptour_kyj_client.main.MainFragment;
-import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment2;
+import com.thatzit.kjw.stamptour_kyj_client.main.MapFragment;
 import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment3;
 import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment4;
 
@@ -28,7 +28,7 @@ public class HelpPageAdapter extends FragmentStatePagerAdapter {
                 MainFragment tab1 = new MainFragment();
                 return tab1;
             case 1:
-                TabFragment2 tab2 = new TabFragment2();
+                MapFragment tab2 = new MapFragment();
                 return tab2;
             case 2:
                 TabFragment3 tab3 = new TabFragment3();
