@@ -8,12 +8,15 @@ import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
+import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.main.TempTownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownJson;
+import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.event.LocationEvent;
 import com.thatzit.kjw.stamptour_kyj_client.util.ChangeDistanceDoubleToStringUtil;
 
@@ -27,6 +30,11 @@ import java.util.Comparator;
  */
 public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private final String TAG = "LoadAsyncTask";
+    private final TextView sort_mode_textview;
+    private final TextView firstline_text_view;
+    private final TextView secondline_cnt_text_view;
+    private final TextView secondline_nextcnt_text_view;
+
     private ReadJson readJson;
     private ArrayList<TownJson> list;
     private ArrayList<TownDTO> sorted_array;
@@ -41,15 +49,25 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private final int SORT_BY_DISTANCE = 0;
     private final int SORT_BY_NAME = 1;
     private final int SORT_BY_REGION = 2;
+    private String mode_title;
+    private String nick;
+    private String grade;
+    private String zosa;
+    private String last_string;
+    private PreferenceManager preferenceManager;
 
-
-    public LoadAsyncTask(ArrayList<TempTownDTO> userTownInfo_arr, int sort_mode, LocationEvent locationEvent, MainRecyclerAdapter madapter, Context context) {
+    public LoadAsyncTask(TextView firstline_text_view, TextView secondline_cnt_text_view, TextView secondline_nextcnt_text_view, TextView sort_mode_textview, ArrayList<TempTownDTO> userTownInfo_arr, int sort_mode, LocationEvent locationEvent, MainRecyclerAdapter madapter, Context context) {
         this.context = context;
         this.madapter = madapter;
         this.locationEvent=locationEvent;
         this.sort_mode = sort_mode;
         this.userTownInfo_arr = userTownInfo_arr;
+        this.sort_mode_textview = sort_mode_textview;
+        this.firstline_text_view = firstline_text_view;
+        this.secondline_cnt_text_view = secondline_cnt_text_view;
+        this.secondline_nextcnt_text_view = secondline_nextcnt_text_view;
         readJson = new ReadJson(context);
+        preferenceManager = new PreferenceManager(context);
         sorted_array = new ArrayList<TownDTO>();
 
     }
@@ -62,7 +80,11 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        list=readJson.ReadFile();
+        list = readJson.ReadFile();
+        nick = preferenceManager.getLoggedIn_Info().getNick();
+        grade = "성골";
+        zosa = "님은";
+        last_string = "등급입니다.";
         if(locationEvent == null){
             for(int i=0 ;i<list.size();i++){
                 TownJson data = list.get(i);
@@ -112,9 +134,12 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private void sort_by_mode() {
         switch (sort_mode){
-            case SORT_BY_DISTANCE:Collections.sort(sorted_array,distanceComparator);break;
-            case SORT_BY_NAME:Collections.sort(sorted_array,nameComparator);break;
-            case SORT_BY_REGION:Collections.sort(sorted_array,regionComparator);break;
+            case SORT_BY_DISTANCE:Collections.sort(sorted_array,distanceComparator);
+                mode_title = context.getString(R.string.mode_title0);break;
+            case SORT_BY_NAME:Collections.sort(sorted_array,nameComparator);
+                mode_title = context.getString(R.string.mode_title1);break;
+            case SORT_BY_REGION:Collections.sort(sorted_array,regionComparator);
+                mode_title = context.getString(R.string.mode_title2);break;
             default: Collections.sort(sorted_array,distanceComparator);break;
         }
 
@@ -128,6 +153,10 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
         for(int i=0 ;i<sorted_array.size();i++){
             madapter.additem(sorted_array.get(i));
         }
+        String space = " ";
+        String firstline = nick+zosa+space+grade+space+last_string;
+        firstline_text_view.setText(firstline);
+        sort_mode_textview.setText(mode_title+sorted_array.size());
         madapter.notifyDataSetChanged();
     }
 

@@ -55,5 +55,12 @@
     <string name="image_fragment_detail_text">SubTitle</string>
     <string name="image_description_contents">description</string>
     <string name="detail_toolbar_town_name_textview">마을이름</string>
+    <string name="dialog_storage_less">외장메모리 용량이 부족합니다</string>
+    <string name="confirm">확인</string>
+    <string name="needsmemory">필요한 용량은 :</string>
+    <string name="usablememory">사용가능한 용량은 :</string>
+    <string name="mode_title0">거리순</string>
+    <string name="mode_title1">이름별</string>
+    <string name="mode_title2">권역별</string>
 
 </resources>

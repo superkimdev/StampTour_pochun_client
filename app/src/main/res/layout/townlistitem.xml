@@ -12,7 +12,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
-        android:src="@mipmap/ic_launcher" />
+        />
     <RelativeLayout
         android:layout_width="65dp"
         android:layout_height="65dp"

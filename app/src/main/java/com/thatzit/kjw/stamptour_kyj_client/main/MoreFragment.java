@@ -20,7 +20,7 @@ import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.user.User;
 import com.thatzit.kjw.stamptour_kyj_client.user.normal.NormalUser;
 
-public class TabFragment4 extends Fragment implements View.OnClickListener,Check_return_loggedincase,Case_by_loggedout
+public class MoreFragment extends Fragment implements View.OnClickListener,Check_return_loggedincase,Case_by_loggedout
 {
     private View view;
     private RelativeLayout account_view_container;
@@ -32,7 +32,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener,Check
     private User user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_fragment_4, container, false);
+        view = inflater.inflate(R.layout.more_fragment, container, false);
         setLayout();
         return view;
     }

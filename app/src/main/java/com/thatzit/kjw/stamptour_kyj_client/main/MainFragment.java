@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.checker.ExternalMemoryDTO;
+import com.thatzit.kjw.stamptour_kyj_client.checker.UsableStorageChecker;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
@@ -62,6 +64,12 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private static boolean turnOff=true;
     private TextView sort_btn;
     private TextView hide_btn;
+    private TextView sort_mode_textview;
+
+    private TextView firstline_text_view;
+    private TextView secondline_cnt_text_view;
+    private TextView secondline_nextcnt_text_view;
+
     private int sort_mode;
     private int setting_flag = 0;
     private View progressbar;
@@ -70,6 +78,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private LoggedInInfo user;
     private boolean req_flag;
     private ArrayList<TempTownDTO> UserTownInfo_arr;
+    private ImageView header;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,11 +99,16 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         collapsingToolbar.setTitle(" ");
 
 
-        ImageView header = (ImageView) view.findViewById(R.id.header);
+        header = (ImageView) view.findViewById(R.id.header);
         header.setOnClickListener(this);
+
+        firstline_text_view = (TextView)view.findViewById(R.id.firstline_text_view);
+        secondline_cnt_text_view = (TextView)view.findViewById(R.id.secondline_cnt_text_view);
+        secondline_nextcnt_text_view = (TextView)view.findViewById(R.id.secondline_nextcnt_text_view);
 
         sort_btn = (TextView) view.findViewById(R.id.sort_btn);
         hide_btn = (TextView) view.findViewById(R.id.hide_btn);
+        sort_mode_textview = (TextView) view.findViewById(R.id.sort_mode_textview);
         sort_btn.setOnClickListener(this);
         hide_btn.setOnClickListener(this);
 
@@ -110,7 +124,9 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         ((MainActivity)getActivity()).setParentLocationListener(this);
         ((MainActivity)getActivity()).setParentGpsStateListener(this);
         progressbar = view.findViewById(R.id.list_progressbar);
-
+        UsableStorageChecker usableStorageChecker = new UsableStorageChecker();
+        ExternalMemoryDTO check_result = usableStorageChecker.check_ext_memory();
+        Log.d(TAG,check_result.toString());
         sort_load_before_check();
 
     }
@@ -254,7 +270,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     public void OnReceivedLocation(LocationEvent locationEvent) {
         Log.e(TAG,locationEvent.getLocation().getLatitude()+":"+locationEvent.getLocation().getLongitude());
         currentLocation = locationEvent;
-        new LoadAsyncTask(UserTownInfo_arr,sort_mode,currentLocation,mainRecyclerAdapter, MyApplication.getContext()).execute();
+        new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview,UserTownInfo_arr,sort_mode,currentLocation,mainRecyclerAdapter, MyApplication.getContext()).execute();
 
     }
 
@@ -267,7 +283,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             }else{
                 turnOff = event.isState();
                 currentLocation = null;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }
 
         }else{
@@ -285,12 +301,12 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.action_sort_name:
                 Toast.makeText(getContext(),"이름클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 1;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
                 break;
             case R.id.action_sort_region:
                 Toast.makeText(getContext(),"권역클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 2;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
                 break;
             default:
                 return false;
@@ -304,10 +320,10 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             if(currentLocation == null) {
                 //gps 안켜지거나 못잡으면 0번은 안됨 기본 이름으로
                 sort_mode = 1;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                new LoadAsyncTask(firstline_text_view,secondline_cnt_text_view,secondline_nextcnt_text_view,sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }else{
                 sort_mode = 0;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }
             setting_flag=1;
         }else{
@@ -316,10 +332,10 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                     Toast.makeText(getContext(),"GPS켜주세요",Toast.LENGTH_LONG).show();
                 }
 
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }else{
                 sort_mode = 0;
-                new LoadAsyncTask(UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }
         }
 

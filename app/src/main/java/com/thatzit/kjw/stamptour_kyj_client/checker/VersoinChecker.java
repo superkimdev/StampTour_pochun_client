@@ -1,7 +1,9 @@
 package com.thatzit.kjw.stamptour_kyj_client.checker;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
@@ -37,15 +39,19 @@ import cz.msebera.android.httpclient.Header;
  * Created by kjw on 16. 8. 24..
  */
 public class VersoinChecker implements Check,DownLoad{
+    private ExternalMemoryDTO external_memory;
     private VersionDTO version;
     private Context context;
     private Decompress decompressor;
     private PreferenceManager preferenceManager;
     public int value;
     public ProgressDialog dlg;
+    public UsableStorageChecker usableStorageChecker;
     public VersoinChecker(Context context) {
         this.context = context;
         this.preferenceManager = new PreferenceManager(context);
+        this.usableStorageChecker = new UsableStorageChecker();
+        external_memory = usableStorageChecker.check_ext_memory();
     }
 
     public VersoinChecker(VersionDTO version, Context context) {
@@ -112,6 +118,37 @@ public class VersoinChecker implements Check,DownLoad{
                             }
                         }else{
                             Log.e("Down?","down");
+                            long usable_size = Long.parseLong(external_memory.getExternal_usable_nonformatting_size());
+                            long target_contents_size = version.getSize();
+
+                            if(target_contents_size>usable_size){
+                                //storage size less
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                String needs_string = context.getString(R.string.needsmemory);
+                                needs_string = needs_string + usableStorageChecker.formatSize(target_contents_size);
+                                String usable_string = context.getString(R.string.usablememory);
+                                usable_string = usable_string + external_memory.getExternal_usable_formatting_size();
+                                builder.setTitle(R.string.dialog_storage_less)
+                                        .setMessage(needs_string+"\n"+usable_string)
+                                        .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // FIRE ZE MISSILES!
+                                                dialog.dismiss();
+                                                if(context.getClass().getName().contains("LoginActivity")){
+                                                    preferenceManager.user_LoggedOut();
+                                                }else if (context.getClass().getName().contains("SplashActivity")){
+                                                    preferenceManager.user_LoggedOut();
+                                                    Intent intent = new Intent(context, LoginActivity.class);
+                                                    ((SplashActivity)context).startActivity(intent);
+                                                    ((SplashActivity)context).finish();
+                                                }
+                                            }
+                                        });
+                                // Create the AlertDialog object
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                                return;
+                            }
                             preferenceManager.setVersion(version);
                             preferenceManager.setDownFlag(true);
                             downloadAndLoggedin(nick,accesstoken);
