@@ -44,7 +44,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_above="@id/logo_subtitle"
                 android:layout_marginBottom="10dp"
-                android:text="©2016.GYEONGJU"
+                android:text="©2016.Pocheon"
                 android:textStyle="bold"
                 android:textSize="12sp"
                 android:textColor="#303030"

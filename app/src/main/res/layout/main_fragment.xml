@@ -10,13 +10,14 @@
         android:layout_height="192dp"
         android:layout_marginTop="16dp"
         android:fitsSystemWindows="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        >
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="#f6f6f6"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
@@ -32,10 +33,11 @@
             <include
                 android:id="@+id/top"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 layout="@layout/townlistheader"
                 />
+            <!---->
             <android.support.v7.widget.Toolbar
                 android:id="@+id/anim_toolbar"
                 android:layout_width="match_parent"
@@ -52,14 +54,16 @@
                         android:layout_centerVertical="true"
                         android:id="@+id/hide_btn"
                         android:text="@string/hide_btn"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textColor="#000"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_centerInParent="true"
                         android:id="@+id/sort_mode_textview"
                         android:text="@string/main_toolbar_title"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textColor="#000"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
@@ -68,14 +72,15 @@
                         android:layout_centerVertical="true"
                         android:id="@+id/sort_btn"
                         android:text="@string/sort_btn"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textColor="#000"/>
                 </RelativeLayout>
 
             </android.support.v7.widget.Toolbar>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/cardview_dark_background"
+                android:layout_height="1px"
+                android:background="#9a9a9a"
                 android:layout_marginTop="?attr/actionBarSize"
                 android:layout_gravity="top"
                 android:orientation="horizontal">

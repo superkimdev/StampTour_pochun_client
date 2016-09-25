@@ -33,6 +33,10 @@
     <string name="req_url_regist_device">user/device/regist</string>
     <string name="req_url_push_test">user/push/test</string>
     <string name="req_url_town_list">town/list</string>
+    <string name="req_url_current_stamp">user/current/stamp</string>
+    <string name="req_url_user_rank">user/rank</string>
+    <string name="req_url_user_remove">user/remove</string>
+    <string name="req_url_stamp_check">stamp/check</string>
     <!-- TextView Text -->
     <string name="account_view_container">계정관리</string>
     <string name="hidemanage_view_container">숨김관리</string>
@@ -62,5 +66,6 @@
     <string name="mode_title0">거리순</string>
     <string name="mode_title1">이름별</string>
     <string name="mode_title2">권역별</string>
+    <string name="share_button_text">공유</string>
 
 </resources>

@@ -52,11 +52,11 @@ public class MyFcmListenerService extends FirebaseMessagingService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.btn_tabs_stamp_on)
                         .setContentTitle(pushMessageEvent.getTitle())
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(pushMessageEvent.getDesc()))
-                        .setContentText(pushMessageEvent.getParam1()+pushMessageEvent.getParam2());
+                        .setContentText("스탬프를 모아보세요");
 
         mBuilder.setContentIntent(contentIntent);
         mBuilder.setAutoCancel(true);

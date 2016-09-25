@@ -46,8 +46,7 @@ public class SplashActivity extends Activity {
         public void run() {
             if(!preferenceManger.getFirstStart()){
                 preferenceManger.setFirstStart();
-                Toast.makeText(getApplicationContext(),"처음임",Toast.LENGTH_LONG).show();
-//                startActivity(new Intent(getApplication(), HelpActivity.class)); // 로딩이 끝난후 이동할 Activity
+//                Toast.makeText(getApplicationContext(),"처음임",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getApplication(), LoginActivity.class));
                 SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
                 return;
@@ -59,11 +58,9 @@ public class SplashActivity extends Activity {
                     startActivity(new Intent(getApplication(), LoginActivity.class)); // 로딩이 끝난후 이동할 Activity
                     SplashActivity.this.finish();
                 }else{
-                    //startActivity(new Intent(getApplicationContext(),ThemeActivity.class));
-                    Toast.makeText(getApplicationContext(),"로그인 안되있음 처음은"+preferenceManger.getFirstStart(),Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),"로그인 안되있음 처음은"+preferenceManger.getFirstStart(),Toast.LENGTH_LONG).show();
                     VersoinChecker checker = new VersoinChecker(self);
                     checker.check();
-                    //SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
                 }
             }
         }

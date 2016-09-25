@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="79dp"
     android:id="@+id/item_container"
+    android:background="@drawable/town_list_item_animatebg"
     >
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -87,5 +88,6 @@
         android:layout_height="1px"
         android:background="@color/cardview_dark_background"
         android:id="@+id/item_divider"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

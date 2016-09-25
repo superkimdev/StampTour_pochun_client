@@ -1,8 +1,16 @@
 package com.thatzit.kjw.stamptour_kyj_client.main.adapter;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,9 +19,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.checker.VersoinChecker;
+import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
 
 import java.io.File;
@@ -28,6 +39,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     OnItemClickListener clickListener;
     OnItemLongClickListener longClickListener;
     private final String TAG ="MainRecyclerAdapter";
+    private ObjectAnimator currentAnimation;
+    public TransitionDrawable background;
+    public Handler handler;
     public MainRecyclerAdapter(Context context) {
         this.context = context;
 
@@ -72,6 +86,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((NormalViewHolder)viewHolder).name_text_view.setText(mListData.get(position).getName());
             ((NormalViewHolder)viewHolder).distance_text_view.setText(mListData.get(position).getDistance());
             ((NormalViewHolder)viewHolder).region_text_view.setText(mListData.get(position).getRegion());
+
+            ((NormalViewHolder)viewHolder).item_container.setBackground(context.getDrawable(R.drawable.town_list_item_animatebg));
             String dirPath = sdcard+"/StampTour_kyj/contents/contents/town"+no+"_1.png";
             Log.e("ListAdapter",dirPath);
             File img = new File(dirPath);
@@ -83,15 +99,37 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ((NormalViewHolder)viewHolder).stamp_checked_imgview.setVisibility(View.VISIBLE);
             }
             if(mListData.get(position).isStamp_on()){
-                if(!mListData.get(position).getStamp_checked().equals("")){
-                    ((NormalViewHolder)viewHolder).item_container.setBackground(
-                            context.getResources().getDrawable(R.drawable.town_list_item_bg));
+                if(mListData.get(position).getStamp_checked().equals("")){
+                    background = (TransitionDrawable) ((NormalViewHolder)viewHolder).item_container.getBackground();
+                    Handler hd = new Handler();
+                    if(handler!=null)handler.removeMessages(0);
+                    handler = new Handler()
+                    {
+                        public void handleMessage(Message msg)
+                        {
+                            super.handleMessage(msg);
+
+                            // 할일들을 여기에 등록
+                            background.startTransition(1000);
+                            background.reverseTransition(1000);
+                            this.sendEmptyMessageDelayed(0, 2000);        // REPEAT_DELAY 간격으로 계속해서 반복하게 만들어준다
+                        }
+                    };
+                    handler.sendEmptyMessage(0);
                 }
             }
         }
 
     }
 
+
+    private class splashhandler implements Runnable{
+        public void run() {
+
+            background.startTransition(1000);
+            background.reverseTransition(1000);
+        }
+    }
     @Override
     public int getItemCount() {
             return mListData == null ? 0 : mListData.size();

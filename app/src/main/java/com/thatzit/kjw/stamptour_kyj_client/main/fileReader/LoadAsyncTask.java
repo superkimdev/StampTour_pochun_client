@@ -10,7 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
+import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
+import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
+import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.main.TempTownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
@@ -20,10 +27,16 @@ import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.event.LocationEvent;
 import com.thatzit.kjw.stamptour_kyj_client.util.ChangeDistanceDoubleToStringUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by kjw on 16. 8. 25..
@@ -55,7 +68,8 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private String zosa;
     private String last_string;
     private PreferenceManager preferenceManager;
-
+    private String current_req_url;
+    private String accesstoken;
     public LoadAsyncTask(TextView firstline_text_view, TextView secondline_cnt_text_view, TextView secondline_nextcnt_text_view, TextView sort_mode_textview, ArrayList<TempTownDTO> userTownInfo_arr, int sort_mode, LocationEvent locationEvent, MainRecyclerAdapter madapter, Context context) {
         this.context = context;
         this.madapter = madapter;
@@ -66,6 +80,7 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
         this.firstline_text_view = firstline_text_view;
         this.secondline_cnt_text_view = secondline_cnt_text_view;
         this.secondline_nextcnt_text_view = secondline_nextcnt_text_view;
+        this.current_req_url = StampRestClient.BASE_URL+context.getString(R.string.req_url_current_stamp);
         readJson = new ReadJson(context);
         preferenceManager = new PreferenceManager(context);
         sorted_array = new ArrayList<TownDTO>();
@@ -82,16 +97,17 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         list = readJson.ReadFile();
         nick = preferenceManager.getLoggedIn_Info().getNick();
-        grade = "성골";
-        zosa = "님은";
-        last_string = "등급입니다.";
+        accesstoken = preferenceManager.getLoggedIn_Info().getAccesstoken();
+//        grade = "성골";
+//        zosa = "님은";
+//        last_string = "등급입니다.";
+//        current_request();
         if(locationEvent == null){
             for(int i=0 ;i<list.size();i++){
                 TownJson data = list.get(i);
                 TempTownDTO tempTownDTO= userTownInfo_arr.get(i);
-                String region = "광산구";
-                if(i%2 == 0)region = "북구";
-                if(i%3 == 0)region = "남구";
+                String region = "";
+
                 sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),false));
             }
             sort_by_mode();
@@ -100,14 +116,14 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
             for(int i=0 ;i<list.size();i++){
                 TownJson data = list.get(i);
                 TempTownDTO tempTownDTO= userTownInfo_arr.get(i);
-                String region = "광산구";
-                if(i%2 == 0)region = "북구";
-                if(i%3 == 0)region = "남구";
+                String region = "";
+
                 distance = calculate_Distance(i);
                 if(distance <= Float.parseFloat(list.get(i).getRange())){
                     Log.e(TAG,"STAMPON"+list.get(i).getName());
                     sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),true));
                 }else{
+
                     Log.e(TAG,"STAMPOFF"+list.get(i).getName());
                     sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),false));
                 }
@@ -153,9 +169,9 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
         for(int i=0 ;i<sorted_array.size();i++){
             madapter.additem(sorted_array.get(i));
         }
-        String space = " ";
-        String firstline = nick+zosa+space+grade+space+last_string;
-        firstline_text_view.setText(firstline);
+//        String space = " ";
+//        String firstline = nick+zosa+space+grade+space+last_string;
+//        firstline_text_view.setText(firstline);
         sort_mode_textview.setText(mode_title+sorted_array.size());
         madapter.notifyDataSetChanged();
     }

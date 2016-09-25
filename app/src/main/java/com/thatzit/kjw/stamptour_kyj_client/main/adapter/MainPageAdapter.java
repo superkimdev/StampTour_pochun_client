@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.thatzit.kjw.stamptour_kyj_client.main.MainFragment;
 import com.thatzit.kjw.stamptour_kyj_client.main.MapFragment;
-import com.thatzit.kjw.stamptour_kyj_client.main.TabFragment3;
+import com.thatzit.kjw.stamptour_kyj_client.main.RankingFragment;
 import com.thatzit.kjw.stamptour_kyj_client.main.MoreFragment;
 
 public class MainPageAdapter extends FragmentStatePagerAdapter {
@@ -31,7 +31,7 @@ public class MainPageAdapter extends FragmentStatePagerAdapter {
                 MapFragment tab2 = new MapFragment();
                 return tab2;
             case 2:
-                TabFragment3 tab3 = new TabFragment3();
+                RankingFragment tab3 = new RankingFragment();
                 return tab3;
             case 3:
                 MoreFragment tab4 = new MoreFragment();

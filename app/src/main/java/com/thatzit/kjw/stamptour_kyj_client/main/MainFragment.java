@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
@@ -72,6 +73,8 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
     private int sort_mode;
     private int setting_flag = 0;
+    private String current_req_url;
+    private String accesstoken;
     private View progressbar;
     private PreferenceManager preferenceManager;
     private ProgressWaitDaialog progressWaitDaialog;
@@ -79,6 +82,10 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private boolean req_flag;
     private ArrayList<TempTownDTO> UserTownInfo_arr;
     private ImageView header;
+    private String nick;
+    private String grade;
+    private String zosa;
+    private String last_string;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -127,10 +134,68 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         UsableStorageChecker usableStorageChecker = new UsableStorageChecker();
         ExternalMemoryDTO check_result = usableStorageChecker.check_ext_memory();
         Log.d(TAG,check_result.toString());
+
+        current_request();
         sort_load_before_check();
 
     }
+    private void current_request() {
+        RequestParams requestParams = new RequestParams();
+        current_req_url = MyApplication.getContext().getString(R.string.req_url_current_stamp);
+        nick = preferenceManager.getLoggedIn_Info().getNick();
+        accesstoken = preferenceManager.getLoggedIn_Info().getAccesstoken();
+        zosa = "님은";
+        last_string = "등급입니다.";
+        requestParams.put(ResponseKey.NICK.getKey(),nick);
+        requestParams.put(ResponseKey.TOKEN.getKey(),accesstoken);
+        StampRestClient.post(current_req_url,requestParams,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
 
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                String code = null;
+                String msg = null;
+                Log.e("this request","come");
+                try {
+                    Log.e("this request","try");
+                    code = response.getString(ResponseKey.CODE.getKey());
+                    msg = response.getString(ResponseKey.MESSAGE.getKey());
+                    if(code.equals(ResponseCode.SUCCESS.getCode())&&msg.equals(ResponseMsg.SUCCESS.getMessage())){
+                        Log.e("this request","parse");
+                        JSONObject resultData = response.getJSONObject(ResponseKey.RESULTDATA.getKey());
+                        int res_next_stamp_count = resultData.getInt("next_stamp_count");
+                        int res_stamp_count = resultData.getInt("stamp_count");
+                        String res_grade = resultData.getString("grade");
+                        String res_nick = resultData.getString("nick");
+                        nick = res_nick;
+                        grade = res_grade;
+                        String space = " ";
+                        String firstline = nick+zosa+space+grade+space+last_string;
+                        firstline_text_view.setText(firstline);
+                        secondline_cnt_text_view.setText(res_stamp_count+"");
+                        secondline_nextcnt_text_view.setText(res_next_stamp_count+"");
+                        Log.e("this request","nick : "+res_nick+"\ngrade : "+res_grade+"\ncur_stamp : "+
+                                res_stamp_count+"\nnext_stamp : "+res_next_stamp_count);
+
+                    }else{
+                        Log.e("this request else",code+":"+msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("this request","exception");
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+    }
 
     private void request_TownUserInfo() {
         user = preferenceManager.getLoggedIn_Info();
@@ -170,6 +235,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                         UserTownInfo_arr = make_TownDataList(resultData);
                         Log.e(TAG,"town_code : "+data.getString("TOWN_CODE")+"\nCheckTime : "+data.getString("CheckTime")+"\nRange : "+data.getString("valid_range"));
                         req_flag = true;
+                        current_request();
                         sort_load_before_check();
                     }else{
                         Log.e(TAG,code+":"+msg);
@@ -200,8 +266,6 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
     private void popUpShow() {
 
-
-
         //normal popup
         PopupMenu popup = new PopupMenu(getActivity(), sort_btn);
         MenuInflater inflater = popup.getMenuInflater();
@@ -209,8 +273,6 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         inflater.inflate(R.menu.menu_main, popup.getMenu());
         popup.show();
 
-        //custom popup
-        //custom_PopUpShow();
     }
 
     private void custom_PopUpShow() {
@@ -262,6 +324,52 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     @Override
     public void onItemLongClick(View view, int position) {
         Log.e("RecycleitemLongClick","position = "+position);
+        TownDTO data = mainRecyclerAdapter.getmListData(position);
+        if(currentLocation==null)return;
+        if(data.isStamp_on()){
+            String req_stamp_check = getString(R.string.req_url_stamp_check);
+            RequestParams params = new RequestParams();
+            params.put(ResponseKey.NICK.getKey(),nick);
+            params.put(ResponseKey.TOKEN.getKey(),accesstoken);
+            params.put("town_code",data.getNo());
+            params.put("latitude",currentLocation.getLocation().getLatitude());
+            params.put("longitude",currentLocation.getLocation().getLongitude());
+            StampRestClient.post(req_stamp_check,params,new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    String code = null;
+                    String msg = null;
+
+                    try {
+                        code = response.getString(ResponseKey.CODE.getKey());
+                        msg = response.getString(ResponseKey.MESSAGE.getKey());
+                        if(code.equals(ResponseCode.SUCCESS.getCode())&&msg.equals(ResponseMsg.SUCCESS.getMessage())){
+                            JSONObject resultData = response.getJSONObject(ResponseKey.RESULTDATA.getKey());
+                            int res_town_code = resultData.getInt("TOWN_CODE");
+                            if(res_town_code == -1){
+                                Toast.makeText(getActivity(),"이미 찍으셨습니다",Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            String res_nick = resultData.getString("Nick");
+                            String res_time = resultData.getString("CheckTime");
+
+                            Log.e("STAMP_CHECK_REQ","nick : "+res_nick+"|town : "+res_town_code+"|time : "+res_time);
+                            request_TownUserInfo();
+
+                        }else{
+                            Log.e(TAG,code+":"+msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+                }
+            });
+        }
         //스탬프 찍은후 뷰 업데이팅 할 때 호출해야함
         //request_TownUserInfo();
     }

@@ -11,6 +11,7 @@ import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.splash.SplashActivity;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -83,11 +84,18 @@ public class Decompress extends AsyncTask<Void, Void, Void> {
                     _dirChecker(ze.getName());
                 } else {
                     FileOutputStream fout = new FileOutputStream(_location + ze.getName());
-                    for (int c = zin.read(); c != -1; c = zin.read()) {
-                        fout.write(c);
+                    BufferedOutputStream bufout = new BufferedOutputStream(fout);
+                    byte[] buffer = new byte[1024];
+                    int read = 0;
+//                    for (int c = zin.read(); c != -1; c = zin.read()) {
+//                        fout.write(c);
+//                    }
+                    while ((read = zin.read(buffer)) != -1) {
+                        bufout.write(buffer, 0, read);
                     }
 
                     zin.closeEntry();
+                    bufout.close();
                     fout.close();
                 }
 

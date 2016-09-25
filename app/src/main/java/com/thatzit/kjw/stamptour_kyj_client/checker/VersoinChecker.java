@@ -22,6 +22,7 @@ import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.splash.SplashActivity;
 import com.thatzit.kjw.stamptour_kyj_client.util.Decompress;
+import com.thatzit.kjw.stamptour_kyj_client.util.MyApplication;
 
 import org.json.JSONArray;
 import org.json.JSONException;

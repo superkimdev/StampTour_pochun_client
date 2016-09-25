@@ -50,6 +50,7 @@ public class ProgressAsyncTask extends AsyncTask<Void,Integer,Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         dlg.setProgress(0);
+        dlg.setMax(100);
         dlg.setMessage("필요한 컨텐츠 다운로드중...");
         dlg.setCancelable(false);
         dlg.show();
@@ -131,7 +132,6 @@ public class ProgressAsyncTask extends AsyncTask<Void,Integer,Void> {
 
             @Override
             public void onProgress(long bytesWritten, long totalSize) {
-                super.onProgress(bytesWritten, totalSize);
                 value = (int) (bytesWritten*100/filesize);
                 Log.e("DownLoad value",value+"");
                 publishProgress(value);
