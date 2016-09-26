@@ -98,10 +98,6 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
         list = readJson.ReadFile();
         nick = preferenceManager.getLoggedIn_Info().getNick();
         accesstoken = preferenceManager.getLoggedIn_Info().getAccesstoken();
-//        grade = "성골";
-//        zosa = "님은";
-//        last_string = "등급입니다.";
-//        current_request();
         if(locationEvent == null){
             for(int i=0 ;i<list.size();i++){
                 TownJson data = list.get(i);
