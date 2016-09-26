@@ -87,9 +87,6 @@ public class Decompress extends AsyncTask<Void, Void, Void> {
                     BufferedOutputStream bufout = new BufferedOutputStream(fout);
                     byte[] buffer = new byte[1024];
                     int read = 0;
-//                    for (int c = zin.read(); c != -1; c = zin.read()) {
-//                        fout.write(c);
-//                    }
                     while ((read = zin.read(buffer)) != -1) {
                         bufout.write(buffer, 0, read);
                     }
