@@ -3,8 +3,10 @@ package com.thatzit.kjw.stamptour_kyj_client.main;
 /**
  * Created by kjw on 16. 8. 22..
  */
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
     private RelativeLayout research_view_container;
     private RelativeLayout logout_view_container;
     private PreferenceManager preferenceManager;
+    private final int MOREREQUESTNO = 1000;
+    private final String TAG = "MoreFragment";
     private User user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +60,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
         switch (v.getId()){
             case R.id.account_view_container:
                 Toast.makeText(getContext(),getResources().getString(R.string.account_view_container),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(),MyinfoActivity.class);
+                startActivityForResult(intent,MOREREQUESTNO);
                 break;
             case R.id.hidemanage_view_container:
                 Toast.makeText(getContext(),getResources().getString(R.string.hidemanage_view_container),Toast.LENGTH_LONG).show();
@@ -97,5 +103,11 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
         }else if(loggedincase.equals(LoggedInCase.KAKAOLogin.getLogin_case())){
             Toast.makeText(getContext(),LoggedInCase.KAKAOLogin.getLogin_case()+temp,Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(TAG,"RequestCode : "+requestCode+"\nResultCode : "+resultCode);
+
     }
 }

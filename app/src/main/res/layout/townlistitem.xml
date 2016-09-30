@@ -12,7 +12,7 @@
         android:layout_height="65dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="16dp"
         />
     <RelativeLayout
         android:layout_width="65dp"
@@ -62,22 +62,26 @@
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_above="@id/textdivider"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
             android:id="@+id/town_name_view"
             android:textColor="@color/stamp_list_item_text_color_off"
             android:textStyle="normal"
             android:textSize="@dimen/stamp_list_item_text_name_dimen"
             android:text="@string/main_list_item_name"
+            android:maxLines="2"
+            android:ellipsize="marquee"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textdivider"
+            android:layout_below="@id/town_name_view"
+            android:layout_marginTop="1dp"
             android:id="@+id/town_region_view"
-            android:textColor="@color/stamp_list_item_text_color_off"
+            android:textColor="@color/stamp_list_item_text_color_alpha_off"
             android:textStyle="normal"
             android:textSize="@dimen/stamp_list_item_text_region_dimen"
             android:text="@string/main_list_item_region"

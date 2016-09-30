@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -103,6 +104,12 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 TownJson data = list.get(i);
                 TempTownDTO tempTownDTO= userTownInfo_arr.get(i);
                 String region = "";
+                if(data.getRegion().equals("0")){
+                    region = "";
+                }else{
+                    region = data.getRegion();
+                }
+
 
                 sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),false));
             }
@@ -113,7 +120,11 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 TownJson data = list.get(i);
                 TempTownDTO tempTownDTO= userTownInfo_arr.get(i);
                 String region = "";
-
+                if(data.getRegion().equals("0")){
+                    region = "";
+                }else{
+                    region = data.getRegion();
+                }
                 distance = calculate_Distance(i);
                 if(distance <= Float.parseFloat(list.get(i).getRange())){
                     Log.e(TAG,"STAMPON"+list.get(i).getName());
@@ -169,6 +180,7 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
 //        String firstline = nick+zosa+space+grade+space+last_string;
 //        firstline_text_view.setText(firstline);
         sort_mode_textview.setText(mode_title+sorted_array.size());
+        sort_mode_textview.setGravity(Gravity.CENTER);
         madapter.notifyDataSetChanged();
     }
 

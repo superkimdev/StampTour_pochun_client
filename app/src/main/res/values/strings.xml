@@ -67,5 +67,20 @@
     <string name="mode_title1">이름별</string>
     <string name="mode_title2">권역별</string>
     <string name="share_button_text">공유</string>
+    <string name="password_setting_string">비밀번호는 6~16자 영문 소문자, 숫자를 조합하여 설정해주세요.</string>
+    <string name="social_account_text">소셜계정 입니다</string>
+    <string name="password_confirm_string">비밀번호 확인</string>
+    <string name="password_string">소셜계정 입니다</string>
+    <string name="password_change_confirm_string">변경할 비밀번호 재확인</string>
+    <string name="password_change_input_string">변경할 비밀번호 입력</string>
+    <string name="nick_string">별명</string>
+    <string name="default_nick_string">홍길동</string>
+    <string name="email_account_string">이메일 계정</string>
+    <string name="alert_remove_account_text">계정을 삭제하면 회원정보, 스탬프, 게시글, 상품 신청도 영구적으로 삭제됩니다. 신중하게 선택해 주세요.</string>
+    <string name="comm_toolbar_title">계정관리</string>
+    <string name="login_toolbar_title">로그인</string>
+    <string name="hint_eamil_input">이메일을 입력하세요</string>
+    <string name="hint_password_input">비밀번호를 입력하세요</string>
+    <string name="rank_toolbar_title">랭킹</string>
 
 </resources>

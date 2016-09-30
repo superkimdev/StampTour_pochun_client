@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-
-    <TextView
-        android:id="@+id/textView"
+    <include
+        layout="@layout/include_rank_toolbar"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rank_scrollable_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="랭킹"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:background="@color/common_bg_color2"
+        android:layout_marginBottom="72dp"
+        />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -52,4 +52,8 @@
     <color name="image_description_contents_text_color">#000000</color>
     <color name="image_indicator_selected_color">#00CCCC</color>
     <color name="common_line_color">#ceced2</color>
+    <color name="effect_myinfo_account_delete_common">#FE3F35</color>
+    <color name="stamp_list_item_text_color_alpha_off">#99000000</color>
+    <color name="stamp_list_item_text_color_alpha_on">#99ffffff</color>
+    <color name="text_dark_common">#818181</color>
 </resources>

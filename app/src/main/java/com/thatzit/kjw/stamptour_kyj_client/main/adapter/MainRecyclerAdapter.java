@@ -83,11 +83,16 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Log.e(TAG,position+":"+mListData.get(position).getName());
             Log.e(TAG,position+":"+mListData.get(position).getRegion());
             Log.e(TAG,position+":"+mListData.get(position).getDistance());
+            ((NormalViewHolder)viewHolder).name_text_view.setText("");
+            ((NormalViewHolder)viewHolder).distance_text_view.setText("");
+            ((NormalViewHolder)viewHolder).region_text_view.setText("");
             ((NormalViewHolder)viewHolder).name_text_view.setText(mListData.get(position).getName());
             ((NormalViewHolder)viewHolder).distance_text_view.setText(mListData.get(position).getDistance());
             ((NormalViewHolder)viewHolder).region_text_view.setText(mListData.get(position).getRegion());
-
+            //animation and imgview 잔상 초기화
+            ((NormalViewHolder)viewHolder).stamp_checked_imgview.setVisibility(View.INVISIBLE);
             ((NormalViewHolder)viewHolder).item_container.setBackground(context.getDrawable(R.drawable.town_list_item_animatebg));
+
             String dirPath = sdcard+"/StampTour_kyj/contents/contents/town"+no+"_1.png";
             Log.e("ListAdapter",dirPath);
             File img = new File(dirPath);
@@ -100,6 +105,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
             if(mListData.get(position).isStamp_on()){
                 if(mListData.get(position).getStamp_checked().equals("")){
+                    ((NormalViewHolder)viewHolder).region_text_view.setTextColor(context.getColor(R.color.stamp_list_item_text_color_alpha_on));
                     background = (TransitionDrawable) ((NormalViewHolder)viewHolder).item_container.getBackground();
                     Handler hd = new Handler();
                     if(handler!=null)handler.removeMessages(0);

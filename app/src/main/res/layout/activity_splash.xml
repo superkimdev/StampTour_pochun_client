@@ -5,12 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/common_bg_color1"
     tools:context="com.thatzit.kjw.stamptour_kyj_client.splash.SplashActivity">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardview_dark_background"
-        android:fillViewport="true"
-        android:scrollbarStyle="outsideOverlay">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -20,7 +15,7 @@
                 android:layout_width="@dimen/logo_horizontal_size"
                 android:layout_height="@dimen/logo_vertical_size"
                 android:layout_marginTop="@dimen/logo_top_margin"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
                 android:background="@drawable/img_splash_logo"
                 android:id="@+id/splashAnimation"
                 android:scaleType="fitCenter"
@@ -43,8 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_above="@id/logo_subtitle"
-                android:layout_marginBottom="10dp"
-                android:text="©2016.Pocheon"
+                android:layout_marginBottom="5dp"
+                android:text="©2016.POCHEON"
                 android:textStyle="bold"
                 android:textSize="12sp"
                 android:textColor="#303030"
@@ -52,5 +47,4 @@
                 android:id="@+id/logo_title"
                 />
         </RelativeLayout>
-    </ScrollView>
 </RelativeLayout>

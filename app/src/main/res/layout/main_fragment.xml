@@ -7,15 +7,14 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="24dp"
         android:fitsSystemWindows="true"
         >
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:fitsSystemWindows="true"
             app:contentScrim="#f6f6f6"
             app:expandedTitleMarginEnd="64dp"
@@ -42,14 +41,26 @@
                 android:id="@+id/anim_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:contentInsetLeft="0dp"
+                android:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                >
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+
+                    >
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="16dp"
+                        android:layout_height="18sp"
+                        android:layout_marginLeft="16dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:id="@+id/hide_btn"
@@ -58,15 +69,17 @@
                         android:textColor="#000"/>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="16dp"
+                        android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:id="@+id/sort_mode_textview"
                         android:text="@string/main_toolbar_title"
-                        android:textSize="14sp"
-                        android:textColor="#000"/>
+                        android:textSize="18sp"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="16dp"
+                        android:layout_height="18sp"
                         android:layout_marginRight="16dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
@@ -97,8 +110,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/common_bg_color2"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="72dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
         <ProgressBar
             android:id="@+id/list_progressbar"
             style="?android:attr/progressBarStyleLarge"

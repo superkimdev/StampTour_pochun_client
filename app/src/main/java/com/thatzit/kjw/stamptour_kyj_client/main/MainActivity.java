@@ -200,19 +200,19 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     }
     private void setTabIcon(TabLayout tabLayout) {
         View view1 = getLayoutInflater().inflate(R.layout.tabiconview, null);
-        view1.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_stamp_on);
+        view1.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_stamp);
         tabLayout.addTab(tabLayout.newTab().setCustomView(view1));
 
         View view2 = getLayoutInflater().inflate(R.layout.tabiconview, null);
-        view2.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_map_on);
+        view2.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_map);
         tabLayout.addTab(tabLayout.newTab().setCustomView(view2));
 
         View view3 = getLayoutInflater().inflate(R.layout.tabiconview, null);
-        view3.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_ranking_on);
+        view3.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_ranking);
         tabLayout.addTab(tabLayout.newTab().setCustomView(view3));
 
         View view4 = getLayoutInflater().inflate(R.layout.tabiconview, null);
-        view4.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_more_on);
+        view4.findViewById(R.id.icon).setBackgroundResource(R.drawable.btn_tabs_more);
         tabLayout.addTab(tabLayout.newTab().setCustomView(view4));
     }
 

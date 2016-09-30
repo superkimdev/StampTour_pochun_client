@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="56dp"
         android:id="@+id/firstline_container">
     <TextView
         android:id="@+id/firstline_text_view"
@@ -15,16 +15,18 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:text="@string/grade_default_text"
-        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:textSize="14sp"
         android:textColor="#818181"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_toRightOf="@id/firstline_text_view"
         android:layout_centerVertical="true"
-        android:gravity="end"
+        android:gravity="end|center_vertical"
+        android:textAlignment="textEnd"
         android:layout_marginRight="16dp"
         android:id="@+id/share_button"
         android:text="@string/share_button_text"
@@ -36,55 +38,64 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#9a9a9a"
+        android:orientation="vertical"
         android:layout_below="@id/firstline_container"
         android:id="@+id/firstline_text_view_divider">
     </LinearLayout>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
+        android:layout_height="104dp"
         android:layout_below="@id/firstline_text_view_divider"
         >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:id="@+id/current_stamp_container">
+            <LinearLayout
+                android:layout_width="1px"
+                android:layout_height="42dp"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:background="#9a9a9a"
+                android:id="@+id/vertical_guide_line">
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_centerInParent="true"
+                android:id="@+id/horizontal_guide_line"></LinearLayout>
             <TextView
                 android:id="@+id/secondline_cnt_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_toLeftOf="@id/vertical_guide_line"
+                android:layout_above="@id/horizontal_guide_line"
                 android:text="12"
                 android:textSize="21sp"
                 android:textStyle="bold"
                 android:textColor="@color/toolbar_cnt_text_color"
                 android:textAlignment="center"
                 />
+
             <TextView
                 android:id="@+id/secondline_text_view"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/vertical_guide_line"
+                android:layout_below="@id/horizontal_guide_line"
                 android:text="@string/main_header_secondview_text"
                 android:textStyle="normal"
                 android:textSize="13sp"
                 android:textColor="@color/toolbar_second_text_color"
                 android:textAlignment="center"
                 />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/secondline_nextcnt_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_toRightOf="@id/vertical_guide_line"
+                android:layout_above="@id/horizontal_guide_line"
                 android:text="03"
                 android:textSize="21sp"
                 android:textStyle="bold"
@@ -94,18 +105,23 @@
             <TextView
                 android:id="@+id/secondline_nexttext_view"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/vertical_guide_line"
+                android:layout_below="@id/horizontal_guide_line"
                 android:text="@string/main_header_secondview_next_text"
                 android:textStyle="normal"
                 android:textSize="13sp"
                 android:textColor="@color/toolbar_second_text_color"
                 android:textAlignment="center"
                 />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#ceced2"
+            android:layout_alignParentBottom="true">
         </LinearLayout>
-
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>
