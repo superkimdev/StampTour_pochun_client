@@ -90,4 +90,5 @@ public class SplashActivity extends Activity {
         }
         super.onDestroy();
     }
+    //테스트
 }
