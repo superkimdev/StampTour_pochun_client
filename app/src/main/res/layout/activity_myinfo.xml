@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#eeeeee"
+        android:background="#f6f6f6f6"
         android:orientation="vertical">
         <include layout="@layout/include_comm_toolbar"/>
         <TextView
@@ -16,15 +16,174 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_marginLeft="16dp"
-            android:text="계정정보"
+            android:text="@string/account_sub_title"
             android:textSize="13sp"
             android:textStyle="normal"
-            android:textColor="#666666"
+            android:textColor="#000000"
             />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/unfocused_edit"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/email_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical"
+                    android:background="@null"
+                    android:maxLines="1"
+                    android:paddingLeft="16dp"
+                    android:text="@string/email"
+                    android:textColor="@color/emailInput"
+                    android:textColorHint="@color/account_accountmanage_password_input_hint_color"
+                    android:textSize="17sp" />
+                <TextView
+                    android:id="@+id/email_contents"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical|end"
+                    android:background="@null"
+                    android:maxLines="1"
+                    android:paddingEnd="16dp"
+                    android:text="@string/dummy_email"
+                    android:textColor="@color/emailInput"
+                    android:textAlignment="viewEnd"
+                    android:textColorHint="@color/account_accountmanage_password_input_hint_color"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ceced2"></LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/nick_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical"
+                    android:background="@null"
+                    android:maxLines="1"
+                    android:paddingLeft="16dp"
+                    android:text="@string/nick"
+                    android:textColor="@color/emailInput"
+                    android:textColorHint="@color/account_accountmanage_password_input_hint_color"
+                    android:textSize="17sp" />
+                <TextView
+                    android:id="@+id/nick_contents"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical|end"
+                    android:background="@null"
+                    android:maxLines="1"
+                    android:paddingEnd="16dp"
+                    android:text="@string/dummy_nick"
+                    android:textColor="@color/emailInput"
+                    android:textAlignment="viewEnd"
+                    android:textColorHint="@color/account_accountmanage_password_input_hint_color"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/password_change"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            android:textColor="#000000"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/unfocused_edit"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:hint="@string/hint_password_input"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:textColor="@color/emailInput"
+                android:textColorHint="@color/account_accountmanage_password_input_hint_color"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ceced2"></LinearLayout>
+            <EditText
+                android:id="@+id/password_input_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:hint="@string/hint_password_input_reword"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:textColor="@color/pwInput"
+                android:textColorHint="@color/account_accountmanage_password_input_hint_color"
+                android:textSize="17sp" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/password_guide_text"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            android:textColor="#000000"
+            />
+
+        <Button
+            android:text="@string/account_manage_delete"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:id="@+id/account_delete"
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:background="@drawable/background_border_search"
+            android:backgroundTint="#fe3f35"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/account_manage_delete_guide"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            android:textColor="#000000"
+            />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

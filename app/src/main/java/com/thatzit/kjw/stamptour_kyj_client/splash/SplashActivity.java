@@ -26,6 +26,7 @@ public class SplashActivity extends Activity {
     private ImageView splashAnimation;
     private Activity self;
     private Context myApplication= MyApplication.getContext();
+    VersoinChecker checker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class SplashActivity extends Activity {
                     SplashActivity.this.finish();
                 }else{
 //                    Toast.makeText(getApplicationContext(),"로그인 안되있음 처음은"+preferenceManger.getFirstStart(),Toast.LENGTH_LONG).show();
-                    VersoinChecker checker = new VersoinChecker(self);
+                    checker = new VersoinChecker(self);
                     checker.check();
                 }
             }
@@ -80,5 +81,13 @@ public class SplashActivity extends Activity {
         }else{
             dlg.dismiss();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (checker.dlg!=null){
+            checker.dlg.dismiss();
+        }
+        super.onDestroy();
     }
 }

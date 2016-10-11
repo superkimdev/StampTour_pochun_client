@@ -32,6 +32,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
     private RelativeLayout logout_view_container;
     private PreferenceManager preferenceManager;
     private final int MOREREQUESTNO = 1000;
+    private final int USERINFOCHANGED = 1001;
     private final String TAG = "MoreFragment";
     private User user;
     @Override
@@ -53,6 +54,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
         present_view_container.setOnClickListener(this);
         research_view_container.setOnClickListener(this);
         logout_view_container.setOnClickListener(this);
+
     }
 
     @Override
@@ -61,7 +63,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
             case R.id.account_view_container:
                 Toast.makeText(getContext(),getResources().getString(R.string.account_view_container),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),MyinfoActivity.class);
-                startActivityForResult(intent,MOREREQUESTNO);
+                getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
             case R.id.hidemanage_view_container:
                 Toast.makeText(getContext(),getResources().getString(R.string.hidemanage_view_container),Toast.LENGTH_LONG).show();
@@ -105,9 +107,5 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e(TAG,"RequestCode : "+requestCode+"\nResultCode : "+resultCode);
 
-    }
 }

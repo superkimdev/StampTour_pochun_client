@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     private MainPageAdapter adapter;
     private TabLayout tabLayout;
 
+    private final int USERINFOCHANGED = 1001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -303,6 +304,7 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
+
         if(mBound == true && mService != null)
         {
             mService.setOnGpsStateEventListener(null);
@@ -322,5 +324,14 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     }
     public void setParentGpsStateListener(ParentGpsStateListener listener){
         this.parentGpsStateListener = listener;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(TAG,"RequestCode : "+requestCode+"\nResultCode : "+resultCode);
+        if(resultCode == USERINFOCHANGED)
+        {
+            Log.e(TAG,"USERINFOCHANGED");
+            finish();
+        }
     }
 }

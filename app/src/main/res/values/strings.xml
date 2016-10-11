@@ -37,6 +37,7 @@
     <string name="req_url_user_rank">user/rank</string>
     <string name="req_url_user_remove">user/remove</string>
     <string name="req_url_stamp_check">stamp/check</string>
+    <string name="req_url_password_chnage">user/change/password</string>
     <!-- TextView Text -->
     <string name="account_view_container">계정관리</string>
     <string name="hidemanage_view_container">숨김관리</string>
@@ -82,5 +83,18 @@
     <string name="hint_eamil_input">이메일을 입력하세요</string>
     <string name="hint_password_input">비밀번호를 입력하세요</string>
     <string name="rank_toolbar_title">랭킹</string>
+    <string name="account_sub_title">계정정보</string>
+    <string name="email">이메일</string>
+    <string name="dummy_email">abcd@naver.com</string>
+    <string name="nick">닉네임</string>
+    <string name="dummy_nick">홍길동</string>
+    <string name="password_change">비밀번호 변경</string>
+    <string name="hint_password_input_reword">비밀번호를 다시 입력하세요.</string>
+    <string name="password_guide_text">6~16자 영문 소문자 숫자를 조합하세요.</string>
+    <string name="account_manage_delete">계정 삭제</string>
+    <string name="account_manage_delete_guide">계정을 삭제하면 회원정보, 선물 신청 내역도 영구적으로\n삭제됩니다.</string>
+    <string name="server_not_good">통신상태가 좋지 않습니다.</string>
+    <string name="password_change_success">비밀번호 변경 성공</string>
+    <string name="remove_acoount_success">회원탈퇴 성공</string>
 
 </resources>
