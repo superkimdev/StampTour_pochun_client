@@ -4,16 +4,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <android.support.v7.widget.Toolbar
-        android:id="@+id/rank_toolbar"
+        android:id="@+id/more_toolbar_title"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#f6f6f6">
         <TextView
-            android:id="@+id/comm_toolbar_title_textview"
+            android:id="@+id/login_toolbar_title_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/rank_toolbar_title"
+            android:text="@string/more_toolbar_title"
             android:textStyle="bold"
             android:textColor="#313131"
             android:textSize="19sp" />
@@ -21,7 +21,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line312"
-        android:orientation="vertical"></LinearLayout>
+        android:background="@color/line312"></LinearLayout>
 
 </LinearLayout>

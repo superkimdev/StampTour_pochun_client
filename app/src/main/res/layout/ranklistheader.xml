@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:id="@+id/header_container"
+    android:background="@color/rankheader_bg"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:id="@+id/my_name_textview"
+        android:text="홍길동 님은 500명 중 "
+        android:textColor="@color/rank_no_textview_color"
+        android:textSize="14sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/my_name_textview"
+        android:layout_alignBaseline="@id/my_name_textview"
+        android:id="@+id/my_rank_textview"
+        android:text="20위"
+        android:textColor="@color/rank_no_textview_color"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/my_rank_textview"
+        android:layout_alignBaseline="@id/my_rank_textview"
+        android:id="@+id/rank_finish_textview"
+        android:text="입니다."
+        android:textColor="@color/rank_no_textview_color"
+        android:textSize="14sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/cardview_dark_background"
+        android:id="@+id/item_divider"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

@@ -2,4 +2,8 @@
 <resources>
     <color name="image_description_contents_text_color">#000000</color>
     <color name="account_accountmanage_password_input_hint_color">#9A9A9A</color>
+    <color name="rank_no_textview_color">#000000</color>
+    <color name="user_stamp_cnt_textview_color">#9a9a9a</color>
+    <color name="name_text_view">#000000</color>
+    <color name="rankheader_bg">#f2f2f2</color>
 </resources>

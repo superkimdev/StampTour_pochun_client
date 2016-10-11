@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:id="@+id/item_container"
+    android:background="@drawable/town_list_item_animatebg"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:id="@+id/rank_no_textview"
+        android:text="1."
+        android:textColor="@color/rank_no_textview_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rank_no_textview"
+        android:layout_alignBaseline="@id/rank_no_textview"
+        android:text="33ddd"
+        android:textSize="16sp"
+        android:textColor="@color/name_text_view"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/user_stamp_cnt_textview"
+        android:text="찍은 스탬프 40개"
+        android:textSize="12sp"
+        android:textColor="@color/user_stamp_cnt_textview_color"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/cardview_dark_background"
+        android:id="@+id/item_divider"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

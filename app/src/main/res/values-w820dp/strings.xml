@@ -13,4 +13,6 @@
     <string name="server_not_good">통신상태가 좋지 않습니다.</string>
     <string name="password_change_success">비밀번호 변경 성공</string>
     <string name="remove_acoount_success">회원탈퇴 성공</string>
+    <string name="more_toolbar_title">더보기</string>
+    <string name="map_toolbar_title">지도</string>
 </resources>

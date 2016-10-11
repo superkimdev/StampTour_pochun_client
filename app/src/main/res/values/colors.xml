@@ -57,4 +57,8 @@
     <color name="stamp_list_item_text_color_alpha_on">#99ffffff</color>
     <color name="text_dark_common">#818181</color>
     <color name="account_accountmanage_password_input_hint_color">#9A9A9A</color>
+    <color name="rank_no_textview_color">#00cccc</color>
+    <color name="user_stamp_cnt_textview_color">#9a9a9a</color>
+    <color name="name_text_view">#000000</color>
+    <color name="rankheader_bg">#f2f2f2</color>
 </resources>

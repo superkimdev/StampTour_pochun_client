@@ -7,7 +7,7 @@
         android:id="@+id/comm_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#ffffff">
+        android:background="#f6f6f6">
         <ImageButton
             android:layout_width="24dp"
             android:layout_height="24dp"

@@ -10,7 +10,15 @@ public enum ResponseKey {
     TOKEN("accesstoken"),
     DEVICETOKEN("devicetoken"),
     NICK("nick"),
-    PASSWORD("password");
+    NICKHIGH("Nick"),
+    PASSWORD("password"),
+    PAGE("pageno"),
+    ID("id"),
+    MYRANK("myrank"),
+    RANK("rank"),
+    MYSTAMPCOUNT("stamp_count"),
+    TOTAL("total"),
+    RANKLIST("ranklist");
     private String key;
 
     ResponseKey() {

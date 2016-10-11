@@ -7,7 +7,7 @@
         android:id="@+id/login_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#ffffff">
+        android:background="#f6f6f6">
         <TextView
             android:id="@+id/login_toolbar_title_textview"
             android:layout_width="wrap_content"

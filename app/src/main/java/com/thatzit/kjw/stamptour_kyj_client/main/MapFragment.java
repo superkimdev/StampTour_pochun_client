@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -33,18 +36,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
     private static final LatLng SYDNEY = new LatLng(-33.88,151.21);
     private static final LatLng MOUNTAIN_VIEW = new LatLng(37.4, -122.1);
     private Marker marker;
+    private static final String KEY_MAP_SAVED_STATE = "mapState";
+    private Toolbar toolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.map_fragment, container, false);
         MapSetting(savedInstanceState);
+
         return view;
     }
 
     private void MapSetting(Bundle savedInstanceState) {
         mMapView = (MapView) view.findViewById(R.id.mapView);
-        mMapView.onCreate(savedInstanceState);
 
+        Bundle mapState = (savedInstanceState != null)
+                ? savedInstanceState.getBundle(KEY_MAP_SAVED_STATE): null;
+        mMapView.onCreate(mapState);
+        //mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());

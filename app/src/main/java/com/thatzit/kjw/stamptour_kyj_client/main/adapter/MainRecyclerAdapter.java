@@ -65,7 +65,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.mListData.remove(position);
     }
     public void removelist(){
-        for(int i = mListData.size()-1 ;i>=0 ;i--)this.removeitem(i);
+       this.mListData.clear();
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {

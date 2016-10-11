@@ -72,7 +72,50 @@ public class MyinfoActivity extends AppCompatActivity implements View.OnClickLis
         comm_toolbar_home_close.setOnClickListener(this);
         comm_toolbar_home_confirm.setOnClickListener(this);
         account_delete.setOnClickListener(this);
+        request_User_Info();
+    }
 
+    private void request_User_Info() {
+        String path = RequestPath.req_url_user_info.getPath();
+        RequestParams params = new RequestParams();
+        params.put(ResponseKey.TOKEN.getKey(),preferenceManager.getLoggedIn_Info().getAccesstoken());
+        params.put(ResponseKey.NICK.getKey(),preferenceManager.getLoggedIn_Info().getNick());
+        progressWaitDaialog.show();
+        StampRestClient.post(path,params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                progressWaitDaialog.dismiss();
+                try {
+                    String res_code = response.getString(ResponseKey.CODE.getKey());
+                    String message = response.getString(ResponseKey.MESSAGE.getKey());
+                    Log.e(TAG,response.toString());
+                    if(res_code.equals(ResponseCode.SUCCESS.getCode())&&message.equals(ResponseMsg.SUCCESS.getMessage())){
+                        JSONObject resultData = response.getJSONObject(ResponseKey.RESULTDATA.getKey());
+                        String nick = resultData.getString(ResponseKey.NICKHIGH.getKey());
+                        String id = resultData.getString(ResponseKey.ID.getKey());
+                        nick_contents.setText(nick);
+                        email_contents.setText(id);
+                    }else if(res_code.equals(ResponseCode.NOTENOUGHDATA.getCode())
+                            &&message.equals(ResponseMsg.INVALIDACCESSTOKEN.getMessage())){
+                        preferenceManager.user_LoggedOut();
+                        Intent intent = new Intent(self, LoginActivity.class);
+                        self.setResult(USERINFOCHANGED);
+                        self.startActivity(intent);
+                        self.finish();
+                    }else{
+                        Toast.makeText(self,self.getResources().getString(R.string.server_not_good),Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                progressWaitDaialog.dismiss();
+                Toast.makeText(self,self.getResources().getString(R.string.server_not_good),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -80,7 +123,6 @@ public class MyinfoActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.comm_toolbar_home_close:
                 finish();
-                Toast.makeText(self,"닫기",Toast.LENGTH_LONG).show();
                 break;
             case R.id.comm_toolbar_home_confirm:
                 check_Password_validation();
@@ -116,6 +158,10 @@ public class MyinfoActivity extends AppCompatActivity implements View.OnClickLis
                     }else if(res_code.equals(ResponseCode.NOTENOUGHDATA.getCode())
                             &&message.equals(ResponseMsg.INVALIDACCESSTOKEN.getMessage())){
                         preferenceManager.user_LoggedOut();
+                        Intent intent = new Intent(self, LoginActivity.class);
+                        self.setResult(USERINFOCHANGED);
+                        self.startActivity(intent);
+                        self.finish();
                     }else{
                         Toast.makeText(self,self.getResources().getString(R.string.server_not_good),Toast.LENGTH_LONG).show();
                     }
@@ -172,6 +218,10 @@ public class MyinfoActivity extends AppCompatActivity implements View.OnClickLis
                     }else if(res_code.equals(ResponseCode.NOTENOUGHDATA.getCode())
                             &&message.equals(ResponseMsg.INVALIDACCESSTOKEN.getMessage())){
                         preferenceManager.user_LoggedOut();
+                        Intent intent = new Intent(self, LoginActivity.class);
+                        self.setResult(USERINFOCHANGED);
+                        self.startActivity(intent);
+                        self.finish();
                     }else{
                         Toast.makeText(self,self.getResources().getString(R.string.server_not_good),Toast.LENGTH_LONG).show();
                     }
