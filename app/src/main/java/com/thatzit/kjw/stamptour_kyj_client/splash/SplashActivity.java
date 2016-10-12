@@ -85,8 +85,10 @@ public class SplashActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        if (checker.dlg!=null){
-            checker.dlg.dismiss();
+        if (checker!=null){
+            if(checker.dlg!=null){
+                checker.dlg.dismiss();
+            }
         }
         super.onDestroy();
     }
