@@ -15,6 +15,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.hide.HideStatus;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
@@ -53,6 +54,7 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private ArrayList<TownJson> list;
     private ArrayList<TownDTO> sorted_array;
     private ArrayList<TempTownDTO> userTownInfo_arr;
+    private ArrayList<Integer> hidestatue_arr;
     private MainRecyclerAdapter madapter;
     private Context context;
     private RecyclerView recyclerView;
@@ -71,6 +73,7 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private PreferenceManager preferenceManager;
     private String current_req_url;
     private String accesstoken;
+
     public LoadAsyncTask(TextView firstline_text_view, TextView secondline_cnt_text_view, TextView secondline_nextcnt_text_view, TextView sort_mode_textview, ArrayList<TempTownDTO> userTownInfo_arr, int sort_mode, LocationEvent locationEvent, MainRecyclerAdapter madapter, Context context) {
         this.context = context;
         this.madapter = madapter;
@@ -97,6 +100,13 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         list = readJson.ReadFile();
+        hidestatue_arr = new ArrayList<Integer>();
+        if(preferenceManager.getTownHideStatus(list.get(0).getNo())==HideStatus.UNSET.getStatus()){
+            for(int i = 0 ; i < list.size() ;i++){
+                TownJson data = list.get(i);
+                hidestatue_arr.add(preferenceManager.setTownHideStatus(data.getNo(), HideStatus.UNHIDE.getStatus()));
+            }
+        }
         nick = preferenceManager.getLoggedIn_Info().getNick();
         accesstoken = preferenceManager.getLoggedIn_Info().getAccesstoken();
         if(locationEvent == null){
@@ -110,8 +120,9 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                     region = data.getRegion();
                 }
 
-
-                sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),false));
+                if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
+                    sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),false));
+                }
             }
             sort_by_mode();
             return null;
@@ -128,13 +139,15 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 distance = calculate_Distance(i);
                 if(distance <= Float.parseFloat(list.get(i).getRange())){
                     Log.e(TAG,"STAMPON"+list.get(i).getName());
-                    sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),true));
+                    if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
+                        sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),true));
+                    }
                 }else{
-
                     Log.e(TAG,"STAMPOFF"+list.get(i).getName());
-                    sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),false));
+                    if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
+                        sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),false));
+                    }
                 }
-
             }
             sort_by_mode();
             for(int i = 0; i < sorted_array.size() ; i++){

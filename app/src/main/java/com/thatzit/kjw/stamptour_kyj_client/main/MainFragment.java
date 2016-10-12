@@ -20,12 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.checker.ExternalMemoryDTO;
 import com.thatzit.kjw.stamptour_kyj_client.checker.UsableStorageChecker;
+import com.thatzit.kjw.stamptour_kyj_client.hide.HideListActivity;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;

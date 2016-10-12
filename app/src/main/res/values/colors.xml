@@ -61,4 +61,6 @@
     <color name="user_stamp_cnt_textview_color">#9a9a9a</color>
     <color name="name_text_view">#000000</color>
     <color name="rankheader_bg">#f2f2f2</color>
+    <color name="main_color">#00c3e5</color>
+    <color name="alpha_background">#00000000</color>
 </resources>

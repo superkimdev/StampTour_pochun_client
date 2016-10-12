@@ -40,4 +40,9 @@
     <dimen name="morefragment_menu_item_textview_margin_left">32dp</dimen>
     <dimen name="common_line_heigth">1px</dimen>
     <dimen name="account_login_title_text_margin_top">35dp</dimen>
+    <dimen name="btn_check_duplicate_textSize">11sp</dimen>
+    <dimen name="btn_check_duplicate_width">65dp</dimen>
+    <dimen name="btn_check_duplicate_height">30dp</dimen>
+    <dimen name="btn_check_duplicate_marginLeft">16dp</dimen>
+    <dimen name="btn_check_duplicate_marginRight">10dp</dimen>
 </resources>
