@@ -62,6 +62,7 @@
     <color name="name_text_view">#000000</color>
     <color name="rankheader_bg">#f2f2f2</color>
 
+    <color name="alpha_background">#00000000</color>
     <color name="account_accountmanage_password_input_textColor">#000</color>
     <color name="btn_check_duplicate_color">#00c3e5</color>
     <color name="btn_sendjoin_textColor">#ffffff</color>
