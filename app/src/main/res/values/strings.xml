@@ -109,5 +109,18 @@
     <string name="survey_toolbar_title">설문</string>
     <string name="survey_textview_msg_sub">현재 서비스의 만족도를 평가해주세요.\n 만족도 조사 결과 서비스 개선을 위한 자료로 활용됩니다.</string>
 
+    <string name="join_toolbar_title">회원가입</string>
+    <string name="join_normal_email_hint">이메일을 입력하세요.</string>
+    <string name="join_normal_nick_hint">별명을 입력하세요.</string>
+
+    <string name="join_normal_confirm_textview_text">본인 계정의 이메일을 입력하세요.</string>
+    <string name="join_normal_confirmpassword_textview_text">6~16자 영문 소문자, 숫자를 조합하세요.</string>
+    <string name="join_normal_duplicate_text_btn">중복체크</string>
+
+    <string name="find_id_title_text">아이디 찾기</string>
+    <string name="find_pass_title_text">비밀번호 찾기</string>
+
+    <string name="find_id_confirm_textview_text">가입하실 때 입력한 정보를 입력하세요.</string>
+    <string name="find_id_nick_input_hint">별명을 입력하세요.</string>
 
 </resources>

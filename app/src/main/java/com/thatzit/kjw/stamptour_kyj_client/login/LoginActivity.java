@@ -5,12 +5,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -40,12 +43,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements OnClickListener {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -63,11 +69,33 @@ public class LoginActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private Decompress decompressor;
     private ProgressDialog dlg;
+
+    private TextView join_btn;
+    private TextView find_auth_btn;
+    private Button email_sign_in_button;
+    private Button login_btn_facebook;
+    private Button login_btn_kakao;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
+        ButterKnife.bind(this);
+        join_btn = (TextView)findViewById(R.id.join_btn);
+        find_auth_btn = (TextView)findViewById(R.id.find_auth_btn);
+        email_sign_in_button = (Button)findViewById(R.id.email_sign_in_button);
+        login_btn_facebook = (Button)findViewById(R.id.login_btn_facebook);
+        login_btn_kakao = (Button)findViewById(R.id.login_btn_kakao);
+
+        login_btn_facebook.setOnClickListener(this);
+        login_btn_kakao.setOnClickListener(this);
+        email_sign_in_button.setOnClickListener(this);
+        join_btn.setOnClickListener(this);
+        find_auth_btn.setOnClickListener(this);
+
+
         preferenceManager = new PreferenceManager(this);
         dlg = new ProgressDialog(this,ProgressDialog.STYLE_HORIZONTAL);
         if(!preferenceManager.getLoggedIn_Info().getAccesstoken().equals("")){
@@ -79,17 +107,6 @@ public class LoginActivity extends AppCompatActivity {
 
         mPasswordView = (EditText) findViewById(R.id.password);
         checkPermission();
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    attemptLogin();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -270,6 +287,52 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dlg.dismiss();
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id){
+            case R.id.join_btn:
+                Intent intent = new Intent(LoginActivity.this,JoinActivity.class);
+                this.startActivity(intent);
+                break;
+            case R.id.find_auth_btn:
+                final CharSequence[] items = {getString(R.string.find_id_title_text), getString(R.string.find_pass_title_text)};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setItems(items, new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int index){
+                                switch (index){
+                                    case 0:
+                                        Intent intent = new Intent(LoginActivity.this,FindIdActivity.class);
+                                        LoginActivity.this.startActivity(intent);
+                                        break;
+                                    case 1:
+                                        intent = new Intent(LoginActivity.this,FindPassActivity.class);
+                                        LoginActivity.this.startActivity(intent);
+                                        break;
+                                }
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                dialog.show();    // 알림창 띄우기
+                break;
+            case R.id.email_sign_in_button:
+                try {
+                    attemptLogin();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.login_btn_facebook:
+                break;
+            case R.id.login_btn_kakao:
+                break;
+        }
+
     }
 }
 

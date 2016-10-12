@@ -20,12 +20,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     //indicator
     compile project(':ViewPagerIndicator')
     //Butterknife
-
     //GCM 라이브러리
     //google map 라이브러리
     //flexible space with image list library(ObservableScrollView)
@@ -43,5 +42,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:9.0.0'
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.jakewharton:butterknife:8.4.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

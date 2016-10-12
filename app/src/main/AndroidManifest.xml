@@ -56,8 +56,14 @@
             android:value="AIzaSyA_9eL9zjDgbym4Od87MpBXtserTw44w78" />
 
         <activity android:name=".main.MyinfoActivity" />
-        <activity android:name=".more.SurveyActivity"
-            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateAlwaysHidden" ></activity>
+        <activity
+            android:name=".more.SurveyActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateAlwaysHidden" />
+        <activity
+            android:name=".login.JoinActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateAlwaysHidden" />
+        <activity android:name=".login.FindIdActivity" />
+        <activity android:name=".login.FindPassActivity"></activity>
     </application>
 
 </manifest>
