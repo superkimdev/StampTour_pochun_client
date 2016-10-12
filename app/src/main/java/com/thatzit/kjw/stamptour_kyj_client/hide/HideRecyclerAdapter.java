@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,8 +29,7 @@ import java.util.ArrayList;
 public class HideRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private ArrayList<TownDTO> mListData = new ArrayList<TownDTO>();
     Context context;
-    MainRecyclerAdapter.OnItemClickListener clickListener;
-    MainRecyclerAdapter.OnItemLongClickListener longClickListener;
+    HideRecyclerAdapter.OnItemClickListener clickListener;
     private final String TAG ="HideRecyclerAdapter";
 
     public HideRecyclerAdapter(Context context) {
@@ -61,15 +61,13 @@ public class HideRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if(viewHolder instanceof HideRecyclerAdapter.NormalViewHolder){
             String sdcard= Environment.getExternalStorageDirectory().getAbsolutePath();
             String no;
-            no = position + 1+"";
+            no = mListData.get(position).getNo();
             Log.e(TAG,position+":"+mListData.get(position).getName());
             Log.e(TAG,position+":"+mListData.get(position).getRegion());
             Log.e(TAG,position+":"+mListData.get(position).getDistance());
             ((HideRecyclerAdapter.NormalViewHolder)viewHolder).name_text_view.setText("");
-            ((HideRecyclerAdapter.NormalViewHolder)viewHolder).distance_text_view.setText("");
             ((HideRecyclerAdapter.NormalViewHolder)viewHolder).region_text_view.setText("");
             ((HideRecyclerAdapter.NormalViewHolder)viewHolder).name_text_view.setText(mListData.get(position).getName());
-            ((HideRecyclerAdapter.NormalViewHolder)viewHolder).distance_text_view.setText(mListData.get(position).getDistance());
             ((HideRecyclerAdapter.NormalViewHolder)viewHolder).region_text_view.setText(mListData.get(position).getRegion());
             //animation and imgview 잔상 초기화
             ((HideRecyclerAdapter.NormalViewHolder)viewHolder).stamp_checked_imgview.setVisibility(View.INVISIBLE);
@@ -92,11 +90,16 @@ public class HideRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private TownDTO getItem(int position) {
         return mListData.get(position);
     }
-    class NormalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
+
+    public void removeItem(int position) {
+        mListData.remove(position);
+    }
+
+    class NormalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView town_img_view;
         public TextView name_text_view;
         public TextView region_text_view;
-        public TextView distance_text_view;
+        public Button btn_hide_cancle;
         public RelativeLayout item_container;
         public ImageView stamp_checked_imgview;
         public NormalViewHolder(View itemView) {
@@ -104,33 +107,20 @@ public class HideRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             town_img_view = (ImageView)itemView.findViewById(R.id.town_img_view);
             name_text_view = (TextView)itemView.findViewById(R.id.town_name_view);
             region_text_view = (TextView)itemView.findViewById(R.id.town_region_view);
-            distance_text_view = (TextView)itemView.findViewById(R.id.town_distance_view);
+            btn_hide_cancle = (Button)itemView.findViewById(R.id.btn_hide_cancle);
             stamp_checked_imgview = (ImageView)itemView.findViewById(R.id.stamp_checked_imgview);
             item_container = (RelativeLayout)itemView.findViewById(R.id.item_container);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+            btn_hide_cancle.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
             clickListener.onItemClick(v, getPosition());
         }
-
-        @Override
-        public boolean onLongClick(View v) {
-            longClickListener.onItemLongClick(v, getPosition());
-            return true;
-        }
     }
     public interface OnItemClickListener {
         public void onItemClick(View view, int position);
     }
-    public interface OnItemLongClickListener {
-        public void onItemLongClick(View view, int position);
-    }
-    public void SetOnItemClickListener(final MainRecyclerAdapter.OnItemClickListener itemClickListener) {
+    public void SetOnItemClickListener(final HideRecyclerAdapter.OnItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
-    }
-    public void SetOnItemLongClickListener(final MainRecyclerAdapter.OnItemLongClickListener itemLongClickListener) {
-        this.longClickListener = itemLongClickListener;
     }
 }

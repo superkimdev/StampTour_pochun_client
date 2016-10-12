@@ -60,7 +60,7 @@
             android:textSize="@dimen/btn_check_duplicate_textSize"
             android:textColor="@color/main_color"
             android:background="@drawable/duplicate_check_rectangle"
-            android:id="@+id/btn_check_email_duplicate"/>
+            android:id="@+id/btn_hide_cancle"/>
 
         <TextView
             android:layout_width="150dp"

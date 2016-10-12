@@ -26,13 +26,16 @@ import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.checker.ExternalMemoryDTO;
 import com.thatzit.kjw.stamptour_kyj_client.checker.UsableStorageChecker;
 import com.thatzit.kjw.stamptour_kyj_client.hide.HideListActivity;
+import com.thatzit.kjw.stamptour_kyj_client.hide.HideStatus;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.PopUpAdapter;
+import com.thatzit.kjw.stamptour_kyj_client.main.event.ListChangeEvent;
 import com.thatzit.kjw.stamptour_kyj_client.main.fileReader.LoadAsyncTask;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ListChangeListener;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentGpsStateListener;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentLocationListener;
 import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
@@ -52,7 +55,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItemClickListener, View.OnClickListener,
         MainRecyclerAdapter.OnItemLongClickListener, ParentLocationListener, ParentGpsStateListener,
-        PopupMenu.OnMenuItemClickListener {
+        PopupMenu.OnMenuItemClickListener, ListChangeListener {
 
     CollapsingToolbarLayout collapsingToolbar;
     RecyclerView recyclerView;
@@ -86,6 +89,11 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private String grade;
     private String zosa;
     private String last_string;
+
+    private static final int HIDEACTIVITYSTART = 7777;
+    private static final int HIDELISTCHANGED = 7778;
+    private static final int HIDELISTUNCHANGED = 7779;
+    private MainActivity parent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -126,6 +134,8 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         recyclerView.setLayoutManager(linearLayoutManager);
         mainRecyclerAdapter = new MainRecyclerAdapter(view.getContext());
         recyclerView.setAdapter(mainRecyclerAdapter);
+        parent = (MainActivity) getActivity();
+        parent.setOnListChangeListener(this);
         mainRecyclerAdapter.SetOnItemClickListener(this);
         mainRecyclerAdapter.SetOnItemLongClickListener(this);
         ((MainActivity)getActivity()).setParentLocationListener(this);
@@ -314,6 +324,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.hide_btn:
                 Toast.makeText(getContext(),"숨김관리버튼클릭",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),HideListActivity.class);
+                startActivityForResult(intent,HIDEACTIVITYSTART);
                 break;
             case R.id.sort_btn:
                 popUpShow();
@@ -326,6 +337,11 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     public void onItemLongClick(View view, int position) {
         Log.e("RecycleitemLongClick","position = "+position);
         TownDTO data = mainRecyclerAdapter.getmListData(position);
+        if(!data.isStamp_on()){
+            Toast.makeText(getActivity(),data.getName()+getResources().getString(R.string.hide_notfication_text),Toast.LENGTH_LONG).show();
+            preferenceManager.setTownHideStatus(data.getNo(), HideStatus.HIDE.getStatus());
+            sort_load_before_check();
+        }
         if(currentLocation==null)return;
         if(data.isStamp_on()){
             String req_stamp_check = getString(R.string.req_url_stamp_check);
@@ -450,4 +466,24 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == HIDELISTCHANGED){
+            Log.e(TAG,"HIDELIST CHANGED");
+            sort_load_before_check();
+        }else if(resultCode == HIDELISTUNCHANGED){
+            return;
+        }
+    }
+
+    @Override
+    public void OnRecivedChangeList(ListChangeEvent event) {
+        if(event.isChange_status()){
+            sort_load_before_check();
+        }
+        else {
+            return;
+        }
+    }
 }

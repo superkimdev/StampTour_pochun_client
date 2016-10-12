@@ -105,6 +105,12 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
             for(int i = 0 ; i < list.size() ;i++){
                 TownJson data = list.get(i);
                 hidestatue_arr.add(preferenceManager.setTownHideStatus(data.getNo(), HideStatus.UNHIDE.getStatus()));
+                preferenceManager.setTownHideStatus(data.getNo(),hidestatue_arr.get(i));
+            }
+        }else{
+            for(int i = 0 ; i < list.size() ;i++){
+                TownJson data = list.get(i);
+                hidestatue_arr.add(preferenceManager.getTownHideStatus(data.getNo()));
             }
         }
         nick = preferenceManager.getLoggedIn_Info().getNick();
@@ -119,10 +125,14 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 }else{
                     region = data.getRegion();
                 }
-
-                if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
+                if(hidestatue_arr.size()!=0){
+                    if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
+                        sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),false));
+                    }
+                }else{
                     sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),false));
                 }
+
             }
             sort_by_mode();
             return null;
@@ -139,14 +149,24 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 distance = calculate_Distance(i);
                 if(distance <= Float.parseFloat(list.get(i).getRange())){
                     Log.e(TAG,"STAMPON"+list.get(i).getName());
-                    if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
+                    if(hidestatue_arr.size()!=0){
+                        if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
+                            sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),true));
+                        }
+                    }else{
                         sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),true));
                     }
+
                 }else{
                     Log.e(TAG,"STAMPOFF"+list.get(i).getName());
-                    if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
+                    if(hidestatue_arr.size()!=0){
+                        if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
+                            sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),false));
+                        }
+                    }else{
                         sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),false));
                     }
+
                 }
             }
             sort_by_mode();

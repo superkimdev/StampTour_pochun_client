@@ -28,9 +28,11 @@ import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainPageAdapter;
+import com.thatzit.kjw.stamptour_kyj_client.main.event.ListChangeEvent;
 import com.thatzit.kjw.stamptour_kyj_client.main.fileReader.LoadAsyncTask;
 import com.thatzit.kjw.stamptour_kyj_client.main.fileReader.PreLoadAsyncTask;
 import com.thatzit.kjw.stamptour_kyj_client.main.fileReader.ReadJson;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ListChangeListener;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentGpsStateListener;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentLocationListener;
 import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
@@ -72,8 +74,11 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
     private ViewPager viewPager;
     private MainPageAdapter adapter;
     private TabLayout tabLayout;
+    private ListChangeListener listener;
 
     private final int USERINFOCHANGED = 1001;
+    private static final int HIDELISTCHANGED = 7778;
+    private static final int HIDELISTUNCHANGED = 7779;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -332,6 +337,13 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
         {
             Log.e(TAG,"USERINFOCHANGED");
             finish();
+        }else if(resultCode == HIDELISTCHANGED){
+            if(listener!=null)listener.OnRecivedChangeList(new ListChangeEvent(true));
+        }else if(resultCode == HIDELISTUNCHANGED){
+            if(listener!=null)listener.OnRecivedChangeList(new ListChangeEvent(false));
         }
+    }
+    public void setOnListChangeListener(ListChangeListener listener){
+        this.listener = listener;
     }
 }
