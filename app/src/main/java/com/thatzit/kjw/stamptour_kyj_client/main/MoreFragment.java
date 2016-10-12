@@ -17,6 +17,7 @@ import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.main.action.Case_by_loggedout;
 import com.thatzit.kjw.stamptour_kyj_client.main.action.Check_return_loggedincase;
+import com.thatzit.kjw.stamptour_kyj_client.more.SurveyActivity;
 import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.user.User;
@@ -73,6 +74,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
                 break;
             case R.id.research_view_container:
                 Toast.makeText(getContext(),getResources().getString(R.string.research_view_container),Toast.LENGTH_LONG).show();
+                intent = new Intent(getActivity(),SurveyActivity.class);
+                getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
             case R.id.logout_view_container:
                 Case_by_loggedout(check_return_loggedincase());
