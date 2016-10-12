@@ -313,6 +313,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                 break;
             case R.id.hide_btn:
                 Toast.makeText(getContext(),"숨김관리버튼클릭",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(),HideListActivity.class);
                 break;
             case R.id.sort_btn:
                 popUpShow();

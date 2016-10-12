@@ -2,6 +2,7 @@ package com.thatzit.kjw.stamptour_kyj_client.push.service;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -46,7 +47,7 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
     private LocationEvent locationEvent;
     private GpsStateEventListener myGpsStateEventListener;
     private GpsStateEvent gpsStateEvent;
-
+    private NotificationManager mNotificationManager;
     private PreferenceManager preferenceManager;
     private boolean downFlag=true;
 

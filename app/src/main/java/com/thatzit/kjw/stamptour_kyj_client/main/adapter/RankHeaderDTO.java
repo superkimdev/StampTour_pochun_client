@@ -39,7 +39,7 @@ public class RankHeaderDTO {
                 "name='" + name + '\'' +
                 ", rank_no='" + rank_no + '\'' +
                 ", stamp_cnt='" + stamp_cnt + '\'' +
-                ", total='" + total + '\'' +
+                ", totalcnt='" + total + '\'' +
                 '}';
     }
 }
