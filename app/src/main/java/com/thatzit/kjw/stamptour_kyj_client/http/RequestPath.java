@@ -17,7 +17,11 @@ public enum  RequestPath {
     req_url_user_remove("user/remove"),
     req_url_stamp_check("stamp/check"),
     req_url_password_chnage("user/change/password"),
-    req_url_user_info("user/info");
+    req_url_user_info("user/info"),
+    req_url_id_check("/user/id/check"),
+    req_url_nick_check("/user/nick/check"),
+    req_url_join_normal("/user/join");
+
 
     private String path;
     private RequestPath(){

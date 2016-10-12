@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">StampTour_kyj_Client</string>
 
+    <string name="pass_patten">^(?=.*[a-z]+)(?=.*[0-9]+).{6,16}$</string>
+    <string name="email_patten">[\\w\\~\\-\\.]+@[\\w\\~\\-]+(\\.[\\w\\~\\-]+)+</string>
+    <string name="nick_patten">^[a-zA-Z0-9가-힣\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]{2,6}+$</string>
+
     <!-- PreferenceManager -->
     <string name="preference_private_name">stamp_tour_kyoungju</string>
     <!-- Strings related to login -->
@@ -125,5 +129,20 @@
 
     <string name="find_id_confirm_textview_text">가입하실 때 입력한 정보를 입력하세요.</string>
     <string name="find_id_nick_input_hint">별명을 입력하세요.</string>
+
+    <string name="join_normal_please_duplicate_check">닉네임, 이메일 중복체크를 해주세요.</string>
+    <string name="join_normal_not_equal_password">비밀번호가 일치하지 않습니다.</string>
+    <string name="join_normal_valid_nick">사용 가능합니다</string>
+    <string name="join_normal_duplicate_nick">사용중인 닉네임입니다.</string>
+    <string name="join_normal_valid_email">사용 가능합니다</string>
+    <string name="join_normal_duplicate_email">사용중인 아이디입니다</string>
+    <string name="join_success">가입성공</string>
+    <string name="validate_failure">유효하지 않습니다</string>
+
+    <string name="invalid_email">유효한 이메일이 아닙니다.</string>
+    <string name="invalid_password">잘못된 형식의 비밀번호입니다.</string>
+    <string name="invalid_nick">잘못된 형식의 닉네임입니다.</string>
+    <string name="please_duplicate_check">닉네임, 이메일 중복체크를 해주세요.</string>
+    <string name="not_equal_password">비밀번호가 일치하지 않습니다.</string>
 
 </resources>
