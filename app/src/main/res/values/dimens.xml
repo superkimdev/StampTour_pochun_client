@@ -40,8 +40,6 @@
     <dimen name="morefragment_menu_item_textview_margin_left">32dp</dimen>
     <dimen name="common_line_heigth">1px</dimen>
     <dimen name="account_login_title_text_margin_top">35dp</dimen>
-<<<<<<< HEAD
-=======
 
 
     <dimen name="social_join_confirm_textview_marginTop">10dp</dimen>
@@ -59,14 +57,11 @@
     <dimen name="account_accountmanage_password_input_marginRight">16dp</dimen>
     <dimen name="account_accountmanage_password_input_height">45dp</dimen>
     <dimen name="account_accountmanage_password_input_textSize">16sp</dimen>
->>>>>>> master
     <dimen name="btn_check_duplicate_textSize">11sp</dimen>
     <dimen name="btn_check_duplicate_width">65dp</dimen>
     <dimen name="btn_check_duplicate_height">30dp</dimen>
     <dimen name="btn_check_duplicate_marginLeft">16dp</dimen>
     <dimen name="btn_check_duplicate_marginRight">10dp</dimen>
-<<<<<<< HEAD
-=======
 
 
     <dimen name="social_join_viewcontainer_marginTop">35dp</dimen>
@@ -75,5 +70,4 @@
     <dimen name="config_img_arrow_width">7dp</dimen>
     <dimen name="config_img_arrow_height">12dp</dimen>
     <dimen name="config_img_arrow_marginRight">16dp</dimen>
->>>>>>> master
 </resources>
