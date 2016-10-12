@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.checker.VersionDTO;
+import com.thatzit.kjw.stamptour_kyj_client.hide.HideStatus;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 
 /**
@@ -93,5 +94,14 @@ public class PreferenceManager {
     }
     public boolean getDownFlag(){
         return pref.getBoolean(PreferenceKey.DOWNFLAG.getKey(),true);
+    }
+
+    public int setTownHideStatus(String no, int status){
+        editor.putInt(no,status);
+        editor.commit();
+        return status;
+    }
+    public int getTownHideStatus(String no){
+        return pref.getInt(no,-1);
     }
 }

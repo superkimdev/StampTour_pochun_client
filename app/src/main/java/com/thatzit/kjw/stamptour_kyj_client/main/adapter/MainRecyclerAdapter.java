@@ -79,7 +79,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if(viewHolder instanceof NormalViewHolder){
             String sdcard= Environment.getExternalStorageDirectory().getAbsolutePath();
             String no;
-            no = position + 1+"";
+//            no = position + 1+"";
+            no = mListData.get(position).getNo();
             Log.e(TAG,position+":"+mListData.get(position).getName());
             Log.e(TAG,position+":"+mListData.get(position).getRegion());
             Log.e(TAG,position+":"+mListData.get(position).getDistance());
@@ -90,6 +91,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((NormalViewHolder)viewHolder).distance_text_view.setText(mListData.get(position).getDistance());
             ((NormalViewHolder)viewHolder).region_text_view.setText(mListData.get(position).getRegion());
             //animation and imgview 잔상 초기화
+
             ((NormalViewHolder)viewHolder).stamp_checked_imgview.setVisibility(View.INVISIBLE);
             ((NormalViewHolder)viewHolder).item_container.setBackground(context.getDrawable(R.drawable.town_list_item_animatebg));
 

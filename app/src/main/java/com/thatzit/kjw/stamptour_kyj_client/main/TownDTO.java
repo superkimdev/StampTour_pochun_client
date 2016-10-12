@@ -61,4 +61,17 @@ public class TownDTO {
     public String getRange() {
         return range;
     }
+
+    @Override
+    public String toString() {
+        return "TownDTO{" +
+                "no='" + no + '\'' +
+                ", name='" + name + '\'' +
+                ", region='" + region + '\'' +
+                ", distance='" + distance + '\'' +
+                ", range='" + range + '\'' +
+                ", stamp_checked='" + stamp_checked + '\'' +
+                ", stamp_on=" + stamp_on +
+                '}';
+    }
 }

@@ -36,7 +36,7 @@
         </activity>
         <activity android:name=".help.HelpActivity" />
         <activity android:name=".main.DetailActivity" />
-
+        <activity android:name=".hide.HideListActivity"/>
         <service android:name=".push.service.MyInstanceIDListenerService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
