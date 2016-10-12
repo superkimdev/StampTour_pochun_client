@@ -40,7 +40,7 @@ public class MyFcmListenerService extends FirebaseMessagingService {
         String param1 = data.get(MESSAGE_PARAM1).toString();
         String param2 = data.get(MESSAGE_PARAM2).toString();
         PushMessageEvent pushMessageEvent = new PushMessageEvent(lecture_id,title,desc,param1,param2);
-        sendNotification(pushMessageEvent);
+        //sendNotification(pushMessageEvent);
 
     }
     private void sendNotification(PushMessageEvent pushMessageEvent) {
