@@ -40,14 +40,14 @@
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:textColor="#000000"
-                    android:text="이용하신 모바일스탬프에 대해 만족하십니까? "/>
+                    android:text="@string/survey_main_title_text"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="16dp"
                     android:textColor="#000000"
-                    android:text="@string/survey_textview_msg_sub"/>
+                    android:text="@string/survey_sub_title_text"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,7 +57,8 @@
                 android:orientation="vertical">
                 <RadioGroup
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/survey_radio_group">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -65,10 +66,11 @@
                     <RadioButton
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:id="@+id/survey_radio_btn_1"
                         android:buttonTint="@color/app_main_color"
                         android:textColor="#000000"
                         android:textSize="16dp"
-                        android:text="매우 만족"/>
+                        android:text="@string/survey_grade_verygood_text"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -76,10 +78,11 @@
                     <RadioButton
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:id="@+id/survey_radio_btn_2"
                         android:textColor="#000000"
                         android:textSize="16dp"
                         android:buttonTint="@color/app_main_color"
-                        android:text="만족"/>
+                        android:text="@string/survey_grade_good_text"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -87,10 +90,11 @@
                     <RadioButton
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:id="@+id/survey_radio_btn_3"
                         android:textColor="#000000"
                         android:textSize="16dp"
                         android:buttonTint="@color/app_main_color"
-                        android:text="보통"/>
+                        android:text="@string/survey_grade_notbad_text"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -98,10 +102,11 @@
                     <RadioButton
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:id="@+id/survey_radio_btn_4"
                         android:textColor="#000000"
                         android:textSize="16dp"
                         android:buttonTint="@color/app_main_color"
-                        android:text="불만족"/>
+                        android:text="@string/survey_grade_bad_text"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -109,10 +114,11 @@
                     <RadioButton
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:id="@+id/survey_radio_btn_5"
                         android:textColor="#000000"
                         android:textSize="16dp"
                         android:buttonTint="@color/app_main_color"
-                        android:text="매우 불만족"/>
+                        android:text="@string/survey_grade_verybad_text"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -122,6 +128,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:id="@+id/survey_msg_text"
                     android:padding="10dp"
                     android:gravity="center_vertical|top"
                     android:background="@drawable/whitebox_edit"
