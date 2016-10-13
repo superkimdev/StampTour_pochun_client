@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">StampTour_kyj_Client</string>
-
+    <!--OAUTH SERVICE KEY-->
+    <string name="kakao_app_key">527f0df26e167313b802571444d94111</string>
     <string name="pass_patten">^(?=.*[a-z]+)(?=.*[0-9]+).{6,16}$</string>
     <string name="email_patten">[\\w\\~\\-\\.]+@[\\w\\~\\-]+(\\.[\\w\\~\\-]+)+</string>
     <string name="nick_patten">^[a-zA-Z0-9가-힣\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]{2,6}+$</string>
