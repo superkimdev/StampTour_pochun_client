@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
-    <include layout="@layout/include_survey_toolbar"></include>
+    <include layout="@layout/include_gift_manage_toolbar"></include>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textColor="#000000"
-                android:text="@string/survey_main_title_text"/>
+                android:text="@string/gift_manager_title_text"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,9 +53,7 @@
                 android:id="@+id/rank_scrollable_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-                android:background="@color/common_bg_color2"
-                />
+                android:background="@color/common_bg_color2" />
         </LinearLayout>
     </LinearLayout>
 

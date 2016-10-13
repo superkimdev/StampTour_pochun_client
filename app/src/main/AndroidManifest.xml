@@ -65,7 +65,8 @@
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateAlwaysHidden" />
         <activity android:name=".login.FindIdActivity" />
         <activity android:name=".login.FindPassActivity" />
-        <activity android:name=".more.GiftManageActivity"></activity>
+        <activity android:name=".more.GiftManageActivity" />
+        <activity android:name=".more.GiftActivity"></activity>
     </application>
 
 </manifest>

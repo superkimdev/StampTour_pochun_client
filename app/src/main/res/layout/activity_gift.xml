@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_bg_color1"
+        android:orientation="vertical">
+        <include layout="@layout/include_gift_toolbar"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="@dimen/account_accountmanage_confirm_textview_marginLeft"
+            android:text="@string/gift_guide_text"
+            android:textStyle="normal"
+            android:textColor="@color/account_accountmanage_confirm_textview_textColor"
+            android:textSize="@dimen/account_accountmanage_confirm_textview_textSize" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/unfocused_edit"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:hint="@string/gift_name_text"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:textColor="@color/pwInput"
+                android:textColorHint="@color/account_accountmanage_password_input_hint_color"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ceced2"></LinearLayout>
+            <EditText
+                android:id="@+id/password_input_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:hint="@string/gift_phone_text"
+                android:imeActionId="@+id/login"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:textColor="@color/pwInput"
+                android:textColorHint="@color/account_accountmanage_password_input_hint_color"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_btn_heigth"
+            android:layout_marginTop="@dimen/social_join_viewcontainer_marginTop"
+            android:layout_marginLeft="@dimen/account_accountmanage_password_input_marginLeft"
+            android:layout_marginRight="@dimen/account_accountmanage_password_input_marginRight"
+            android:text="@string/gift_toolbar_title_text"
+            android:textSize="@dimen/btn_send_join_textSize"
+            android:textColor="@color/btn_sendjoin_textColor"
+            android:background="@drawable/send_rectangle"
+            android:id="@+id/btn_sendjoin"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/social_join_confirm_textview_marginTop"
+            android:layout_marginLeft="@dimen/account_accountmanage_password_input_marginLeft"
+            android:layout_marginRight="@dimen/account_accountmanage_password_input_marginRight"
+            android:id="@+id/social_join_accept_textview"
+            android:text="@string/social_join_accept_textview_text"
+            android:textSize="@dimen/social_join_confirm_textview_textSize"
+            android:textColor="@color/social_join_confirm_textview_textColor"/>
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
+

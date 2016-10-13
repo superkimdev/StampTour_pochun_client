@@ -155,5 +155,11 @@
     <string name="survey_grade_verybad_text">매우 불만족</string>
     <string name="survey_not_enough">평가 항목을 선택 해주세요</string>
 
-    <string name="gift_manger_title_text">스탬프를 찍어서 선물을 받으세요</string>
+    <string name="gift_manager_title_text">스탬프를 찍어서 선물을 받으세요</string>
+    <string name="gift_manager_toolbar_title_text">선물 관리</string>
+    <string name="gift_guide_text">정확히 입력하세요</string>
+    <string name="gift_name_text">이름을 입력하세요</string>
+    <string name="gift_phone_text">휴대폰 전화번호를 입력하세요</string>
+    <string name="gift_toolbar_title_text">선물 신청</string>
+
 </resources>
