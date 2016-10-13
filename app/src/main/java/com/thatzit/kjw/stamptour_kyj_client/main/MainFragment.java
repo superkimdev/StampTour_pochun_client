@@ -324,7 +324,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.hide_btn:
                 Toast.makeText(getContext(),"숨김관리버튼클릭",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),HideListActivity.class);
-                startActivityForResult(intent,HIDEACTIVITYSTART);
+                getActivity().startActivityForResult(intent,HIDEACTIVITYSTART);
                 break;
             case R.id.sort_btn:
                 popUpShow();
@@ -466,20 +466,12 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == HIDELISTCHANGED){
-            Log.e(TAG,"HIDELIST CHANGED");
-            sort_load_before_check();
-        }else if(resultCode == HIDELISTUNCHANGED){
-            return;
-        }
-    }
+
 
     @Override
     public void OnRecivedChangeList(ListChangeEvent event) {
         if(event.isChange_status()){
+            Log.e(TAG,"LIST CHANGED");
             sort_load_before_check();
         }
         else {
