@@ -4,9 +4,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Presentation;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,8 +13,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.SubscriptionManager;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -26,46 +22,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kakao.auth.AuthType;
-import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
-import com.kakao.network.ErrorResult;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.MeResponseCallback;
-import com.kakao.usermgmt.response.model.UserProfile;
-import com.kakao.util.exception.KakaoException;
-import com.kakao.util.helper.log.Logger;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
-import com.thatzit.kjw.stamptour_kyj_client.checker.VersoinChecker;
-import com.thatzit.kjw.stamptour_kyj_client.http.RequestPath;
-import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
-import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
-import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
-import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
-import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
-import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.user.User;
 import com.thatzit.kjw.stamptour_kyj_client.user.normal.NormalUser;
-import com.thatzit.kjw.stamptour_kyj_client.user.social.SocialUser;
 import com.thatzit.kjw.stamptour_kyj_client.util.Decompress;
 import com.thatzit.kjw.stamptour_kyj_client.util.ProgressWaitDaialog;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
-
-import static com.kakao.auth.Session.getCurrentSession;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements OnClickListener {
+public class LoginActivityBackup extends AppCompatActivity implements OnClickListener {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -94,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     private ISessionCallback mKakaoCallback;
     private String TAG = "LoginActivity";
     private ProgressWaitDaialog progressWaitDaialog;
-    private LoginActivity self;
+    private LoginActivityBackup self;
     private Session session;
     private String kakaouserid;
     private String phone;
@@ -125,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 //            VersoinChecker versoinChecker = new VersoinChecker(this);
 //            versoinChecker.check();
 //        }
-
+        
         mEmailView = (EditText) findViewById(R.id.email);
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -321,7 +294,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         int id = v.getId();
         switch (id){
             case R.id.join_btn:
-                Intent intent = new Intent(LoginActivity.this,JoinActivity.class);
+                Intent intent = new Intent(LoginActivityBackup.this,JoinActivity.class);
                 this.startActivity(intent);
                 break;
             case R.id.find_auth_btn:
@@ -333,12 +306,12 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                             public void onClick(DialogInterface dialog, int index){
                                 switch (index){
                                     case 0:
-                                        Intent intent = new Intent(LoginActivity.this,FindIdActivity.class);
-                                        LoginActivity.this.startActivity(intent);
+                                        Intent intent = new Intent(LoginActivityBackup.this,FindIdActivity.class);
+                                        LoginActivityBackup.this.startActivity(intent);
                                         break;
                                     case 1:
-                                        intent = new Intent(LoginActivity.this,FindPassActivity.class);
-                                        LoginActivity.this.startActivity(intent);
+                                        intent = new Intent(LoginActivityBackup.this,FindPassActivity.class);
+                                        LoginActivityBackup.this.startActivity(intent);
                                         break;
                                 }
                             }

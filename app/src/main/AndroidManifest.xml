@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,6 +18,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
         <activity
@@ -36,7 +38,8 @@
         </activity>
         <activity android:name=".help.HelpActivity" />
         <activity android:name=".main.DetailActivity" />
-        <activity android:name=".hide.HideListActivity"/>
+        <activity android:name=".hide.HideListActivity" />
+
         <service android:name=".push.service.MyInstanceIDListenerService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -54,7 +57,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA_9eL9zjDgbym4Od87MpBXtserTw44w78" />
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="@string/kakao_app_key"/>
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
 
         <activity android:name=".main.MyinfoActivity" />
         <activity
@@ -64,7 +69,8 @@
             android:name=".login.JoinActivity"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateAlwaysHidden" />
         <activity android:name=".login.FindIdActivity" />
-        <activity android:name=".login.FindPassActivity"></activity>
+        <activity android:name=".login.FindPassActivity" />
+        <activity android:name=".login.SocialJoinActivity"/>
     </application>
 
 </manifest>
