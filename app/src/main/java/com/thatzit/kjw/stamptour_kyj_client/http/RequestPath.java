@@ -20,7 +20,9 @@ public enum  RequestPath {
     req_url_user_info("user/info"),
     req_url_id_check("/user/id/check"),
     req_url_nick_check("/user/nick/check"),
-    req_url_join_normal("/user/join");
+    req_url_join_normal("/user/join"),
+    req_url_find_id("/user/find/id"),
+    req_url_find_pass("/user/find/password");
 
 
     private String path;
