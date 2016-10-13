@@ -113,9 +113,6 @@
     <string name="social_join_accept_textview_text">가입 신청을 누르시면 <u>개인정보취급방침</u>에 동의한 것으로 간주됩니다.</string>
     <string name="area_name">장소 이름</string>
 
-    <string name="survey_toolbar_title">설문</string>
-    <string name="survey_textview_msg_sub">현재 서비스의 만족도를 평가해주세요.\n 만족도 조사 결과 서비스 개선을 위한 자료로 활용됩니다.</string>
-
     <string name="join_toolbar_title">회원가입</string>
     <string name="join_normal_email_hint">이메일을 입력하세요.</string>
     <string name="join_normal_nick_hint">별명을 입력하세요.</string>
@@ -147,4 +144,16 @@
 
     <string name="find_id_not_text">아이디를 찾지 못 했습니다</string>
     <string name="find_pass_not_text">비밀번호를 찾지 못 했습니다</string>
+
+    <string name="survey_toolbar_title">설문</string>
+    <string name="survey_main_title_text">이용하신 모바일스탬프에 대해 만족하십니까?</string>
+    <string name="survey_sub_title_text">현재 서비스의 만족도를 평가해주세요.\n 만족도 조사 결과 서비스 개선을 위한 자료로 활용됩니다.</string>
+    <string name="survey_grade_verygood_text">매우 만족</string>
+    <string name="survey_grade_good_text">만족</string>
+    <string name="survey_grade_notbad_text">보통</string>
+    <string name="survey_grade_bad_text">불만족</string>
+    <string name="survey_grade_verybad_text">매우 불만족</string>
+    <string name="survey_not_enough">평가 항목을 선택 해주세요</string>
+
+    <string name="gift_manger_title_text">스탬프를 찍어서 선물을 받으세요</string>
 </resources>

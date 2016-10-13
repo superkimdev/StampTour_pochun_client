@@ -22,7 +22,8 @@ public enum  RequestPath {
     req_url_nick_check("/user/nick/check"),
     req_url_join_normal("/user/join"),
     req_url_find_id("/user/find/id"),
-    req_url_find_pass("/user/find/password");
+    req_url_find_pass("/user/find/password"),
+    req_url_survey("");
 
 
     private String path;
