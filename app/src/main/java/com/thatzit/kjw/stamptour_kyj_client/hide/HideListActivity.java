@@ -82,6 +82,11 @@ public class HideListActivity extends AppCompatActivity implements HideRecyclerA
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.hidelist_toolbar_btn_close){
+            if(change_list){
+                setResult(HIDELISTCHANGED,parent_intent);
+            }else{
+                setResult(HIDELISTUNCHANGED,parent_intent);
+            }
             finish();
         }
     }
