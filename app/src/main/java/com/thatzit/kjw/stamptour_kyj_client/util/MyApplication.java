@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.kakao.auth.ApprovalType;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.IApplicationConfig;
@@ -21,6 +23,8 @@ public class MyApplication extends Application {
 		super.onCreate();
 		mContext = this;
 		KakaoSDK.init(new KakaoSDKAdapter());
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		AppEventsLogger.activateApp(this);
 	}
 
 	public static Context getContext() {

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">StampTour_kyj_Client</string>
     <!--OAUTH SERVICE KEY-->
+    <string name="facebook_app_id">1196868970378253</string>
     <string name="kakao_app_key">527f0df26e167313b802571444d94111</string>
     <string name="pass_patten">^(?=.*[a-z]+)(?=.*[0-9]+).{6,16}$</string>
     <string name="email_patten">[\\w\\~\\-\\.]+@[\\w\\~\\-]+(\\.[\\w\\~\\-]+)+</string>
@@ -157,4 +158,5 @@
     <string name="survey_not_enough">평가 항목을 선택 해주세요</string>
 
     <string name="gift_manger_title_text">스탬프를 찍어서 선물을 받으세요</string>
+    <string name="not_input_socialuser_password">소셜유저입니다.</string>
 </resources>

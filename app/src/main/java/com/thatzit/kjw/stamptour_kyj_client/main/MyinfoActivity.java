@@ -20,7 +20,9 @@ import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
+import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
+import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.util.ProgressWaitDaialog;
 import com.thatzit.kjw.stamptour_kyj_client.util.ValidPattern;
@@ -68,7 +70,19 @@ public class MyinfoActivity extends AppCompatActivity implements View.OnClickLis
         password_input = (EditText) findViewById(R.id.password_input);
         password_input_repeat = (EditText) findViewById(R.id.password_input_repeat);
         account_delete = (Button) findViewById(R.id.account_delete);
+        LoggedInInfo login_info = preferenceManager.getLoggedIn_Info();
 
+        if(!(login_info.getLoggedincase().equals(LoggedInCase.NORMAL.getLogin_case()))){
+            password_input.setHint(getResources().getString(R.string.not_input_socialuser_password));
+            password_input_repeat.setHint(getResources().getString(R.string.not_input_socialuser_password));
+
+            password_input.setFocusable(false);
+            password_input.setFocusableInTouchMode(false);
+            password_input.setClickable(false);
+            password_input_repeat.setFocusable(false);
+            password_input_repeat.setFocusableInTouchMode(false);
+            password_input_repeat.setClickable(false);
+        }
         comm_toolbar_home_close.setOnClickListener(this);
         comm_toolbar_home_confirm.setOnClickListener(this);
         account_delete.setOnClickListener(this);
