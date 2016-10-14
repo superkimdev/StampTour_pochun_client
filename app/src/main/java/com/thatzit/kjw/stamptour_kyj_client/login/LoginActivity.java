@@ -133,8 +133,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        //progressWaitDaialog = new ProgressWaitDaialog(this);
-        //self = this;
+        progressWaitDaialog = new ProgressWaitDaialog(this);
+        self = this;
     }
 
     private boolean checkPermission() {
@@ -357,7 +357,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             case R.id.login_btn_facebook:
                 break;
             case R.id.login_btn_kakao:
-                //kakaoLogin();
+                kakaoLogin();
                 break;
         }
 

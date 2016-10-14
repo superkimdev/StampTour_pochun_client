@@ -39,6 +39,13 @@ public class SocialUser implements SocialLoggedIn_Behavior,SocialLoggedOut_Behav
     private String nick;
     private PreferenceManager preferenceManager;
 
+    public SocialUser(String accesstoken,Context context){
+        this.context = context;
+        preferenceManager = new PreferenceManager(context);
+        this.nick = preferenceManager.getLoggedIn_Info().getNick();
+        this.accesstoken = accesstoken;
+
+    }
     public SocialUser(String id,String loggedincase,Context context) {
         this.id = id;
         this.context = context;
@@ -88,11 +95,11 @@ public class SocialUser implements SocialLoggedIn_Behavior,SocialLoggedOut_Behav
                             return;
                         }
                         Toast.makeText(context,context.getString(R.string.Toast_login_Success),Toast.LENGTH_LONG).show();
-//                        if(loggedincase.equals(LoggedInCase.FBLogin.getLogin_case())){
-//                            preferenceManager.facebook_LoggedIn(nick,accesstoken);
-//                        }else if(loggedincase.equals(LoggedInCase.KAKAOLogin.getLogin_case())){
-//                            preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);
-//                        }
+                        if(loggedincase.equals(LoggedInCase.FBLogin.getLogin_case())){
+                            preferenceManager.facebook_LoggedIn(nick,accesstoken);
+                        }else if(loggedincase.equals(LoggedInCase.KAKAOLogin.getLogin_case())){
+                            preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);
+                        }
 
                         if(preferenceManager.getVersion().getVersion() == 0 && preferenceManager.getVersion().getSize() == 0){
                             Log.e("FIRST_CHECK",preferenceManager.getVersion().getVersion()+"");
@@ -102,11 +109,6 @@ public class SocialUser implements SocialLoggedIn_Behavior,SocialLoggedOut_Behav
                                 preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);
                             }
 
-                        }else{
-                            Log.e("SECOND_CHECK",preferenceManager.getVersion().getVersion()+"");
-                            Intent intent = new Intent(context, MainActivity.class);
-                            context.startActivity(intent);
-                            ((LoginActivity) context).finish();
                         }
                         //버전 체크에 accesstoken이 필요하므로 로그아웃 했다가 다시 로그인할 시 스플래쉬에선 체크 불가
                         //로그인에서 다시 한번 체크할 수 있도록 로그인에서는 항상 버전 체크
@@ -138,7 +140,7 @@ public class SocialUser implements SocialLoggedIn_Behavior,SocialLoggedOut_Behav
         RequestParams params = new RequestParams();
         params.put("nick",nick);
         params.put("accesstoken",accesstoken);
-        Toast.makeText(context,"일반유저 로그아웃",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"소셜유저 로그아웃",Toast.LENGTH_LONG).show();
         StampRestClient.post(context.getString(R.string.req_url_loggedout),params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
