@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.hide.HideListActivity;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.main.action.Case_by_loggedout;
 import com.thatzit.kjw.stamptour_kyj_client.main.action.Check_return_loggedincase;
@@ -72,6 +73,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
                 break;
             case R.id.hidemanage_view_container:
                 Toast.makeText(getContext(),getResources().getString(R.string.hidemanage_view_container),Toast.LENGTH_LONG).show();
+                intent = new Intent(getActivity(),HideListActivity.class);
+                getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
             case R.id.present_view_container:
                 intent = new Intent(getActivity(),GiftManageActivity.class);
