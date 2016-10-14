@@ -71,6 +71,7 @@
         <activity android:name=".login.FindIdActivity" />
         <activity android:name=".login.FindPassActivity" />
         <activity android:name=".login.SocialJoinActivity"/>
+        <activity android:name=".more.GiftManageActivity"></activity>
     </application>
 
 </manifest>

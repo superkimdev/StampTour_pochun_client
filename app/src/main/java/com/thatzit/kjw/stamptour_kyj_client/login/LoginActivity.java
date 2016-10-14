@@ -362,7 +362,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }
 
     }
-/*
+
     private void kakaoLogin() {
         mKakaoCallback = new ISessionCallback() {
 
@@ -482,6 +482,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }else if(resultCode == JOINSOCIALUSER){
             Toast.makeText(self,"로그인 해주세요",Toast.LENGTH_LONG).show();
         }
-    }*/
+    }
 }
 

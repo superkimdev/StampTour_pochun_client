@@ -18,7 +18,8 @@ public enum ResponseKey {
     RANK("rank"),
     MYSTAMPCOUNT("stamp_count"),
     TOTAL("total"),
-    RANKLIST("ranklist");
+    RANKLIST("ranklist"),
+    LOGGEDINCASE("loggedincase");
     private String key;
 
     ResponseKey() {
