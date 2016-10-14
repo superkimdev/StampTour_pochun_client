@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kakao.auth.Session;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
@@ -27,6 +28,8 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.kakao.auth.Session.getCurrentSession;
+
 /**
  * Created by kjw on 2016. 10. 13..
  */
@@ -38,6 +41,7 @@ public class SocialUser implements SocialLoggedIn_Behavior,SocialLoggedOut_Behav
     private Context context;
     private String nick;
     private PreferenceManager preferenceManager;
+    private Session session;
 
     public SocialUser(String accesstoken,Context context){
         this.context = context;
@@ -155,7 +159,14 @@ public class SocialUser implements SocialLoggedIn_Behavior,SocialLoggedOut_Behav
                     resultData = response.getString(ResponseKey.RESULTDATA.getKey());
                     if(code.equals("00")){
                         Toast.makeText(context,"로그아웃 성공",Toast.LENGTH_LONG).show();
+                        if(preferenceManager.getLoggedIn_Info().getLoggedincase().equals(LoggedInCase.KAKAOLogin.getLogin_case())){
+                            session = getCurrentSession();
+                            session.close();
+                        }else if(preferenceManager.getLoggedIn_Info().getLoggedincase().equals(LoggedInCase.FBLogin.getLogin_case())){
+
+                        }
                         preferenceManager.user_LoggedOut();
+
                         Intent intent = new Intent(context, SplashActivity.class);
                         context.startActivity(intent);
                         ((MainActivity)context).finish();
