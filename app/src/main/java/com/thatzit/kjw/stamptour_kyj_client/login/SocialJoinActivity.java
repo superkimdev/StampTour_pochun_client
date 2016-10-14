@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -19,6 +20,7 @@ import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
 import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
+import com.thatzit.kjw.stamptour_kyj_client.main.TermsActivity;
 import com.thatzit.kjw.stamptour_kyj_client.util.MyApplication;
 import com.thatzit.kjw.stamptour_kyj_client.util.ProgressWaitDaialog;
 
@@ -31,6 +33,7 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
 
     private static final String TAG = "SocialJoinActivity";
     private ImageButton btn_close;
+    private TextView join_accept_textview;
     private Intent parentIntent;
     private String socialid;
     private String loggedincase;
@@ -54,6 +57,9 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
     private void setLayout() {
         self = this;
         //MyApplication.setCurrentActivity(this);
+
+        join_accept_textview = (TextView)findViewById(R.id.join_accept_textview);
+        join_accept_textview.setOnClickListener(this);
 
         progressWaitDaialog = new ProgressWaitDaialog(this);
         parentIntent = getIntent();
@@ -80,6 +86,10 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btn_sendjoin:
                 requestSendJoin();
+                break;
+            case R.id.join_accept_textview:
+                Intent intent = new Intent(this,TermsActivity.class);
+                startActivity(intent);
                 break;
         }
     }
