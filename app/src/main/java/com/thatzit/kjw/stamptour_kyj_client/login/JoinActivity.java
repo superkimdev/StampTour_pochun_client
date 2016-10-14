@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -22,6 +23,7 @@ import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
+import com.thatzit.kjw.stamptour_kyj_client.main.TermsActivity;
 import com.thatzit.kjw.stamptour_kyj_client.util.ProgressWaitDaialog;
 import com.thatzit.kjw.stamptour_kyj_client.util.ValidPattern;
 import com.thatzit.kjw.stamptour_kyj_client.util.Validator;
@@ -34,6 +36,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class JoinActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private TextView join_accept_textview;
     private EditText email_input;
     private EditText nick_input;
     private EditText password_input;
@@ -67,6 +70,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void setLayout() {
+        join_accept_textview = (TextView)findViewById(R.id.join_accept_textview);
         email_input = (EditText)findViewById(R.id.email_input);
         nick_input = (EditText)findViewById(R.id.nick_input);
         password_input = (EditText)findViewById(R.id.password_input);
@@ -76,6 +80,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         btn_sendjoin  = (Button)findViewById(R.id.btn_sendjoin);
         btn_close = (ImageButton)findViewById(R.id.btn_close);
 
+        join_accept_textview.setOnClickListener(this);
         btn_check_email_duplicate.setOnClickListener(this);
         btn_check_nick_duplicate.setOnClickListener(this);
         btn_sendjoin.setOnClickListener(this);
@@ -318,6 +323,10 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_close:
                 finish();
+                break;
+            case R.id.join_accept_textview:
+                Intent intent = new Intent(this,TermsActivity.class);
+                startActivity(intent);
                 break;
 
         }
