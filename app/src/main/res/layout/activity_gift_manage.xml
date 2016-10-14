@@ -28,6 +28,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="35dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
             <TextView
@@ -41,20 +42,14 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="@color/alpha_background"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line312"></LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rank_scrollable_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/common_bg_color2" />
-        </LinearLayout>
+            android:layout_height="1dp"
+            android:background="@color/line312"></LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/gift_manage_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_bg_color2" />
+
     </LinearLayout>
 
 </LinearLayout>

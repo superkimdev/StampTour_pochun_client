@@ -1,4 +1,4 @@
-package com.thatzit.kjw.stamptour_kyj_client.main.adapter;
+package com.thatzit.kjw.stamptour_kyj_client.more;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -49,18 +49,18 @@ public class GiftRecyclerViewAdapter extends RecyclerView.Adapter<GiftRecyclerVi
         //holder.imageView.setImageResource(mItems.get(position).image);
         //holder.textView.setText(mItems.get(position).imagetitle);
         holder.title.setText(mItems.get(position).getTitle());
-
-        if(mItems.get(position).getState().equals("0")) {
+        holder.subtitle.setText(mItems.get(position).getSubtitle());
+        holder.gift_btn.setVisibility(View.GONE);
+      /*  if(mItems.get(position).getState().equals("0")) {
             holder.subtitle.setText(mItems.get(position).getSubtitle());
             holder.gift_btn.setVisibility(View.GONE);
         }else if(mItems.get(position).getState().equals("1")) {
             holder.subtitle.setText(mItems.get(position).getSubtitle());
             holder.gift_btn.setVisibility(View.VISIBLE);
-            setAnimation(holder.gift_btn, position);
         }else {
             holder.subtitle.setText(mItems.get(position).getSubtitle());
             holder.gift_btn.setVisibility(View.GONE);
-        }
+        }*/
 
 
     }

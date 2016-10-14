@@ -1,4 +1,4 @@
-package com.thatzit.kjw.stamptour_kyj_client.user.normal;
+package com.thatzit.kjw.stamptour_kyj_client.user.social;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +18,8 @@ import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.splash.SplashActivity;
-import com.thatzit.kjw.stamptour_kyj_client.user.User;
-import com.thatzit.kjw.stamptour_kyj_client.user.normal.action.NormalLoggedIn_Behavior;
-import com.thatzit.kjw.stamptour_kyj_client.user.normal.action.NormalLoggedOut_Behavior;
+import com.thatzit.kjw.stamptour_kyj_client.user.social.action.SocialLoggedIn_Behavior;
+import com.thatzit.kjw.stamptour_kyj_client.user.social.action.SocialLoggedOut_Behavior;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,44 +28,38 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * Created by kjw on 16. 8. 21..
+ * Created by kjw on 2016. 10. 13..
  */
-public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLoggedOut_Behavior{
+
+public class SocialUser implements SocialLoggedIn_Behavior,SocialLoggedOut_Behavior{
     private String id;
-    private String nick;
-    private String password;
     private String accesstoken;
+    private String loggedincase;
     private Context context;
+    private String nick;
     private PreferenceManager preferenceManager;
-    public NormalUser() {
-        super();
-    }
-    public NormalUser(String accesstoken,Context context){
+
+    public SocialUser(String accesstoken,Context context){
         this.context = context;
         preferenceManager = new PreferenceManager(context);
         this.nick = preferenceManager.getLoggedIn_Info().getNick();
         this.accesstoken = accesstoken;
 
     }
-    public NormalUser(String id, String password,Context context) {
+    public SocialUser(String id,String loggedincase,Context context) {
         this.id = id;
-        this.password = password;
         this.context = context;
+        this.loggedincase = loggedincase;
         preferenceManager = new PreferenceManager(context);
     }
 
 
-    public String getAccesstoken() {
-        return accesstoken;
-    }
-
     @Override
-    public void LoggedIn(String id, String password) {
+    public void LoggedIn(String id) {
         RequestParams params = new RequestParams();
         params.put("id",id);
-        params.put("password",password);
-        params.put("loggedincase", LoggedInCase.NORMAL.getLogin_case());
-        Log.e("NormalUser-Call","Call");
+        params.put("loggedincase", loggedincase);
+        Log.e("SocialUser-Call","Call");
         ((LoginActivity)context).showProgress(true);
         StampRestClient.post(context.getString(R.string.req_url_loggedin),params,new JsonHttpResponseHandler(){
             public String login_success_check(String nick,String accesstoken){
@@ -81,7 +74,7 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
-                Log.e("NormalUser",response.toString());
+                Log.e("SocialUser",response.toString());
                 String code = null;
                 String msg = null;
                 String nick = null;
@@ -102,13 +95,21 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
                             return;
                         }
                         Toast.makeText(context,context.getString(R.string.Toast_login_Success),Toast.LENGTH_LONG).show();
-                        preferenceManager.normal_LoggedIn(nick,accesstoken);
-                        if(preferenceManager.getVersion().getVersion() == 0 && preferenceManager.getVersion().getSize() == 0){
-                            Log.e("FIRST_CHECK",preferenceManager.getVersion().getVersion()+"");
-                            preferenceManager.normal_LoggedIn(nick,accesstoken);
-
+                        if(loggedincase.equals(LoggedInCase.FBLogin.getLogin_case())){
+                            preferenceManager.facebook_LoggedIn(nick,accesstoken);
+                        }else if(loggedincase.equals(LoggedInCase.KAKAOLogin.getLogin_case())){
+                            preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);
                         }
 
+                        if(preferenceManager.getVersion().getVersion() == 0 && preferenceManager.getVersion().getSize() == 0){
+                            Log.e("FIRST_CHECK",preferenceManager.getVersion().getVersion()+"");
+                            if(loggedincase.equals(LoggedInCase.FBLogin.getLogin_case())){
+                                preferenceManager.facebook_LoggedIn(nick,accesstoken);
+                            }else if(loggedincase.equals(LoggedInCase.KAKAOLogin.getLogin_case())){
+                                preferenceManager.kakaotalk_LoggedIn(nick,accesstoken);
+                            }
+
+                        }
                         //버전 체크에 accesstoken이 필요하므로 로그아웃 했다가 다시 로그인할 시 스플래쉬에선 체크 불가
                         //로그인에서 다시 한번 체크할 수 있도록 로그인에서는 항상 버전 체크
                         VersoinChecker versoinChecker = new VersoinChecker(context);
@@ -125,13 +126,6 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
                 }
                 ((LoginActivity)context).showProgress(false);
             }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
-                // Pull out the first event on the public timeline
-
-
-            }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
@@ -146,7 +140,7 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
         RequestParams params = new RequestParams();
         params.put("nick",nick);
         params.put("accesstoken",accesstoken);
-        Toast.makeText(context,"일반유저 로그아웃",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"소셜유저 로그아웃",Toast.LENGTH_LONG).show();
         StampRestClient.post(context.getString(R.string.req_url_loggedout),params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

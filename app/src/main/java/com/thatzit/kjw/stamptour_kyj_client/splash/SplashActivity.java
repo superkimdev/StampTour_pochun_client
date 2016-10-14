@@ -47,7 +47,6 @@ public class SplashActivity extends Activity {
         public void run() {
             if(!preferenceManger.getFirstStart()){
                 preferenceManger.setFirstStart();
-//                Toast.makeText(getApplicationContext(),"처음임",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getApplication(), LoginActivity.class));
                 SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
                 return;

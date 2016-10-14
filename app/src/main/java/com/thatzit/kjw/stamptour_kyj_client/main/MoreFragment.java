@@ -17,11 +17,13 @@ import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.main.action.Case_by_loggedout;
 import com.thatzit.kjw.stamptour_kyj_client.main.action.Check_return_loggedincase;
+import com.thatzit.kjw.stamptour_kyj_client.more.GiftManageActivity;
 import com.thatzit.kjw.stamptour_kyj_client.more.SurveyActivity;
 import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.user.User;
 import com.thatzit.kjw.stamptour_kyj_client.user.normal.NormalUser;
+import com.thatzit.kjw.stamptour_kyj_client.user.social.SocialUser;
 
 public class MoreFragment extends Fragment implements View.OnClickListener,Check_return_loggedincase,Case_by_loggedout
 {
@@ -36,6 +38,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
     private final int USERINFOCHANGED = 1001;
     private final String TAG = "MoreFragment";
     private User user;
+    private SocialUser socialuser;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.more_fragment, container, false);
@@ -70,7 +74,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
                 Toast.makeText(getContext(),getResources().getString(R.string.hidemanage_view_container),Toast.LENGTH_LONG).show();
                 break;
             case R.id.present_view_container:
-                Toast.makeText(getContext(),getResources().getString(R.string.present_view_container),Toast.LENGTH_LONG).show();
+                intent = new Intent(getActivity(),GiftManageActivity.class);
+                getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
             case R.id.research_view_container:
                 Toast.makeText(getContext(),getResources().getString(R.string.research_view_container),Toast.LENGTH_LONG).show();
@@ -107,6 +112,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
             Toast.makeText(getContext(),LoggedInCase.FBLogin.getLogin_case()+temp,Toast.LENGTH_LONG).show();
         }else if(loggedincase.equals(LoggedInCase.KAKAOLogin.getLogin_case())){
             Toast.makeText(getContext(),LoggedInCase.KAKAOLogin.getLogin_case()+temp,Toast.LENGTH_LONG).show();
+            socialuser = new SocialUser(loggedin_info.getAccesstoken(),getActivity());
+            socialuser.LoggeOut();
         }
     }
 

@@ -16,7 +16,7 @@
             android:layout_marginBottom="16dp"
             android:background="#00000000"
             android:src="@drawable/btn_back"
-            android:id="@+id/gift_manager_toolbar_back" />
+            android:id="@+id/gift_manage_toolbar_back" />
 
         <TextView
             android:id="@+id/gift_manager_toolbar_title_textview"
@@ -36,7 +36,7 @@
             android:layout_gravity="end"
             android:background="#00000000"
             android:src="@drawable/btn_done"
-            android:id="@+id/gift_toolbar_done"/>
+            android:id="@+id/gift_manage_toolbar_done"/>
 
 
     </android.support.v7.widget.Toolbar>

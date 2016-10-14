@@ -1,5 +1,6 @@
 package com.thatzit.kjw.stamptour_kyj_client.checker;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -115,7 +116,6 @@ public class VersoinChecker implements Check,DownLoad{
                                 Intent intent = new Intent(context, LoginActivity.class);
                                 ((SplashActivity)context).startActivity(intent);
                                 ((SplashActivity)context).finish();
-
                             }
                         }else{
                             Log.e("Down?","down");
@@ -199,16 +199,25 @@ public class VersoinChecker implements Check,DownLoad{
         return;
     }
 
+    public String typeCheckDownLoad(){
+        if(context.getClass().getName().contains("LoginActivity")){
+            return "LoginActivity";
+        }
+        else if(context.getClass().getName().contains("SplashActivity")){
+            return "SplashActivity";
+        }
+        return null;
+    }
     @Override
     public void downloadAndLoggedin(final String nick,final String accesstoken) {
-//        new ProgressAsyncTask(context,preferenceManager,nick,accesstoken).execute();
         RequestParams params = new RequestParams();
         params.put("nick",nick);
         params.put("accesstoken",accesstoken);
         String contents_down_url = context.getString(R.string.req_url_download_zip);
         final int filesize = preferenceManager.getVersion().getSize();
         Log.e("download",nick+":"+accesstoken);
-        dlg = new ProgressDialog(this.context,ProgressDialog.STYLE_HORIZONTAL);
+
+        dlg = new ProgressDialog(context,ProgressDialog.STYLE_HORIZONTAL);
         dlg.setProgress(0);
         dlg.setMessage("필요한 컨텐츠 다운로드중...");
         dlg.setCancelable(false);

@@ -181,7 +181,7 @@
                     android:layout_marginTop="@dimen/social_join_confirm_textview_marginTop"
                     android:layout_marginLeft="@dimen/account_accountmanage_password_input_marginLeft"
                     android:layout_marginRight="@dimen/account_accountmanage_password_input_marginRight"
-                    android:id="@+id/social_join_accept_textview"
+                    android:id="@+id/join_accept_textview"
                     android:text="@string/social_join_accept_textview_text"
                     android:textSize="@dimen/social_join_confirm_textview_textSize"
                     android:textColor="@color/social_join_confirm_textview_textColor"/>
