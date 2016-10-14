@@ -107,12 +107,8 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
                             Log.e("FIRST_CHECK",preferenceManager.getVersion().getVersion()+"");
                             preferenceManager.normal_LoggedIn(nick,accesstoken);
 
-                        }else{
-                            Log.e("SECOND_CHECK",preferenceManager.getVersion().getVersion()+"");
-                            Intent intent = new Intent(context, MainActivity.class);
-                            context.startActivity(intent);
-                            ((LoginActivity) context).finish();
                         }
+
                         //버전 체크에 accesstoken이 필요하므로 로그아웃 했다가 다시 로그인할 시 스플래쉬에선 체크 불가
                         //로그인에서 다시 한번 체크할 수 있도록 로그인에서는 항상 버전 체크
                         VersoinChecker versoinChecker = new VersoinChecker(context);

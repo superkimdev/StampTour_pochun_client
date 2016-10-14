@@ -20,66 +20,66 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		mContext = this;
-		//KakaoSDK.init(new KakaoSDKAdapter());
+		KakaoSDK.init(new KakaoSDKAdapter());
 	}
 
 	public static Context getContext() {
 		return mContext;
 	}
-//	private static class KakaoSDKAdapter extends KakaoAdapter {
-//		public KakaoSDKAdapter() {
-//			super();
-//		}
-//
-//		@Override
-//		public ISessionConfig getSessionConfig() {
-//			return new ISessionConfig() {
-//				@Override
-//				public AuthType[] getAuthTypes() {
-//					return new AuthType[] {AuthType.KAKAO_LOGIN_ALL};
-//				}
-//
-//				@Override
-//				public boolean isUsingWebviewTimer() {
-//					return false;
-//				}
-//
-//
-//				@Override
-//				public ApprovalType getApprovalType() {
-//					return ApprovalType.INDIVIDUAL;
-//				}
-//
-//				@Override
-//				public boolean isSaveFormData() {
-//					return true;
-//				}
-//			};
-//		}
-//
-//		@Override
-//		public IApplicationConfig getApplicationConfig() {
-//			return new IApplicationConfig() {
-//				@Override
-//				public Activity getTopActivity() {
-//					return MyApplication.getCurrentActivity();
-//				}
-//
-//				@Override
-//				public Context getApplicationContext() {
-//					return MyApplication.getContext();
-//				}
-//			};
-//		}
-//
-//
-//	}
-//	public static Activity getCurrentActivity() {
-//		return currentActivity;
-//	}
-//
-//	// Activity가 올라올때마다 Activity의 onCreate에서 호출해줘야한다.
-//	public static void setCurrentActivity(Activity currentActivity) {
-//		MyApplication.currentActivity = currentActivity;
-//	}
+	private static class KakaoSDKAdapter extends KakaoAdapter {
+		public KakaoSDKAdapter() {
+			super();
+		}
+
+		@Override
+		public ISessionConfig getSessionConfig() {
+			return new ISessionConfig() {
+				@Override
+				public AuthType[] getAuthTypes() {
+					return new AuthType[] {AuthType.KAKAO_LOGIN_ALL};
+				}
+
+				@Override
+				public boolean isUsingWebviewTimer() {
+					return false;
+				}
+
+
+				@Override
+				public ApprovalType getApprovalType() {
+					return ApprovalType.INDIVIDUAL;
+				}
+
+				@Override
+				public boolean isSaveFormData() {
+					return true;
+				}
+			};
+		}
+
+		@Override
+		public IApplicationConfig getApplicationConfig() {
+			return new IApplicationConfig() {
+				@Override
+				public Activity getTopActivity() {
+					return MyApplication.getCurrentActivity();
+				}
+
+				@Override
+				public Context getApplicationContext() {
+					return MyApplication.getContext();
+				}
+			};
+		}
+
+
+	}
+	public static Activity getCurrentActivity() {
+		return currentActivity;
+	}
+
+	// Activity가 올라올때마다 Activity의 onCreate에서 호출해줘야한다.
+	public static void setCurrentActivity(Activity currentActivity) {
+		MyApplication.currentActivity = currentActivity;
+	}
 }
