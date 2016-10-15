@@ -12,7 +12,8 @@ public enum PreferenceKey {
     LOGGEDINCASE("loggedincase"),
     LOCALE("locale"),
     GCMTOKEN("gcmtoken"),
-    DOWNFLAG("downflag");
+    DOWNFLAG("downflag"),
+    AGO_NOTIFICATION_TOWN("ago_notification_town");
     private String key;
 
     PreferenceKey() {

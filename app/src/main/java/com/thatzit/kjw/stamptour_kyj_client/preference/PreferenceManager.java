@@ -104,4 +104,12 @@ public class PreferenceManager {
     public int getTownHideStatus(String no){
         return pref.getInt(no,-1);
     }
+
+    public void setAgoNotificationTown(String town_name){
+        editor.putString(PreferenceKey.AGO_NOTIFICATION_TOWN.getKey(),town_name);
+        editor.commit();
+    }
+    public String getAgoNotificationTown(){
+        return pref.getString(PreferenceKey.AGO_NOTIFICATION_TOWN.getKey(),"EMPTY");
+    }
 }

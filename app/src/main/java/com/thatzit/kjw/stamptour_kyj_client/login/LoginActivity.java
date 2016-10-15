@@ -315,16 +315,17 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     }
     @Override
     protected void onStop() {
-        super.onStop();
         dlg.dismiss();
+        super.onStop();
+
     }
 
     @Override
     protected void onDestroy() {
-
-        super.onDestroy();
         dlg.dismiss();
-        session.removeCallback(mKakaoCallback);
+        if(session!=null) session.removeCallback(mKakaoCallback);
+        super.onDestroy();
+
     }
 
     @Override
