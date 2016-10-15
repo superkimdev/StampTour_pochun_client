@@ -222,6 +222,9 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private final static Comparator<TownDTO> distanceComparator = new Comparator<TownDTO>() {
         @Override
         public int compare(TownDTO lhs, TownDTO rhs) {
+            if(lhs.getDistance().equals("찾지못함")){
+                return lhs.getName().compareTo(rhs.getName());
+            }
             return (Float.parseFloat(lhs.getDistance()) < Float.parseFloat(rhs.getDistance())) ? -1 : (Float.parseFloat(lhs.getDistance()) > Float.parseFloat(rhs.getDistance())) ? 1 : 0;
         }
     };
