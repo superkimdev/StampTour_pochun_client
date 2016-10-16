@@ -2,6 +2,7 @@ package com.thatzit.kjw.stamptour_kyj_client.more;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -49,14 +50,12 @@ public class GiftManageActivity extends AppCompatActivity implements View.OnClic
         // Item 리스트에 아이템 객체 넣기
         ArrayList<GiftDTO> items = new ArrayList<>();
 
-        items.add(new GiftDTO("성골 선물","선물받기까지 10개 스탬프 남았습니", "0"));
-        items.add(new GiftDTO("진골 선물","눌러서 선물을 신청하세", "1"));
+        items.add(new GiftDTO("성골 선물","선물받기까지 10개 스탬프 남았습니다", "0"));
+        items.add(new GiftDTO("진골 선물","눌러서 선물을 신청하세요", "1"));
         items.add(new GiftDTO("백골 선물","선물 신청 완료", "2"));
 
 
-        // StaggeredGrid 레이아웃을 사용한다
-        layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        //layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
         //layoutManager = new GridLayoutManager(this,3);
 
         // 지정된 레이아웃매니저를 RecyclerView에 Set 해주어야한다.
@@ -68,6 +67,10 @@ public class GiftManageActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.gift_manage_toolbar_back:
+                finish();
+                break;
+        }
     }
 }

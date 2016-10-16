@@ -98,7 +98,7 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
                 requestSendJoin();
                 break;
             case R.id.join_accept_textview:
-                Intent intent = new Intent(this,TermsActivity.class);
+                Intent intent = new Intent(SocialJoinActivity.this,TermsActivity.class);
                 startActivity(intent);
                 break;
         }

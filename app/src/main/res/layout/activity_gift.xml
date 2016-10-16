@@ -31,16 +31,15 @@
             android:layout_marginRight="16dp"
             android:orientation="vertical">
             <EditText
-                android:id="@+id/password_input"
+                android:id="@+id/gift_name_input_text"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@null"
                 android:hint="@string/gift_name_text"
-                android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingLeft="16dp"
                 android:singleLine="true"
-                android:textColor="@color/pwInput"
+                android:textColor="@color/emailInput"
                 android:textColorHint="@color/account_accountmanage_password_input_hint_color"
                 android:textSize="17sp" />
 
@@ -49,19 +48,15 @@
                 android:layout_height="1dp"
                 android:background="#ceced2"></LinearLayout>
             <EditText
-                android:id="@+id/password_input_repeat"
+                android:id="@+id/gift_phone_input_text"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@null"
                 android:hint="@string/gift_phone_text"
-                android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingLeft="16dp"
                 android:singleLine="true"
-                android:textColor="@color/pwInput"
+                android:textColor="@color/emailInput"
                 android:textColorHint="@color/account_accountmanage_password_input_hint_color"
                 android:textSize="17sp" />
         </LinearLayout>
@@ -76,7 +71,7 @@
             android:textSize="@dimen/btn_send_join_textSize"
             android:textColor="@color/btn_sendjoin_textColor"
             android:background="@drawable/send_rectangle"
-            android:id="@+id/btn_sendjoin"/>
+            android:id="@+id/gift_sendjoin_btn"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

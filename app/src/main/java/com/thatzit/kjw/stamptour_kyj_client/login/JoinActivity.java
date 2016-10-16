@@ -325,8 +325,9 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.join_accept_textview:
-                Intent intent = new Intent(this,TermsActivity.class);
-                startActivity(intent);
+                Toast.makeText(this,getString(R.string.validate_failure),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(JoinActivity.this,TermsActivity.class);
+                this.startActivity(intent);
                 break;
 
         }
