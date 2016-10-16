@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_bg_color1"
+    android:background="@drawable/img_splash_bg"
     tools:context="com.thatzit.kjw.stamptour_kyj_client.splash.SplashActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/stdColorWhite"
+            android:background="@drawable/img_splash_bg"
             >
             <ImageView
                 android:layout_width="@dimen/logo_horizontal_size"
@@ -29,7 +29,7 @@
                 android:text="MADE WITH THATZIT"
                 android:textStyle="bold"
                 android:textSize="12sp"
-                android:textColor="#B4B4B4"
+                android:textColor="#99FFFFFF"
                 android:textAlignment="center"
                 android:id="@+id/logo_subtitle"
                 />
@@ -42,7 +42,7 @@
                 android:text="©2016.POCHEON"
                 android:textStyle="bold"
                 android:textSize="12sp"
-                android:textColor="#303030"
+                android:textColor="#FFFFFF"
                 android:textAlignment="center"
                 android:id="@+id/logo_title"
                 />

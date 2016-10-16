@@ -35,7 +35,7 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
 
     private static final String TAG = "SocialJoinActivity";
     private ImageButton btn_close;
-    private TextView join_accept_textview;
+    private TextView social_join_accept_textview;
     private Intent parentIntent;
     private String socialid;
     private String loggedincase;
@@ -51,7 +51,7 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
 
     private Validator validator;
     private boolean duplicate_check_nick;
-    private TextView social_join_accept_textview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +64,8 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
         self = this;
         //MyApplication.setCurrentActivity(this);
 
-        join_accept_textview = (TextView)findViewById(R.id.join_accept_textview);
-        join_accept_textview.setOnClickListener(this);
+        social_join_accept_textview = (TextView)findViewById(R.id.social_join_accept_textview);
+        social_join_accept_textview.setOnClickListener(this);
 
         progressWaitDaialog = new ProgressWaitDaialog(this);
         parentIntent = getIntent();
@@ -91,7 +91,6 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.btn_check_duplicate:
-                Toast.makeText(this, "중복체크", Toast.LENGTH_SHORT).show();
                 Duplicate_Check_Nick();
                 break;
             case R.id.btn_sendjoin:
@@ -161,7 +160,7 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
         String user_input_nick;
         user_input_nick = nick_input.getText().toString();
         params.put(ResponseKey.NICK.getKey(),user_input_nick);
-        params.put("loggedincase", LoggedInCase.KAKAOLogin.getLogin_case());
+        params.put(ResponseKey.LOGGEDINCASE.getKey(),loggedincase);
         progressWaitDaialog.show();
         StampRestClient.post(path,params,new JsonHttpResponseHandler(){
             @Override

@@ -377,6 +377,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
     }
     private void setFB() {
+        progressWaitDaialog.show();
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -400,25 +401,18 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                                         Log.v("LoginActivity", response.toString());
 
                                         // Application code
-                                        try {
-                                            String email = object.getString("email");
-                                            //String birthday = object.getString("birthday"); // 01/31/1980 format
-                                            Log.d("LoginActivity",email);
-                                            String phone;
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                                                SubscriptionManager telephonyMgr = (SubscriptionManager) getSystemService (Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                                                Log.d("LoginActivity!!",telephonyMgr.getActiveSubscriptionInfoList().get(0).getNumber());
-                                                phone=telephonyMgr.getActiveSubscriptionInfoList().get(0).getNumber();
+                                        //String birthday = object.getString("birthday"); // 01/31/1980 format
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                                            SubscriptionManager telephonyMgr = (SubscriptionManager) getSystemService (Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                                            Log.d("LoginActivity!!",telephonyMgr.getActiveSubscriptionInfoList().get(0).getNumber());
+                                            phone=telephonyMgr.getActiveSubscriptionInfoList().get(0).getNumber();
 
-                                            }else
-                                            {
-                                                TelephonyManager telephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-                                                Log.d("LoginActivity!!",telephonyMgr.getLine1Number());
-                                                phone=telephonyMgr.getLine1Number();
+                                        }else
+                                        {
+                                            TelephonyManager telephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                                            Log.d("LoginActivity!!",telephonyMgr.getLine1Number());
+                                            phone=telephonyMgr.getLine1Number();
 
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
                                         }
 
                                     }
@@ -427,6 +421,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                         parameters.putString("fields", "id,name,email,gender");
                         request.setParameters(parameters);
                         request.executeAsync();
+                        request_Duplicate_Check_id(tk.getUserId(),LoggedInCase.FBLogin.getLogin_case());
 
                     }
                     @Override
@@ -530,7 +525,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                             Toast.makeText(self,getResources().getString(R.string.join_normal_valid_email),Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(self, SocialJoinActivity.class);
                             intent.putExtra("id",user_input_id);
-                            intent.putExtra("LoggedIncase",LoggedInCase.KAKAOLogin.getLogin_case());
+                            intent.putExtra("LoggedIncase",login_case);
                             self.startActivityForResult(intent,STARTSOCIALJOIN);
                         }
 

@@ -146,7 +146,6 @@ public class NormalUser extends User implements NormalLoggedIn_Behavior,NormalLo
         RequestParams params = new RequestParams();
         params.put("nick",nick);
         params.put("accesstoken",accesstoken);
-        Toast.makeText(context,"일반유저 로그아웃",Toast.LENGTH_LONG).show();
         StampRestClient.post(context.getString(R.string.req_url_loggedout),params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
