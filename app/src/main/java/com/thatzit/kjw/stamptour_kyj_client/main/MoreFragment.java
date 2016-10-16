@@ -67,12 +67,10 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.account_view_container:
-                Toast.makeText(getContext(),getResources().getString(R.string.account_view_container),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),MyinfoActivity.class);
                 getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
             case R.id.hidemanage_view_container:
-                Toast.makeText(getContext(),getResources().getString(R.string.hidemanage_view_container),Toast.LENGTH_LONG).show();
                 intent = new Intent(getActivity(),HideListActivity.class);
                 getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
@@ -81,7 +79,6 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
                 getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
             case R.id.research_view_container:
-                Toast.makeText(getContext(),getResources().getString(R.string.research_view_container),Toast.LENGTH_LONG).show();
                 intent = new Intent(getActivity(),SurveyActivity.class);
                 getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
@@ -108,13 +105,12 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
         String temp = " User";
         LoggedInInfo loggedin_info = preferenceManager.getLoggedIn_Info();
         if(loggedincase.equals(LoggedInCase.NORMAL.getLogin_case())){
-            Toast.makeText(getContext(),LoggedInCase.NORMAL.getLogin_case()+temp,Toast.LENGTH_LONG).show();
             user = new NormalUser(loggedin_info.getAccesstoken(),getActivity());
             ((NormalUser)user).LoggeOut();
         }else if(loggedincase.equals(LoggedInCase.FBLogin.getLogin_case())){
-            Toast.makeText(getContext(),LoggedInCase.FBLogin.getLogin_case()+temp,Toast.LENGTH_LONG).show();
+            socialuser = new SocialUser(loggedin_info.getAccesstoken(),getActivity());
+            socialuser.LoggeOut();
         }else if(loggedincase.equals(LoggedInCase.KAKAOLogin.getLogin_case())){
-            Toast.makeText(getContext(),LoggedInCase.KAKAOLogin.getLogin_case()+temp,Toast.LENGTH_LONG).show();
             socialuser = new SocialUser(loggedin_info.getAccesstoken(),getActivity());
             socialuser.LoggeOut();
         }
