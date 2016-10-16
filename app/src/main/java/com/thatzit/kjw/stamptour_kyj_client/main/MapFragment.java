@@ -107,8 +107,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
             marker= this.googleMap
                     .addMarker(new MarkerOptions()
                             .position(new LatLng(Double.parseDouble(ReadJson.memCashList.get(i).getLat()), Double.parseDouble(ReadJson.memCashList.get(i).getLon())))
-                    .title(ReadJson.memCashList.get(i).getName())
-                    .snippet("Marker Description"));
+                    .title(ReadJson.memCashList.get(i).getName()));
         }
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 10));
 

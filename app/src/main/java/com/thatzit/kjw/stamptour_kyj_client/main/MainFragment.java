@@ -1,9 +1,11 @@
 package com.thatzit.kjw.stamptour_kyj_client.main;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
@@ -94,6 +96,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private static final int HIDELISTCHANGED = 7778;
     private static final int HIDELISTUNCHANGED = 7779;
     private MainActivity parent;
+    private boolean turnOnGpsShow = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -440,6 +443,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     }
 
     private void sort_load_before_check() {
+        ShowGpsDialog();
         if(setting_flag == 0){
             //처음 화면 세팅작업중에는 토스트 안띄우고 일단은 데이터 띄워주기 위해서 setting_flag 값에 따라 분기시킴
             if(currentLocation == null) {
@@ -453,10 +457,6 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             setting_flag=1;
         }else{
             if(currentLocation == null){
-                if(turnOff == false){
-                    Toast.makeText(getContext(),"GPS켜주세요",Toast.LENGTH_LONG).show();
-                }
-
                 new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
             }else{
                 sort_mode = 0;
@@ -466,6 +466,29 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
     }
 
+    private void ShowGpsDialog() {
+        if(turnOff == false){
+            if(turnOnGpsShow){
+                turnOnGpsShow = false;
+                AlertDialog.Builder gsDialog = new AlertDialog.Builder(getActivity());
+                gsDialog.setTitle("위치 서비스 설정");
+                gsDialog.setMessage("무선 네트워크 사용, GPS 위성 사용을 모두 체크하셔야 정확한 위치 서비스가 가능합니다.\n위치 서비스 기능을 설정하시겠습니까?");
+                gsDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // GPS설정 화면으로 이동
+                        Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivity(intent);
+                    }
+                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                }).create().show();
+                //Toast.makeText(getContext(),"GPS켜주세요",Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
 
     @Override

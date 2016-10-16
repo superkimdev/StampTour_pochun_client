@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">StampTour_kyj_Client</string>
     <!--OAUTH SERVICE KEY-->
+    <string name="facebook_app_id">1196868970378253</string>
     <string name="kakao_app_key">527f0df26e167313b802571444d94111</string>
     <string name="pass_patten">^(?=.*[a-z]+)(?=.*[0-9]+).{6,16}$</string>
     <string name="email_patten">[\\w\\~\\-\\.]+@[\\w\\~\\-]+(\\.[\\w\\~\\-]+)+</string>
@@ -156,6 +157,9 @@
     <string name="survey_grade_verybad_text">매우 불만족</string>
     <string name="survey_not_enough">평가 항목을 선택 해주세요</string>
 
+    <string name="gift_manger_title_text">스탬프를 찍어서 선물을 받으세요</string>
+    <string name="not_input_socialuser_password">소셜유저입니다.</string>
+
     <string name="gift_manager_title_text">스탬프를 찍어서 선물을 받으세요</string>
     <string name="gift_manager_toolbar_title_text">선물 관리</string>
     <string name="gift_guide_text">정확히 입력하세요</string>
@@ -173,5 +177,4 @@
     <string name="terms_msg8"> 10. 개인정보에 관한 민원서비스\r\n\r\n 댓츠잇은 이용자의 개인정보를 보호하고 개인정보와 관련한 불만을 처리하기 위하여 아래와 같이 개인정보관리책임자를 지정하고 있 습니다. 이용자는 댓츠잇의 서비스를 이용하시며 발생하는 모든 개인정보보호 관련 민원을 개인정보관리책임자로 신고하실 수 있습 니다. 댓츠잇은 이용자들의 신고사항에 대해 신속하게 충분한 답변을 드릴 것입니다. \r\n\r\n 개인정보 관리책임자\r\n 성명 : 김범수\r\n 전화 : 010-7638-0901\r\n 메일 : lizard70@naver.com\r\n\r\n </string>
     <string name="terms_msg9"> 12. 부칙\r\n\r\n 이 개인정보취급방침은 2016년 5월 1일부터 적용되며, 법령, 정책 또는 보안기술의 변경에 따라 내용의 추가, 삭제 및 수정이 있을 시에는 변경사항의 시행일의 최소 7일 전부터 사이트의 공지사항을 통하여 고지할 것 입니다. 다만, 회원의 권리 또는 의무 에 중요한 내용의 변경은 최소 30일전에 고지하겠습니다.\r\n\r\n •개인정보취급방침 시행일자 : 2016년 5월 1일\r\n\r\n </string>
     <string name="terms_toolbar_title">개인정보취급방침</string>
-
 </resources>

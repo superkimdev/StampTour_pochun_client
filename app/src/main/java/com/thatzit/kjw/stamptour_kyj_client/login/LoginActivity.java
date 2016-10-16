@@ -4,7 +4,6 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Presentation;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,8 +25,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.kakao.auth.AuthType;
-import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -39,14 +46,11 @@ import com.kakao.util.helper.log.Logger;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
-import com.thatzit.kjw.stamptour_kyj_client.checker.VersoinChecker;
 import com.thatzit.kjw.stamptour_kyj_client.http.RequestPath;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
-import com.thatzit.kjw.stamptour_kyj_client.main.MainActivity;
-import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.user.User;
 import com.thatzit.kjw.stamptour_kyj_client.user.normal.NormalUser;
@@ -60,7 +64,11 @@ import org.json.JSONObject;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
+import static com.facebook.Profile.getCurrentProfile;
 import static com.kakao.auth.Session.getCurrentSession;
+import com.facebook.FacebookSdk;
+
+import java.util.Arrays;
 
 /**
  * A login screen that offers login via email/password.
@@ -99,6 +107,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     private String kakaouserid;
     private String phone;
     private int session_openCount=0;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -306,14 +315,17 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     }
     @Override
     protected void onStop() {
-        super.onStop();
         dlg.dismiss();
+        super.onStop();
+
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         dlg.dismiss();
+        if(session!=null) session.removeCallback(mKakaoCallback);
+        super.onDestroy();
+
     }
 
     @Override
@@ -355,6 +367,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 }
                 break;
             case R.id.login_btn_facebook:
+                setFB();
+                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends","email"));
                 break;
             case R.id.login_btn_kakao:
                 kakaoLogin();
@@ -362,7 +376,70 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }
 
     }
+    private void setFB() {
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d("Success", "Login");
+                        /*Log.d("LoginActivity", loginResult.toString());
+                        Log.d("LoginActivity", loginResult.getAccessToken()+"");*/
+                        AccessToken tk = loginResult.getAccessToken();
+                        /*Log.d("LoginActivity", tk.getToken()+"");
+                        Log.d("LoginActivity", tk.getUserId()+"");
+                        Log.d("LoginActivity", tk.getExpires()+"");*/
+                        final Profile profile = getCurrentProfile();
+                        Log.d("LoginActivity", profile.getId());
+                        Log.d("LoginActivity", profile.getName());
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+                                        Log.v("LoginActivity", response.toString());
 
+                                        // Application code
+                                        try {
+                                            String email = object.getString("email");
+                                            //String birthday = object.getString("birthday"); // 01/31/1980 format
+                                            Log.d("LoginActivity",email);
+                                            String phone;
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                                                SubscriptionManager telephonyMgr = (SubscriptionManager) getSystemService (Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                                                Log.d("LoginActivity!!",telephonyMgr.getActiveSubscriptionInfoList().get(0).getNumber());
+                                                phone=telephonyMgr.getActiveSubscriptionInfoList().get(0).getNumber();
+
+                                            }else
+                                            {
+                                                TelephonyManager telephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                                                Log.d("LoginActivity!!",telephonyMgr.getLine1Number());
+                                                phone=telephonyMgr.getLine1Number();
+
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,name,email,gender");
+                        request.setParameters(parameters);
+                        request.executeAsync();
+
+                    }
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(LoginActivity.this, "Login Cancel", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
     private void kakaoLogin() {
         mKakaoCallback = new ISessionCallback() {
 
@@ -390,6 +467,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     }
 
     private void kakaoRequestMe() {
+        progressWaitDaialog.show();
         UserManagement.requestMe(new MeResponseCallback(){
 
             @Override
@@ -417,6 +495,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
                 Log.e(TAG,errorResult.getErrorMessage());
+                progressWaitDaialog.dismiss();
             }
 
             @Override
@@ -430,12 +509,12 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         String path = RequestPath.req_url_id_check.getPath();
         RequestParams params = new RequestParams();
         params.put(ResponseKey.ID.getKey(),user_input_id);
-        //progressWaitDaialog.show();
+
         StampRestClient.post(path,params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.e(TAG,response.toString());
-                //progressWaitDaialog.dismiss();
+                progressWaitDaialog.dismiss();
                 try {
                     String result_msg = response.getString(ResponseKey.MESSAGE.getKey());
                     String result_code = response.getString(ResponseKey.CODE.getKey());
@@ -468,7 +547,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.e(TAG,errorResponse.toString());
-                //progressWaitDaialog.dismiss();
+                progressWaitDaialog.dismiss();
                 Toast.makeText(self,getResources().getString(R.string.server_not_good),Toast.LENGTH_LONG).show();
             }
         });
@@ -481,6 +560,14 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             return;
         }else if(resultCode == JOINSOCIALUSER){
             Toast.makeText(self,"로그인 해주세요",Toast.LENGTH_LONG).show();
+        }
+        if(session!=null){
+            if (session.handleActivityResult(requestCode, resultCode, data)) {
+                return;
+            }
+        }
+        if(callbackManager!=null){
+            callbackManager.onActivityResult(requestCode,resultCode,data);
         }
     }
 }

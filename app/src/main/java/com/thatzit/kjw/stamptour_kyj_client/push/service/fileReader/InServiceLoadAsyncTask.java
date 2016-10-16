@@ -85,23 +85,29 @@ public class InServiceLoadAsyncTask extends AsyncTask<Void, Void, Void> {
         }
     }
     private void sendNotification(TownJson town) {
-        mNotificationManager = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if(preferenceManager.getAgoNotificationTown().equals(town.getName())){
+            return;
+        }else{
+            preferenceManager.setAgoNotificationTown(town.getName());
+            mNotificationManager = (NotificationManager)
+                    context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, MainActivity.class), 0);
+            PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+                    new Intent(context, MainActivity.class), 0);
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.btn_tabs_stamp_on)
-                        .setContentTitle(town.getName())
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(town.getSubtitle()))
-                        .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_LIGHTS|Notification.DEFAULT_VIBRATE)
-                        .setContentText(context.getResources().getString(R.string.stamp_zone_come_message));
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.btn_tabs_stamp_on)
+                            .setContentTitle(town.getName())
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(town.getSubtitle()))
+                            .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_LIGHTS|Notification.DEFAULT_VIBRATE)
+                            .setContentText(context.getResources().getString(R.string.stamp_zone_come_message));
 
-        mBuilder.setContentIntent(contentIntent);
-        mBuilder.setAutoCancel(true);
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+            mBuilder.setContentIntent(contentIntent);
+            mBuilder.setAutoCancel(true);
+            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        }
+
     }
 }
