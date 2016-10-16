@@ -1,6 +1,8 @@
 package com.thatzit.kjw.stamptour_kyj_client.more;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +11,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.main.TermsActivity;
 
 import java.util.ArrayList;
 
@@ -51,17 +55,28 @@ public class GiftRecyclerViewAdapter extends RecyclerView.Adapter<GiftRecyclerVi
         holder.title.setText(mItems.get(position).getTitle());
         holder.subtitle.setText(mItems.get(position).getSubtitle());
         holder.gift_btn.setVisibility(View.GONE);
-      /*  if(mItems.get(position).getState().equals("0")) {
+        if(mItems.get(position).getState().equals("0")) { //선물신청 대기
             holder.subtitle.setText(mItems.get(position).getSubtitle());
             holder.gift_btn.setVisibility(View.GONE);
-        }else if(mItems.get(position).getState().equals("1")) {
+            holder.mainframe.setBackgroundColor(Color.parseColor("#ffffff"));
+        }else if(mItems.get(position).getState().equals("1")) { //선물신청 활성화
             holder.subtitle.setText(mItems.get(position).getSubtitle());
             holder.gift_btn.setVisibility(View.VISIBLE);
-        }else {
+            holder.mainframe.setBackgroundColor(Color.parseColor("#ffffff"));
+        }else { //선물신청완료
             holder.subtitle.setText(mItems.get(position).getSubtitle());
             holder.gift_btn.setVisibility(View.GONE);
-        }*/
+            holder.mainframe.setBackgroundColor(Color.parseColor("#f6f6f6"));
+        }
 
+        holder.gift_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,GiftActivity.class);
+                //등급 인텐트로 보내야함
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -76,12 +91,15 @@ public class GiftRecyclerViewAdapter extends RecyclerView.Adapter<GiftRecyclerVi
         public TextView title;
         public TextView subtitle;
         public LinearLayout gift_btn;
+        public LinearLayout mainframe;
+
 
         public ViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.item_gift_manger_main_text);
             subtitle = (TextView) view.findViewById(R.id.item_gift_manger_sub_text);
             gift_btn = (LinearLayout) view.findViewById(R.id.gift_manage_gift_btn_linearlayout);
+            mainframe = (LinearLayout) view.findViewById(R.id.item_gift_manager_mainframe_linearlayout);
         }
     }
 
