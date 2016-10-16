@@ -31,7 +31,7 @@ public class GiftActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         switch (id){
             case R.id.join_accept_textview:
-                Intent intent = new Intent(this,TermsActivity.class);
+                Intent intent = new Intent(GiftActivity.this,TermsActivity.class);
                 startActivity(intent);
                 break;
 
