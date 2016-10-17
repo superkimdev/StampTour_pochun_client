@@ -321,17 +321,17 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.header:
-                linearLayoutManager.scrollToPositionWithOffset(7, collapsingToolbar.getBottom());
-                Toast.makeText(getContext(),"이미지클릭",Toast.LENGTH_LONG).show();
+//                linearLayoutManager.scrollToPositionWithOffset(7, collapsingToolbar.getBottom());
+//                Toast.makeText(getContext(),"이미지클릭",Toast.LENGTH_LONG).show();
                 break;
             case R.id.hide_btn:
-                Toast.makeText(getContext(),"숨김관리버튼클릭",Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(),"숨김관리버튼클릭",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),HideListActivity.class);
                 getActivity().startActivityForResult(intent,HIDEACTIVITYSTART);
                 break;
             case R.id.sort_btn:
                 popUpShow();
-                Toast.makeText(getContext(),"정렬버튼클릭",Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(),"정렬버튼클릭",Toast.LENGTH_LONG).show();
                 break;
         }
     }

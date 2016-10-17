@@ -26,7 +26,7 @@
             android:layout_height="65dp"
             android:layout_centerInParent="true"
             android:visibility="invisible"
-            android:src="@drawable/img_stmap"
+            android:src="@drawable/img_stamp"
             android:id="@+id/stamp_checked_imgview"/>
         <TextView
             android:layout_width="wrap_content"
