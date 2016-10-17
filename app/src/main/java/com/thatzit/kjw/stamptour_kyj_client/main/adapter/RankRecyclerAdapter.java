@@ -21,11 +21,7 @@ import java.util.Objects;
 public class RankRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "RankRecyclerAdapter";
     Context context;
-    RankRecyclerAdapter.OnItemClickListener clickListener;
-    RankRecyclerAdapter.OnItemLongClickListener longClickListener;
 
-    RankRecyclerAdapter.OnHeaderClickListener headerclickListener;
-    RankRecyclerAdapter.OnHeaderLongClickListener headerlongClickListener;
     private ArrayList<Object> mListData = new ArrayList<Object>();
     private final int HEADER = 0;
     private final int NORMAL = 2;
@@ -107,7 +103,7 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    class NormalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
+    class NormalViewHolder extends RecyclerView.ViewHolder{
         public TextView rank_no_textview;
         public TextView name_text_view;
         public TextView user_stamp_cnt_textview;
@@ -118,22 +114,10 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             name_text_view = (TextView)itemView.findViewById(R.id.name_text_view);
             user_stamp_cnt_textview = (TextView)itemView.findViewById(R.id.user_stamp_cnt_textview);
             item_container = (RelativeLayout)itemView.findViewById(R.id.item_container);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-        }
-        @Override
-        public void onClick(View v) {
-            clickListener.onItemClick(v, getPosition());
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            longClickListener.onItemLongClick(v, getPosition());
-            return true;
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
+    class HeaderViewHolder extends RecyclerView.ViewHolder {
         public TextView my_name_textview;
         public TextView my_rank_textview;
         public TextView rank_finish_textview;
@@ -143,31 +127,7 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             my_name_textview = (TextView) itemView.findViewById(R.id.my_name_textview);
             my_rank_textview = (TextView) itemView.findViewById(R.id.my_rank_textview);
             rank_finish_textview = (TextView) itemView.findViewById(R.id.rank_finish_textview);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-        }
 
-        @Override
-        public void onClick(View v) {
-            headerclickListener.onHeaderClick(v,getPosition());
         }
-
-        @Override
-        public boolean onLongClick(View v) {
-            headerlongClickListener.onHeaderLongClick(v,getPosition());
-            return true;
-        }
-    }
-    public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
-    }
-    public interface OnItemLongClickListener {
-        public void onItemLongClick(View view, int position);
-    }
-    public interface OnHeaderClickListener {
-        public void onHeaderClick(View view, int position);
-    }
-    public interface OnHeaderLongClickListener {
-        public void onHeaderLongClick(View view, int position);
     }
 }
