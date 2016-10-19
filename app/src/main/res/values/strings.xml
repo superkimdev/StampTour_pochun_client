@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StampTour_kyj_Client</string>
+    <string name="app_name">포천\n스탬프투어</string>
     <!--OAUTH SERVICE KEY-->
     <string name="facebook_app_id">1196868970378253</string>
     <string name="kakao_app_key">527f0df26e167313b802571444d94111</string>
