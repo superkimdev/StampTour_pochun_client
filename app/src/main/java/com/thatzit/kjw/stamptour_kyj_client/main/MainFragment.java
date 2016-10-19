@@ -22,15 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-import com.facebook.share.ShareApi;
-import com.facebook.share.model.ShareOpenGraphAction;
-import com.facebook.share.model.ShareOpenGraphContent;
-import com.facebook.share.model.ShareOpenGraphObject;
-import com.facebook.share.widget.ShareDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
@@ -330,96 +321,20 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.header:
-                linearLayoutManager.scrollToPositionWithOffset(7, collapsingToolbar.getBottom());
-                sendShare();
+//                linearLayoutManager.scrollToPositionWithOffset(7, collapsingToolbar.getBottom());
+//                Toast.makeText(getContext(),"이미지클릭",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"서비스 준비중입니다",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.hide_btn:
+//                Toast.makeText(getContext(),"숨김관리버튼클릭",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),HideListActivity.class);
                 getActivity().startActivityForResult(intent,HIDEACTIVITYSTART);
                 break;
             case R.id.sort_btn:
                 popUpShow();
+//                Toast.makeText(getContext(),"정렬버튼클릭",Toast.LENGTH_LONG).show();
                 break;
         }
-    }
-
-    private void sendShare() {
-
-//        ShareOpenGraphObject object = new ShareOpenGraphObject.Builder()
-//                .putString("og:type", "place")
-//                .putString("og:title", "Sample Place")
-//                .putString("og:description", "This is a sample Place.")
-//                .putDouble("location:latitude", 35.176050)
-//                .putDouble("location:longitude", 126.811827)
-//                .build();
-//        ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
-//                .setActionType("games.achieves")
-//                .putObject("place", object)
-//                .build();
-//        ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
-//                .setPreviewPropertyName("place")
-//                .setAction(action)
-//                .build();
-//        ShareDialog.show(this, content);
-        //ShareApi.share(content, null);
-        // Create an object
-        ShareOpenGraphObject place = new ShareOpenGraphObject.Builder()
-                .putString("og:type", "place")
-                .putString("og:title", "Sample")
-                .putString("og:description", "This is a sample Place.")
-                .putString("place:location:latitude", ""+35.176050)
-                .putString("place:location:longitude", ""+126.811827)
-                .putString("place:location:altitude", ""+0)
-                .build();
-
-        ShareOpenGraphObject object = new ShareOpenGraphObject.Builder()
-                .putString("og:type", "toileters-toiley:toilet")
-                .putString("og:title", "Sample")
-                .putString("og:description", "This is a sample Place.")
-                .putObject("place:location", place)
-                .putString("place:location:latitude", "" + 35.176050)
-                .putString("place:location:longitude", ""+126.811827)
-                .putString("place:location:altitude", ""+0)
-                .putString("app:latitude", "" + 35.176050)
-                .putString("app:longitude", ""+126.811827)
-                .putString("app:altitude", ""+0)
-                .putString("app:location:latitude", ""+35.176050)
-                .putString("app:location:longitude", "" +126.811827)
-                .putString("app:location:altitude", ""+0)
-                .build();
-
-        // Create an action
-        ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
-                .setActionType("app:check_in")
-                .putObject("toilet", object)
-                .build();
-
-        // Create the content
-        ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
-                .setPreviewPropertyName("toilet")
-                .setAction(action)
-                .build();
-        ShareDialog.show(this, content);
-
-//        Bundle params = new Bundle();
-//        params.putString("object", "{\"fb:app_id\":\"302184056577324\"," +
-//                                    "\"og:type\":\"place\"," +
-//                                    "\"og:url\":\"Put your own URL to the object here\"," +
-//                                    "\"og:title\":\"Sample Place\"," +
-//                                    "\"place:location:latitude\":\"35.176050\"," +
-//                                    "\"place:location:longitude\":\"126.811827\"}");
-///* make the API call *///35.176050, 126.811827
-//        new GraphRequest(
-//                AccessToken.getCurrentAccessToken(),
-//                "/me/objects/place",
-//                params,
-//                HttpMethod.POST,
-//                new GraphRequest.Callback() {
-//                    public void onCompleted(GraphResponse response) {
-//            /* handle the result */
-//                    }
-//                }
-//        ).executeAsync();
     }
 
     @Override
@@ -509,13 +424,16 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sort_distance:
+                //Toast.makeText(getContext(),"거리클릭",Toast.LENGTH_LONG).show();
                 sort_load_before_check();
                 break;
             case R.id.action_sort_name:
+                // Toast.makeText(getContext(),"이름클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 1;
                 new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
                 break;
             case R.id.action_sort_region:
+                // Toast.makeText(getContext(),"권역클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 2;
                 new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
                 break;
