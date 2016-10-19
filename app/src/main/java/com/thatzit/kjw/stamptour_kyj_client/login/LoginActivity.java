@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
@@ -427,11 +428,21 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                     @Override
                     public void onCancel() {
                         Toast.makeText(LoginActivity.this, "Login Cancel", Toast.LENGTH_LONG).show();
+                        if (AccessToken.getCurrentAccessToken() != null) {
+                            LoginManager.getInstance().logOut();
+                        }
+                        progressWaitDaialog.dismiss();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                        if (exception instanceof FacebookAuthorizationException) {
+                            if (AccessToken.getCurrentAccessToken() != null) {
+                                LoginManager.getInstance().logOut();
+                            }
+                        }
+                        progressWaitDaialog.dismiss();
                     }
                 });
     }

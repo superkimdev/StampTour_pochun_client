@@ -112,6 +112,7 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public TextView name_text_view;
         public TextView user_stamp_cnt_textview;
         public RelativeLayout item_container;
+
         public NormalViewHolder(View itemView) {
             super(itemView);
             rank_no_textview = (TextView)itemView.findViewById(R.id.rank_no_textview);
@@ -121,14 +122,15 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
+
         @Override
         public void onClick(View v) {
-            clickListener.onItemClick(v, getPosition());
+            //clickListener.onItemClick(v, getPosition());
         }
 
         @Override
         public boolean onLongClick(View v) {
-            longClickListener.onItemLongClick(v, getPosition());
+            //longClickListener.onItemLongClick(v, getPosition());
             return true;
         }
     }
@@ -149,12 +151,12 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         @Override
         public void onClick(View v) {
-            headerclickListener.onHeaderClick(v,getPosition());
+            //headerclickListener.onHeaderClick(v,getPosition());
         }
 
         @Override
         public boolean onLongClick(View v) {
-            headerlongClickListener.onHeaderLongClick(v,getPosition());
+           // headerlongClickListener.onHeaderLongClick(v,getPosition());
             return true;
         }
     }

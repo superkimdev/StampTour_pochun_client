@@ -245,10 +245,10 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void send_join(){
-        String user_input_nick = nick_input.getText().toString();
-        String user_input_email = email_input.getText().toString();
-        String user_input_password = password_input.getText().toString();
-        String user_input_password_repeat = password_input_repeat.getText().toString();
+        String user_input_nick = nick_input.getText().toString().trim();
+        String user_input_email = email_input.getText().toString().trim();
+        String user_input_password = password_input.getText().toString().trim();
+        String user_input_password_repeat = password_input_repeat.getText().toString().trim();
         if(duplicate_check_email&&duplicate_check_nick){
             if(user_input_password.equals(user_input_password_repeat)){
                 if(validator.nickValidate(ValidPattern.getNick_patten(),user_input_nick)){
