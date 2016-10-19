@@ -75,9 +75,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener,Check
                 getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
             case R.id.present_view_container:
-                Toast.makeText(getActivity(),"서비스 준비중입니다",Toast.LENGTH_SHORT).show();
-//                intent = new Intent(getActivity(),GiftManageActivity.class);
-//                getActivity().startActivityForResult(intent,MOREREQUESTNO);
+                intent = new Intent(getActivity(),GiftManageActivity.class);
+                getActivity().startActivityForResult(intent,MOREREQUESTNO);
                 break;
             case R.id.research_view_container:
                 intent = new Intent(getActivity(),SurveyActivity.class);

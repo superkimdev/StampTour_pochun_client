@@ -323,7 +323,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.header:
 //                linearLayoutManager.scrollToPositionWithOffset(7, collapsingToolbar.getBottom());
 //                Toast.makeText(getContext(),"이미지클릭",Toast.LENGTH_LONG).show();
-                Toast.makeText(getContext(),"서비스 준비중입니다",Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.hide_btn:
 //                Toast.makeText(getContext(),"숨김관리버튼클릭",Toast.LENGTH_LONG).show();

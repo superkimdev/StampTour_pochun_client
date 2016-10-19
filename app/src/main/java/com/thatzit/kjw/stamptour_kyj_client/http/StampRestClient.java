@@ -13,6 +13,7 @@ import com.loopj.android.http.SyncHttpClient;
 public class StampRestClient {
     public static final String BASE_URL = "http://stamptour-cli-test.mybluemix.net/";
     //public static final String BASE_URL = "http://stamptour.mybluemix.net/";
+    //http://stamptour-cli-test.mybluemix.net/
     public static AsyncHttpClient syncHttpClient= new SyncHttpClient();
     public static AsyncHttpClient client = new AsyncHttpClient();
 

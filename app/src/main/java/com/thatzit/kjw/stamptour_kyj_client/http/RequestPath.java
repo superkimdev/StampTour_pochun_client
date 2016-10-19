@@ -23,8 +23,10 @@ public enum  RequestPath {
     req_url_join_normal("/user/join"),
     req_url_find_id("/user/find/id"),
     req_url_find_pass("/user/find/password"),
-    req_url_survey(""),
-    req_url_stamp_gift("/user/current/stamp");
+    req_url_survey_apply("/user/survey/apply"),
+    req_url_survey("/user/survey"),
+    req_url_gift_aply("/user/current/gift/apply"),
+    req_url_gift_list("/user/current/gift");
 
 
     private String path;
