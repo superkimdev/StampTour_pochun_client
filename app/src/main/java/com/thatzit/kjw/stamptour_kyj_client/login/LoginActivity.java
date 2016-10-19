@@ -423,6 +423,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                         request.setParameters(parameters);
                         request.executeAsync();
                         request_Duplicate_Check_id(tk.getUserId(),LoggedInCase.FBLogin.getLogin_case());
+                        progressWaitDaialog.dismiss();
 
                     }
                     @Override
@@ -495,6 +496,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 }
 
                 request_Duplicate_Check_id(kakaouserid, LoggedInCase.KAKAOLogin.getLogin_case());
+                progressWaitDaialog.dismiss();
 
             }
 
