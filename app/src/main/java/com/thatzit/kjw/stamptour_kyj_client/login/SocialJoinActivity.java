@@ -103,7 +103,7 @@ public class SocialJoinActivity extends AppCompatActivity implements View.OnClic
         }
     }
     private void Duplicate_Check_Nick() {
-        String user_input_nick = nick_input.getText().toString();
+        String user_input_nick = nick_input.getText().toString().trim();
         if(validator.nickValidate(ValidPattern.getNick_patten(),user_input_nick)){
             request_Duplicate_Check_Nick(user_input_nick);
         }else{

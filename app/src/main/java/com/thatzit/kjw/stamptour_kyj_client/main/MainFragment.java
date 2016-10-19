@@ -323,6 +323,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.header:
 //                linearLayoutManager.scrollToPositionWithOffset(7, collapsingToolbar.getBottom());
 //                Toast.makeText(getContext(),"이미지클릭",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"서비스 준비중입니다",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.hide_btn:
 //                Toast.makeText(getContext(),"숨김관리버튼클릭",Toast.LENGTH_LONG).show();
@@ -423,16 +424,16 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sort_distance:
-                Toast.makeText(getContext(),"거리클릭",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),"거리클릭",Toast.LENGTH_LONG).show();
                 sort_load_before_check();
                 break;
             case R.id.action_sort_name:
-                Toast.makeText(getContext(),"이름클릭",Toast.LENGTH_LONG).show();
+                // Toast.makeText(getContext(),"이름클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 1;
                 new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
                 break;
             case R.id.action_sort_region:
-                Toast.makeText(getContext(),"권역클릭",Toast.LENGTH_LONG).show();
+                // Toast.makeText(getContext(),"권역클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 2;
                 new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
                 break;

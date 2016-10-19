@@ -6,6 +6,10 @@ package com.thatzit.kjw.stamptour_kyj_client.more;
 
 public class GiftDTO {
 
+    /*"next_stamp_count": 3,
+            "stamp_count": 2,
+            "grade": "초급자",
+            "nick": "김지운"*/
     private String title;
     private String subtitle;
     private String state;
