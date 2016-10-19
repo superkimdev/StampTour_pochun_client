@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -107,7 +109,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
             if(mListData.get(position).isStamp_on()){
                 if(mListData.get(position).getStamp_checked().equals("")){
-                    ((NormalViewHolder)viewHolder).region_text_view.setTextColor(context.getColor(R.color.stamp_list_item_text_color_alpha_on));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((NormalViewHolder)viewHolder).region_text_view.setTextColor(context.getColor(R.color.stamp_list_item_text_color_alpha_on));
+                    }else{
+                        ((NormalViewHolder)viewHolder).region_text_view.setTextColor(ContextCompat.getColor(context,R.color.stamp_list_item_text_color_alpha_on));
+                    }
                     background = (TransitionDrawable) ((NormalViewHolder)viewHolder).item_container.getBackground();
                     Handler hd = new Handler();
                     if(handler!=null)handler.removeMessages(0);
