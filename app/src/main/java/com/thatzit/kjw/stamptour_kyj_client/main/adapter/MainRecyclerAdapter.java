@@ -89,13 +89,24 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((NormalViewHolder)viewHolder).name_text_view.setText("");
             ((NormalViewHolder)viewHolder).distance_text_view.setText("");
             ((NormalViewHolder)viewHolder).region_text_view.setText("");
+            ((NormalViewHolder)viewHolder).town_checkedtime_view.setText("");
+            ((NormalViewHolder)viewHolder).town_checkedcount_view.setText("");
+
             ((NormalViewHolder)viewHolder).name_text_view.setText(mListData.get(position).getName());
             ((NormalViewHolder)viewHolder).distance_text_view.setText(mListData.get(position).getDistance());
             ((NormalViewHolder)viewHolder).region_text_view.setText(mListData.get(position).getRegion());
+            ((NormalViewHolder)viewHolder).town_checkedtime_view.setText(mListData.get(position).getStamp_checked());
+            if(!mListData.get(position).getRank_no().equals("0"))
+                ((NormalViewHolder)viewHolder).town_checkedcount_view.setText(mListData.get(position).getRank_no());
+
             //animation and imgview 잔상 초기화
 
             ((NormalViewHolder)viewHolder).stamp_checked_imgview.setVisibility(View.INVISIBLE);
-            ((NormalViewHolder)viewHolder).item_container.setBackground(context.getDrawable(R.drawable.town_list_item_animatebg));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((NormalViewHolder)viewHolder).item_container.setBackground(context.getDrawable(R.drawable.town_list_item_animatebg));
+            }else{
+                ((NormalViewHolder)viewHolder).item_container.setBackground(ContextCompat.getDrawable(context,R.drawable.town_list_item_animatebg));
+            }
 
             String dirPath = sdcard+"/StampTour_kyj/contents/contents/town"+no+"_1.png";
             Log.e("ListAdapter",dirPath);
@@ -157,6 +168,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public TextView name_text_view;
         public TextView region_text_view;
         public TextView distance_text_view;
+        public TextView town_checkedtime_view;
+        public TextView town_checkedcount_view;
         public RelativeLayout item_container;
         public ImageView stamp_checked_imgview;
         public NormalViewHolder(View itemView) {
@@ -165,6 +178,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             name_text_view = (TextView)itemView.findViewById(R.id.town_name_view);
             region_text_view = (TextView)itemView.findViewById(R.id.town_region_view);
             distance_text_view = (TextView)itemView.findViewById(R.id.town_distance_view);
+            town_checkedtime_view = (TextView)itemView.findViewById(R.id.town_checkedtime_view);
+            town_checkedcount_view = (TextView)itemView.findViewById(R.id.town_checkedcount_view);
             stamp_checked_imgview = (ImageView)itemView.findViewById(R.id.stamp_checked_imgview);
             item_container = (RelativeLayout)itemView.findViewById(R.id.item_container);
             itemView.setOnClickListener(this);

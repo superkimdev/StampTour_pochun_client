@@ -56,7 +56,8 @@ public class HideListLoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 region = data.getRegion();
             }
             if(status == HideStatus.HIDE.getStatus()){
-                hideRecyclerAdapter.additem(new TownDTO(data.getNo(),data.getName(),region,"",data.getRange(),userdata.getChecktime(),false));
+
+                hideRecyclerAdapter.additem(new TownDTO(data.getNo(),data.getName(),region,"",data.getRange(),userdata.getChecktime(),userdata.getRank_no(),false));
             }
         }
         return null;

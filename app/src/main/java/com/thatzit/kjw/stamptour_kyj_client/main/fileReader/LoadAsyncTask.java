@@ -127,10 +127,10 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 }
                 if(hidestatue_arr.size()!=0){
                     if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
-                        sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),false));
+                        sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),tempTownDTO.getRank_no(),false));
                     }
                 }else{
-                    sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),false));
+                    sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,NONLOCATION,data.getRange(),tempTownDTO.getChecktime(),tempTownDTO.getRank_no(),false));
                 }
 
             }
@@ -152,20 +152,20 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                     Log.e(TAG,"STAMPON"+list.get(i).getName());
                     if(hidestatue_arr.size()!=0){
                         if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
-                            sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),true));
+                            sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),tempTownDTO.getRank_no(),true));
                         }
                     }else{
-                        sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),true));
+                        sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),tempTownDTO.getRank_no(),true));
                     }
 
                 }else{
                     Log.e(TAG,"STAMPOFF"+list.get(i).getName());
                     if(hidestatue_arr.size()!=0){
                         if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
-                            sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),false));
+                            sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),tempTownDTO.getRank_no(),false));
                         }
                     }else{
-                        sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),false));
+                        sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),tempTownDTO.getRank_no(),false));
                     }
 
                 }

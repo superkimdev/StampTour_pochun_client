@@ -48,19 +48,41 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:id="@+id/textdivider"
+            android:orientation="horizontal"
             android:layout_centerInParent="true"></LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/town_distance_view"
-            android:text="@string/main_list_item_distance"
+            android:id="@+id/town_checkedtime_view"
+            android:text="@string/main_list_item_date"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:textColor="@color/stamp_list_item_distance_text_color"
             android:textStyle="normal"
             android:textSize="@dimen/stamp_list_item_text_distance_dimen"
             />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/town_distance_view"
+            android:text="@string/main_list_item_distance"
+            android:layout_above="@id/town_checkedtime_view"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/stamp_list_item_distance_text_color"
+            android:textStyle="normal"
+            android:textSize="@dimen/stamp_list_item_text_distance_dimen"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/town_checkedcount_view"
+            android:text="@string/main_list_item_number"
+            android:layout_below="@id/town_checkedtime_view"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/stamp_list_item_distance_text_color"
+            android:textStyle="normal"
+            android:textSize="@dimen/stamp_list_item_text_distance_dimen"/>
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"

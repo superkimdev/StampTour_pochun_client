@@ -20,4 +20,6 @@
     <string name="btn_undo_hide_text">숨김해체</string>
     <string name="hide_notfication_text">숨겨졌습니다.</string>
     <string name="not_input_socialuser_password">소셜유저입니다.</string>
+    <string name="main_list_item_date">날짜</string>
+    <string name="main_list_item_number">순서</string>
 </resources>

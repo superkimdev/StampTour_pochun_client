@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements PushMessageChange
                 for(int i = 0 ; i < resultData.length() ; i++){
                     try {
                         town = (JSONObject) resultData.get(i);
-                        array.add(new TempTownDTO(town.getString("TOWN_CODE"),town.getString("Nick"),town.getString("CheckTime")));
+                        array.add(new TempTownDTO(town.getString("TOWN_CODE"),town.getString("Nick"),town.getString("CheckTime"),town.getString("region"),town.getString("rank_no")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
