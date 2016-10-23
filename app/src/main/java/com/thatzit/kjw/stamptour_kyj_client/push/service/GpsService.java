@@ -38,7 +38,7 @@ public class GpsService extends Service implements GoogleApiClient.ConnectionCal
     private static final String TAG = "GPS_SERVICE";
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private final int GPS_PROVIDER_INTERVAL_TIME = 10000;
+    private final int GPS_PROVIDER_INTERVAL_TIME = 5000;
     private Handler LocationHandler = new Handler();
     private final IBinder mBinder = new MyLocalBinder();
     private boolean m_gpsState = false;

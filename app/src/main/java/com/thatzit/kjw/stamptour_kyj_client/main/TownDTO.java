@@ -10,6 +10,7 @@ public class TownDTO {
     private String distance;
     private String range;
     private String stamp_checked;
+    private String rank_no;
     private boolean stamp_on;
 
     public boolean isStamp_on() {
@@ -23,7 +24,7 @@ public class TownDTO {
     public TownDTO() {
     }
 
-    public TownDTO(String no,String name, String region, String distance, String range,String stamp_checked,boolean stamp_on) {
+    public TownDTO(String no,String name, String region, String distance, String range,String stamp_checked,String rank_no,boolean stamp_on) {
         this.no = no;
         this.name = name;
         this.region = region;
@@ -31,6 +32,17 @@ public class TownDTO {
         this.range = range;
         this.stamp_checked = stamp_checked;
         this.stamp_on = stamp_on;
+        this.rank_no = rank_no;
+//        2016-10-21 06:27:17
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
+//        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+//        try {
+//            this.stamp_checked= String.valueOf(sdf.parse(stamp_checked).toLocaleString());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
+
     }
 
     public String getStamp_checked() {
@@ -62,6 +74,10 @@ public class TownDTO {
         return range;
     }
 
+    public String getRank_no() {
+        return rank_no;
+    }
+
     @Override
     public String toString() {
         return "TownDTO{" +
@@ -71,7 +87,9 @@ public class TownDTO {
                 ", distance='" + distance + '\'' +
                 ", range='" + range + '\'' +
                 ", stamp_checked='" + stamp_checked + '\'' +
+                ", rank_no='" + rank_no + '\'' +
                 ", stamp_on=" + stamp_on +
                 '}';
     }
+
 }
