@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.main.TermsActivity;
 
 import java.util.ArrayList;
@@ -24,16 +25,26 @@ import java.util.ArrayList;
 
 public class GiftRecyclerViewAdapter extends RecyclerView.Adapter<GiftRecyclerViewAdapter.ViewHolder>
 {
+    private int GIFT_GO_BACK_CODE = 900;
     private Context context;
-    private ArrayList<GiftDTO> mItems;
+    private int stampCount;
+    private ArrayList<GiftListItem> mItems;
 
     // Allows to remember the last item shown on screen
     private int lastPosition = -1;
 
-    public GiftRecyclerViewAdapter(ArrayList<GiftDTO> items, Context mContext)
+    public GiftRecyclerViewAdapter(ArrayList<GiftListItem> items,int stampCount, Context mContext)
     {
-        mItems = items;
-        context = mContext;
+        this.mItems = items;
+        this.stampCount = stampCount;
+        this.context = mContext;
+    }
+
+    public GiftRecyclerViewAdapter(Context mContext)
+    {
+        this.mItems = new ArrayList<>();
+        this.stampCount = 0;
+        this.context = mContext;
     }
 
     // 필수로 Generate 되어야 하는 메소드 1 : 새로운 뷰 생성
@@ -48,32 +59,42 @@ public class GiftRecyclerViewAdapter extends RecyclerView.Adapter<GiftRecyclerVi
 
     // 필수로 Generate 되어야 하는 메소드 2 : ListView의 getView 부분을 담당하는 메소드
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
         //holder.imageView.setImageResource(mItems.get(position).image);
         //holder.textView.setText(mItems.get(position).imagetitle);
-        holder.title.setText(mItems.get(position).getTitle());
-        holder.subtitle.setText(mItems.get(position).getSubtitle());
-        holder.gift_btn.setVisibility(View.GONE);
-        if(mItems.get(position).getState().equals("0")) { //선물신청 대기
-            holder.subtitle.setText(mItems.get(position).getSubtitle());
-            holder.gift_btn.setVisibility(View.GONE);
-            holder.mainframe.setBackgroundColor(Color.parseColor("#ffffff"));
-        }else if(mItems.get(position).getState().equals("1")) { //선물신청 활성화
-            holder.subtitle.setText(mItems.get(position).getSubtitle());
-            holder.gift_btn.setVisibility(View.VISIBLE);
-            holder.mainframe.setBackgroundColor(Color.parseColor("#ffffff"));
-        }else { //선물신청완료
-            holder.subtitle.setText(mItems.get(position).getSubtitle());
-            holder.gift_btn.setVisibility(View.GONE);
-            holder.mainframe.setBackgroundColor(Color.parseColor("#f6f6f6"));
+        holder.title.setText(mItems.get(position).getGrade());
+        switch (mItems.get(position).getState()){
+            case 00:
+                holder.subtitle.setText(context.getString(R.string.gift_grade_msg_normal_pre)+
+                        (mItems.get(position).getAchieve()-stampCount)+
+                        context.getString(R.string.gift_grade_msg_normal_aft));
+                holder.gift_btn.setVisibility(View.GONE);
+                holder.mainframe.setBackgroundColor(Color.parseColor("#ffffff"));
+                break;
+            case 01:
+                holder.subtitle.setText(context.getString(R.string.gift_grade_msg_active));
+                holder.gift_btn.setVisibility(View.VISIBLE);
+                holder.mainframe.setBackgroundColor(Color.parseColor("#ffffff"));
+                break;
+            case 02:
+                holder.subtitle.setText(context.getString(R.string.gift_grade_msg_complete));
+                holder.gift_btn.setVisibility(View.GONE);
+                holder.mainframe.setBackgroundColor(Color.parseColor("#f6f6f6"));
+                break;
+            default:
+                holder.subtitle.setText(context.getString(R.string.server_not_good));
+                holder.gift_btn.setVisibility(View.GONE);
+                break;
         }
+
 
         holder.gift_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,GiftActivity.class);
-                //등급 인텐트로 보내야함
+                intent.putExtra(ResponseKey.GRADE.getKey(),mItems.get(position).getGrade());
+                intent.putExtra(ResponseKey.MYSTAMPCOUNT.getKey(),String.valueOf(mItems.get(position).getAchieve()));
                 context.startActivity(intent);
             }
         });
@@ -112,6 +133,15 @@ public class GiftRecyclerViewAdapter extends RecyclerView.Adapter<GiftRecyclerVi
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
+    }
+
+    public void setItems(ArrayList<GiftListItem> items){
+        this.mItems = items;
+        this.notifyDataSetChanged();
+    }
+
+    public void setStampCount(int count){
+        this.stampCount = count;
     }
 
 }

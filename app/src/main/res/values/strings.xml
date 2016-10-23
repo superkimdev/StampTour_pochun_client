@@ -156,6 +156,8 @@
     <string name="survey_grade_bad_text">불만족</string>
     <string name="survey_grade_verybad_text">매우 불만족</string>
     <string name="survey_not_enough">평가 항목을 선택 해주세요</string>
+    <string name="survey_complete">설문 완료</string>
+    <string name="survey_aleady">이미 설문 조사에 참여하셨습니다</string>
 
     <string name="gift_manger_title_text">스탬프를 찍어서 선물을 받으세요</string>
     <string name="not_input_socialuser_password">소셜유저입니다.</string>
@@ -166,6 +168,14 @@
     <string name="gift_name_text">이름을 입력하세요</string>
     <string name="gift_phone_text">휴대폰 전화번호를 입력하세요</string>
     <string name="gift_toolbar_title_text">선물 신청</string>
+    <string name="gift_grade_msg_normal_pre">선물 받기까지&#160;</string>
+    <string name="gift_grade_msg_normal_aft">개 스탬프 남았습니다</string>
+    <string name="gift_grade_msg_active">눌러서 선물을 신청하세요</string>
+    <string name="gift_grade_msg_complete">선물 신청 완료</string>
+    <string name="gift_apply_succ">선물이 신청되었습니다</string>
+    <string name="gift_apply_fail">선물 신청 중에 오류가 발생했습니다</string>
+
+    <string name="input_empty_msg">필요한 정보를 모두 입력해주세요</string>
 
     <string name="terms_msg1"> 1. 수집하는 개인정보 항목 및 수집방법\r\n\r\n 댓츠잇은 회원가입, 원활한 고객상담, 각종 서비스 등 기본적인 서비스 제공을 위한 개인정보를 수집할 수 있습니다. 이용자의 기 본적 인권 침해의 우려가 있는 민감한 개인 정보(인종, 사상 및 신조, 정치적 성향 이나 범죄기록, 의료정보 등)는 기본적으로 수집하지 않습니다. 단, 불가피하게 수집이 필요한 경우 반드시 사전에 동의 절차를 거치도록 하겠습니다. \r\n\r\n •예상 수집항목 : 이름, 비밀번호, 휴대폰 번호, 이메일 주소\r\n\r\n •개인정보 수집 방법 : 앱 회원가입, 이벤트 응모, 회원정보 수정\r\n\r\n </string>
     <string name="terms_msg2"> 2. 개인정보의 수집 및 이용목적\r\n\r\n 댓츠잇은 수집한 개인정보를 다음의 목적을 위해 활용합니다. 이용자가 제공한 모든 정보는 하기 목적에 필요한 용도 이외로는 사 용되지 않으며 이용 목적이 변경될 시에는 사전 동의를 구할 것입니다.\r\n\r\n •회원 관리 : 회원제 서비스 이용에 따른 본인확인, 개인 식별, 불량회원의 부정 이용 방지와 비인가 사용 방지, 가입 의사 확 인, 만 14세 아동 개인정보 수집 시 법정 대리인 동의여부 확인, 불만처리 등 민원처리, 고지사항 전달\r\n\r\n •마케팅 및 광고에 활용 : 신규 서비스 개발과 이벤트 행사에 따른 정보 전달 및 맞춤 서비스 제공, 인구통계학적 특성에 따른 서비스 제공, 접속 빈도 파악 또는 회원의 서비스 이용에 대한 통계\r\n\r\n </string>

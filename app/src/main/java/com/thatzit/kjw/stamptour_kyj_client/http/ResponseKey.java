@@ -19,6 +19,15 @@ public enum ResponseKey {
     MYSTAMPCOUNT("stamp_count"),
     TOTAL("total"),
     RANKLIST("ranklist"),
+    SURVEY_POINT("survey_point"),
+    MYCOUNT("myCount"),
+    ALLGRADE("allGrade"),
+    AGOGIFT("agoGift"),
+    GRADE("grade"),
+    CHECKTIME("CheckTime"),
+    REALNAME("realName"),
+    PHONE("phone"),
+    CONTENTS("contents"),
     LOGGEDINCASE("loggedincase");
     private String key;
 
