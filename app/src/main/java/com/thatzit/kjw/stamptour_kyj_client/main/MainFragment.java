@@ -208,6 +208,11 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
         });
     }
 
@@ -274,6 +279,11 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 progressWaitDaialog.dismiss();
                 req_flag = false;
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
     }
