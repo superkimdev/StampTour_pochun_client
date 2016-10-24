@@ -71,7 +71,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private TextView sort_btn;
     private TextView hide_btn;
     private TextView sort_mode_textview;
-
+    private TextView share_button;
     private TextView firstline_text_view;
     private TextView secondline_cnt_text_view;
     private TextView secondline_nextcnt_text_view;
@@ -126,10 +126,11 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
         sort_btn = (TextView) view.findViewById(R.id.sort_btn);
         hide_btn = (TextView) view.findViewById(R.id.hide_btn);
+        share_button = (TextView) view.findViewById(R.id.share_button);
         sort_mode_textview = (TextView) view.findViewById(R.id.sort_mode_textview);
         sort_btn.setOnClickListener(this);
         hide_btn.setOnClickListener(this);
-
+        share_button.setOnClickListener(this);
         recyclerView = (RecyclerView) view.findViewById(R.id.scrollableview);
 
         recyclerView.setHasFixedSize(true);
@@ -333,6 +334,9 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.sort_btn:
                 popUpShow();
 //                Toast.makeText(getContext(),"정렬버튼클릭",Toast.LENGTH_LONG).show();
+                break;
+            case R.id.share_button:
+                Toast.makeText(getContext(),"공유버튼클릭",Toast.LENGTH_LONG).show();
                 break;
         }
     }
