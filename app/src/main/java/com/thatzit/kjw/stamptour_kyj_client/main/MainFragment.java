@@ -40,6 +40,7 @@ import com.thatzit.kjw.stamptour_kyj_client.main.fileReader.LoadAsyncTask;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ListChangeListener;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentGpsStateListener;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.ParentLocationListener;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.StampSealListnenr;
 import com.thatzit.kjw.stamptour_kyj_client.preference.LoggedInInfo;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.event.GpsStateEvent;
@@ -57,7 +58,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItemClickListener, View.OnClickListener,
         MainRecyclerAdapter.OnItemLongClickListener, ParentLocationListener, ParentGpsStateListener,
-        PopupMenu.OnMenuItemClickListener, ListChangeListener {
+        PopupMenu.OnMenuItemClickListener, ListChangeListener, StampSealListnenr {
 
     CollapsingToolbarLayout collapsingToolbar;
     RecyclerView recyclerView;
@@ -141,6 +142,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         parent.setOnListChangeListener(this);
         mainRecyclerAdapter.SetOnItemClickListener(this);
         mainRecyclerAdapter.SetOnItemLongClickListener(this);
+        mainRecyclerAdapter.SetOnStampASealListener(this);
         ((MainActivity)getActivity()).setParentLocationListener(this);
         ((MainActivity)getActivity()).setParentGpsStateListener(this);
         progressbar = view.findViewById(R.id.list_progressbar);
@@ -347,7 +349,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             sort_load_before_check();
         }
         if(currentLocation==null)return;
-        if(data.isStamp_on()){
+        /*if(data.isStamp_on()){
             String req_stamp_check = getString(R.string.req_url_stamp_check);
             RequestParams params = new RequestParams();
             params.put(ResponseKey.NICK.getKey(),nick);
@@ -390,7 +392,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
                 }
             });
-        }
+        }*/
         //스탬프 찍은후 뷰 업데이팅 할 때 호출해야함
         //request_TownUserInfo();
     }
@@ -501,5 +503,56 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         else {
             return;
         }
+    }
+
+    @Override
+    public void OnStampASeal(int position) {
+
+        Log.e("OnStampASeal","position = "+position);
+        TownDTO data = mainRecyclerAdapter.getmListData(position);
+        if(currentLocation==null)return;
+        String req_stamp_check = getString(R.string.req_url_stamp_check);
+        RequestParams params = new RequestParams();
+        params.put(ResponseKey.NICK.getKey(),nick);
+        params.put(ResponseKey.TOKEN.getKey(),accesstoken);
+        params.put("town_code",data.getNo());
+        params.put("latitude",currentLocation.getLocation().getLatitude());
+        params.put("longitude",currentLocation.getLocation().getLongitude());
+        StampRestClient.post(req_stamp_check,params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                String code = null;
+                String msg = null;
+
+                try {
+                    code = response.getString(ResponseKey.CODE.getKey());
+                    msg = response.getString(ResponseKey.MESSAGE.getKey());
+                    if(code.equals(ResponseCode.SUCCESS.getCode())&&msg.equals(ResponseMsg.SUCCESS.getMessage())){
+                        JSONObject resultData = response.getJSONObject(ResponseKey.RESULTDATA.getKey());
+                        int res_town_code = resultData.getInt("TOWN_CODE");
+                        if(res_town_code == -1){
+                            Toast.makeText(getActivity(),"이미 찍으셨습니다",Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        String res_nick = resultData.getString("Nick");
+                        String res_time = resultData.getString("CheckTime");
+
+                        Log.e("STAMP_CHECK_REQ","nick : "+res_nick+"|town : "+res_town_code+"|time : "+res_time);
+                        request_TownUserInfo();
+
+                    }else{
+                        Log.e(TAG,code+":"+msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+            }
+        });
+
     }
 }

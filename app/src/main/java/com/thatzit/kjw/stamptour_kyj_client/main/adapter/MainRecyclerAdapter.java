@@ -28,6 +28,8 @@ import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.checker.VersoinChecker;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.StampSealListnenr;
+import com.thatzit.kjw.stamptour_kyj_client.util.StampAnimationView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     Context context;
     OnItemClickListener clickListener;
     OnItemLongClickListener longClickListener;
+    private StampSealListnenr listnenr;
     private final String TAG ="MainRecyclerAdapter";
     private ObjectAnimator currentAnimation;
     public TransitionDrawable background;
@@ -141,6 +144,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         }
                     };
                     handler.sendEmptyMessage(0);
+                    StampAnimationView stampAnimationView = new StampAnimationView(context,position);
+                    stampAnimationView.SetOnStampASealListener(listnenr);
+                    stampAnimationView.show();
                 }
             }
         }
@@ -207,5 +213,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
     public void SetOnItemLongClickListener(final OnItemLongClickListener itemLongClickListener) {
         this.longClickListener = itemLongClickListener;
+    }
+
+    public void SetOnStampASealListener(StampSealListnenr listnenr) {
+        this.listnenr = listnenr;
     }
 }
