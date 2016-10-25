@@ -148,7 +148,7 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 }
                 distance = calculate_Distance(i);
                 if(distance <= Float.parseFloat(list.get(i).getRange())){
-//                if(distance <= 30000000){
+               // if(distance <= 3558000){
                     Log.e(TAG,"STAMPON"+list.get(i).getName());
                     if(hidestatue_arr.size()!=0){
                         if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){

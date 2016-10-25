@@ -28,6 +28,8 @@ import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.checker.VersoinChecker;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.StampSealListnenr;
+import com.thatzit.kjw.stamptour_kyj_client.util.StampAnimationView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,10 +42,13 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     Context context;
     OnItemClickListener clickListener;
     OnItemLongClickListener longClickListener;
+    private StampSealListnenr listnenr;
     private final String TAG ="MainRecyclerAdapter";
     private ObjectAnimator currentAnimation;
     public TransitionDrawable background;
     public Handler handler;
+    private boolean stampFlag = true;
+
     public MainRecyclerAdapter(Context context) {
         this.context = context;
 
@@ -79,6 +84,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if(viewHolder instanceof NormalViewHolder){
+            StampAnimationView stampAnimationView = new StampAnimationView(context,position);
+            stampAnimationView.SetOnStampASealListener(listnenr);
+
             String sdcard= Environment.getExternalStorageDirectory().getAbsolutePath();
             String no;
 //            no = position + 1+"";
@@ -141,6 +149,15 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         }
                     };
                     handler.sendEmptyMessage(0);
+
+                    if(!stampAnimationView.isShowing()){
+                        stampAnimationView.show();
+                    }
+
+                }
+            }else {
+                if(stampAnimationView.isShowing()){
+                    stampAnimationView.dismiss();
                 }
             }
         }
@@ -207,5 +224,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
     public void SetOnItemLongClickListener(final OnItemLongClickListener itemLongClickListener) {
         this.longClickListener = itemLongClickListener;
+    }
+
+    public void SetOnStampASealListener(StampSealListnenr listnenr) {
+        this.listnenr = listnenr;
     }
 }

@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="79dp"
     android:id="@+id/item_container"
-    android:background="@drawable/town_list_item_animatebg"
-    >
+    android:background="@drawable/town_list_item_animatebg">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/town_img_view"
