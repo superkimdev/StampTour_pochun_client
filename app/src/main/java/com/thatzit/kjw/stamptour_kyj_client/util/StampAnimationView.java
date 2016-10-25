@@ -13,7 +13,6 @@ import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.StampSealListnenr;
 
-import static com.thatzit.kjw.stamptour_kyj_client.R.id.dialog_stamp_seal_imageview;
 
 /**
  * Created by csc-pc on 2016. 10. 24..
@@ -44,7 +43,7 @@ public class StampAnimationView extends Dialog implements View.OnClickListener{
 
     public void setAnimationWait() {
         Log.e("daaaaaaaaa","setAnimationWait()");
-        waitAnimation = (ImageView)findViewById(dialog_stamp_seal_imageview);
+        waitAnimation = (ImageView)findViewById(R.id.dialog_stamp_seal_imageview);
         waitAnimation.setVisibility(View.VISIBLE);
         waitAnimation.setOnClickListener(this);
         waitAnimation.setBackgroundResource(R.drawable.animationlist);
@@ -60,6 +59,16 @@ public class StampAnimationView extends Dialog implements View.OnClickListener{
 
         frameAnimation.start();
     }
+
+
+    public void stopAnimation(){
+        if(frameAnimation.isRunning()){
+            frameAnimation.stop();
+        }
+
+    }
+
+
     @Override
     public void onBackPressed() {
         // super.onBackPressed();
@@ -80,7 +89,7 @@ public class StampAnimationView extends Dialog implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case dialog_stamp_seal_imageview:
+            case R.id.dialog_stamp_seal_imageview:
                 listnenr.OnStampASeal(position);
                 dismiss();
                 break;

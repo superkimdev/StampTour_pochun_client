@@ -84,6 +84,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if(viewHolder instanceof NormalViewHolder){
+            StampAnimationView stampAnimationView = new StampAnimationView(context,position);
+            stampAnimationView.SetOnStampASealListener(listnenr);
+
             String sdcard= Environment.getExternalStorageDirectory().getAbsolutePath();
             String no;
 //            no = position + 1+"";
@@ -147,13 +150,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     };
                     handler.sendEmptyMessage(0);
 
-                    if(stampFlag){
-                        StampAnimationView stampAnimationView = new StampAnimationView(context,position);
-                        stampAnimationView.SetOnStampASealListener(listnenr);
+                    if(!stampAnimationView.isShowing()){
                         stampAnimationView.show();
-                        stampFlag = false;
                     }
 
+                }
+            }else {
+                if(stampAnimationView.isShowing()){
+                    stampAnimationView.dismiss();
                 }
             }
         }

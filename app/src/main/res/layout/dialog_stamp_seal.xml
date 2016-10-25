@@ -15,8 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/dialog_stamp_seal_imageview"
-            android:adjustViewBounds="true"
-            android:src="@drawable/stamp_success1"/>
+            android:adjustViewBounds="true" />
     </LinearLayout>
 
 
