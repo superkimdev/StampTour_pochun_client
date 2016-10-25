@@ -47,6 +47,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ObjectAnimator currentAnimation;
     public TransitionDrawable background;
     public Handler handler;
+    private boolean stampFlag = true;
+
     public MainRecyclerAdapter(Context context) {
         this.context = context;
 
@@ -144,9 +146,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         }
                     };
                     handler.sendEmptyMessage(0);
-                    StampAnimationView stampAnimationView = new StampAnimationView(context,position);
-                    stampAnimationView.SetOnStampASealListener(listnenr);
-                    stampAnimationView.show();
+
+                    if(stampFlag){
+                        StampAnimationView stampAnimationView = new StampAnimationView(context,position);
+                        stampAnimationView.SetOnStampASealListener(listnenr);
+                        stampAnimationView.show();
+                        stampFlag = false;
+                    }
+
                 }
             }
         }

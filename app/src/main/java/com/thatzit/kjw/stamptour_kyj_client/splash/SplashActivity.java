@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.checker.VersoinChecker;
@@ -48,6 +46,7 @@ public class SplashActivity extends Activity {
             if(!preferenceManger.getFirstStart()){
                 preferenceManger.setFirstStart();
                 startActivity(new Intent(getApplication(), LoginActivity.class));
+                startActivity(new Intent(getApplication(), HelpActivity.class));
                 SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
                 return;
             }else{

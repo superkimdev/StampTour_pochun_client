@@ -112,4 +112,13 @@ public class PreferenceManager {
     public String getAgoNotificationTown(){
         return pref.getString(PreferenceKey.AGO_NOTIFICATION_TOWN.getKey(),"EMPTY");
     }
+
+
+    public void setFristUserChecked(boolean trigger){
+        editor.putBoolean(PreferenceKey.FIRSTUSER.getKey(),trigger);
+        editor.commit();
+    }
+    public boolean getFristUserChecked(){
+        return pref.getBoolean(PreferenceKey.FIRSTUSER.getKey(),false);
+    }
 }

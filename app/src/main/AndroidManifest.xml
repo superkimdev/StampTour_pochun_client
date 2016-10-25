@@ -37,7 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".help.HelpActivity" />
         <activity android:name=".main.DetailActivity" />
         <activity android:name=".hide.HideListActivity" />
 
@@ -78,6 +77,7 @@
 
         <activity android:name=".login.SocialJoinActivity"/>
         <activity android:name=".main.TermsActivity"/>
+        <activity android:name=".help.HelpActivity"/>
 
         <activity
             tools:replace="android:theme"
