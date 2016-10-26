@@ -2,6 +2,7 @@ package com.thatzit.kjw.stamptour_kyj_client.main;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+import com.kakao.util.KakaoParameterException;
+import com.kakao.kakaolink.KakaoLink;
+import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
+import com.kakao.util.KakaoParameterException;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.thatzit.kjw.stamptour_kyj_client.R;
@@ -33,6 +44,7 @@ import com.thatzit.kjw.stamptour_kyj_client.http.ResponseCode;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseKey;
 import com.thatzit.kjw.stamptour_kyj_client.http.ResponseMsg;
 import com.thatzit.kjw.stamptour_kyj_client.http.StampRestClient;
+import com.thatzit.kjw.stamptour_kyj_client.login.LoggedInCase;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.PopUpAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.event.ListChangeEvent;
@@ -47,6 +59,7 @@ import com.thatzit.kjw.stamptour_kyj_client.push.service.event.GpsStateEvent;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.event.LocationEvent;
 import com.thatzit.kjw.stamptour_kyj_client.util.MyApplication;
 import com.thatzit.kjw.stamptour_kyj_client.util.ProgressWaitDaialog;
+import com.thatzit.kjw.stamptour_kyj_client.util.StampAnimationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +68,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItemClickListener, View.OnClickListener,
         MainRecyclerAdapter.OnItemLongClickListener, ParentLocationListener, ParentGpsStateListener,
@@ -72,7 +87,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private TextView sort_btn;
     private TextView hide_btn;
     private TextView sort_mode_textview;
-
+    private TextView share_button;
     private TextView firstline_text_view;
     private TextView secondline_cnt_text_view;
     private TextView secondline_nextcnt_text_view;
@@ -98,12 +113,20 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     private static final int HIDELISTUNCHANGED = 7779;
     private MainActivity parent;
     private boolean turnOnGpsShow = true;
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
+    private KakaoLink kakaoLink;
+    private KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder;
+
+    private StampAnimationView stampAnimationView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_fragment, container, false);
         preferenceManager = new PreferenceManager(getActivity());
+        preferenceManager.setAgoIsStampOn("EMPTY");
         progressWaitDaialog = new ProgressWaitDaialog(view.getContext());
+        stampAnimationView = new StampAnimationView(view.getContext());
         req_flag = false;
         UserTownInfo_arr = ((MainActivity)getActivity()).UserTownInfo_arr;
         setLayout();
@@ -118,8 +141,8 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         collapsingToolbar.setTitle(" ");
 
 
-        header = (ImageView) view.findViewById(R.id.header);
-        header.setOnClickListener(this);
+//        header = (ImageView) view.findViewById(R.id.header);
+//        header.setOnClickListener(this);
 
         firstline_text_view = (TextView)view.findViewById(R.id.firstline_text_view);
         secondline_cnt_text_view = (TextView)view.findViewById(R.id.secondline_cnt_text_view);
@@ -127,10 +150,11 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
         sort_btn = (TextView) view.findViewById(R.id.sort_btn);
         hide_btn = (TextView) view.findViewById(R.id.hide_btn);
+        share_button = (TextView) view.findViewById(R.id.share_button);
         sort_mode_textview = (TextView) view.findViewById(R.id.sort_mode_textview);
         sort_btn.setOnClickListener(this);
         hide_btn.setOnClickListener(this);
-
+        share_button.setOnClickListener(this);
         recyclerView = (RecyclerView) view.findViewById(R.id.scrollableview);
 
         recyclerView.setHasFixedSize(true);
@@ -195,7 +219,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                         secondline_nextcnt_text_view.setText(res_next_stamp_count+"");
                         Log.e("this request","nick : "+res_nick+"\ngrade : "+res_grade+"\ncur_stamp : "+
                                 res_stamp_count+"\nnext_stamp : "+res_next_stamp_count);
-
+                        sort_load_before_check();
                     }else{
                         Log.e("this request else",code+":"+msg);
                     }
@@ -251,7 +275,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                         Log.e(TAG,"town_code : "+data.getString("TOWN_CODE")+"\nCheckTime : "+data.getString("CheckTime")+"\nRange : "+data.getString("valid_range"));
                         req_flag = true;
                         current_request();
-                        sort_load_before_check();
+
                     }else{
                         Log.e(TAG,code+":"+msg);
                         JSONObject resultData = null;
@@ -325,8 +349,10 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.header:
 //                linearLayoutManager.scrollToPositionWithOffset(7, collapsingToolbar.getBottom());
 //                Toast.makeText(getContext(),"이미지클릭",Toast.LENGTH_LONG).show();
-
                 break;
+//                stampAnimationView.show();
+//                stampAnimationView.startAnimation();
+//                break;
             case R.id.hide_btn:
 //                Toast.makeText(getContext(),"숨김관리버튼클릭",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),HideListActivity.class);
@@ -336,9 +362,75 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                 popUpShow();
 //                Toast.makeText(getContext(),"정렬버튼클릭",Toast.LENGTH_LONG).show();
                 break;
+            case R.id.share_button:
+                LoggedInInfo loggedin_info = preferenceManager.getLoggedIn_Info();
+                if(loggedin_info.getLoggedincase().equals("NORMAL")){
+                    break;
+                }else{
+                    shareSocial(loggedin_info.getLoggedincase());
+                }
+                //Toast.makeText(getContext(),"공유클릭",Toast.LENGTH_LONG).show();
+                break;
         }
     }
 
+    private void shareSocial(String loggedincase) {
+        if(loggedincase.equals(LoggedInCase.FBLogin.getLogin_case())){
+            fbShare();
+        }else if(loggedincase.equals(LoggedInCase.KAKAOLogin.getLogin_case())){
+            kakaoShare();
+        }
+    }
+
+
+    private void fbShare() {
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(getActivity());
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                Log.e("Facebook share test", result.getPostId() + "");
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e("Facebook error", error.getLocalizedMessage());
+            }
+        });
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
+                    .setContentTitle(getString(R.string.FB_Share_Title))
+                    .setContentDescription(preferenceManager.getLoggedIn_Info().getNick()+getString(R.string.FB_Share_Description))
+                    .setContentUrl(Uri.parse(getString(R.string.FB_Share_APPUrl)))
+                    .build();
+            shareDialog.show(shareLinkContent);
+        }
+    }
+
+    private void kakaoShare() {
+        try {
+            kakaoLink = KakaoLink.getKakaoLink(getApplicationContext());
+            kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            kakaoTalkLinkMessageBuilder.addText("농촌여행 스탬프");
+//            kakaoTalkLinkMessageBuilder.addImage()
+            kakaoTalkLinkMessageBuilder.addAppLink("농촌여행 스탬프로 이동");
+            kakaoTalkLinkMessageBuilder.addWebButton("농촌여행 스탬프로 이동",getString(R.string.FB_Share_APPUrl));
+            kakaoTalkLinkMessageBuilder.build();
+            kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder, getActivity());
+        } catch (KakaoParameterException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onItemLongClick(View view, int position) {
         Log.e("RecycleitemLongClick","position = "+position);
@@ -401,7 +493,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     public void OnReceivedLocation(LocationEvent locationEvent) {
         Log.e(TAG,locationEvent.getLocation().getLatitude()+":"+locationEvent.getLocation().getLongitude());
         currentLocation = locationEvent;
-        new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview,UserTownInfo_arr,sort_mode,currentLocation,mainRecyclerAdapter, MyApplication.getContext()).execute();
+        new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview,UserTownInfo_arr,sort_mode,currentLocation,mainRecyclerAdapter, MyApplication.getContext(),stampAnimationView).execute();
 
     }
 
@@ -414,7 +506,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             }else{
                 turnOff = event.isState();
                 currentLocation = null;
-                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext(),stampAnimationView).execute();
             }
 
         }else{
@@ -424,7 +516,9 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        LoadAsyncTask loadAsyncTask = null;
         switch (item.getItemId()) {
+
             case R.id.action_sort_distance:
                 //Toast.makeText(getContext(),"거리클릭",Toast.LENGTH_LONG).show();
                 sort_load_before_check();
@@ -432,12 +526,20 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             case R.id.action_sort_name:
                 // Toast.makeText(getContext(),"이름클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 1;
-                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                loadAsyncTask = new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view,
+                        secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr,
+                        sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext(),stampAnimationView);
+                loadAsyncTask.setOnStampSealListener(this);
+                loadAsyncTask.execute();
                 break;
             case R.id.action_sort_region:
                 // Toast.makeText(getContext(),"권역클릭",Toast.LENGTH_LONG).show();
                 sort_mode = 2;
-                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                loadAsyncTask = new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view,
+                        secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr,
+                        sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext(),stampAnimationView);
+                loadAsyncTask.setOnStampSealListener(this);
+                loadAsyncTask.execute();
                 break;
             default:
                 return false;
@@ -452,18 +554,37 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             if(currentLocation == null) {
                 //gps 안켜지거나 못잡으면 0번은 안됨 기본 이름으로
                 sort_mode = 1;
-                new LoadAsyncTask(firstline_text_view,secondline_cnt_text_view,secondline_nextcnt_text_view,sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                LoadAsyncTask loadAsyncTask = new LoadAsyncTask(firstline_text_view,secondline_cnt_text_view,
+                        secondline_nextcnt_text_view,sort_mode_textview, UserTownInfo_arr,
+                        sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext(),stampAnimationView);
+                loadAsyncTask.setOnStampSealListener(this);
+                loadAsyncTask.execute();
             }else{
                 sort_mode = 0;
-                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                LoadAsyncTask loadAsyncTask = new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view,
+                        secondline_nextcnt_text_view, sort_mode_textview,
+                        UserTownInfo_arr, sort_mode,currentLocation,
+                        mainRecyclerAdapter,MyApplication.getContext(),stampAnimationView);
+                loadAsyncTask.setOnStampSealListener(this);
+                loadAsyncTask.execute();
             }
             setting_flag=1;
         }else{
             if(currentLocation == null){
-                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                LoadAsyncTask loadAsyncTask = new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view,
+                        secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr,
+                        sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext(),stampAnimationView);
+                loadAsyncTask.setOnStampSealListener(this);
+                loadAsyncTask.execute();
+
             }else{
                 sort_mode = 0;
-                new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view, secondline_nextcnt_text_view, sort_mode_textview, UserTownInfo_arr, sort_mode,currentLocation,mainRecyclerAdapter,MyApplication.getContext()).execute();
+                LoadAsyncTask loadAsyncTask = new LoadAsyncTask(firstline_text_view, secondline_cnt_text_view,
+                        secondline_nextcnt_text_view, sort_mode_textview,
+                        UserTownInfo_arr, sort_mode,currentLocation,
+                        mainRecyclerAdapter,MyApplication.getContext(),stampAnimationView);
+                loadAsyncTask.setOnStampSealListener(this);
+                loadAsyncTask.execute();
             }
         }
 
@@ -506,10 +627,10 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
     }
 
     @Override
-    public void OnStampASeal(int position) {
+    public void OnStampASeal(TownDTO dto) {
 
-        Log.e("OnStampASeal","position = "+position);
-        TownDTO data = mainRecyclerAdapter.getmListData(position);
+        Log.e("OnStampASeal","position = "+dto.getNo());
+        TownDTO data = dto;
         if(currentLocation==null)return;
         String req_stamp_check = getString(R.string.req_url_stamp_check);
         RequestParams params = new RequestParams();
@@ -539,6 +660,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
 
                         Log.e("STAMP_CHECK_REQ","nick : "+res_nick+"|town : "+res_town_code+"|time : "+res_time);
                         request_TownUserInfo();
+                        sort_load_before_check();
 
                     }else{
                         Log.e(TAG,code+":"+msg);
