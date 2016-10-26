@@ -28,22 +28,10 @@
     <string name="loginSocialTitle">소셜 로그인</string>
     <string name="Toast_login_Success">정상적으로 로그인 되었습니다.</string>
     <!-- Request Path -->
-    <string name="req_url_loggedin">user/login</string>
-    <string name="req.url_loggedout">user/logout</string>
-    <string name="req_url_user_check_version">user/check/version</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
-    <string name="req_url_download_zip">town/contents/contents.zip</string>
-    <string name="req_url_regist_device">user/device/regist</string>
-    <string name="req_url_push_test">user/push/test</string>
-    <string name="req_url_town_list">town/list</string>
-    <string name="req_url_current_stamp">user/current/stamp</string>
-    <string name="req_url_user_rank">user/rank</string>
-    <string name="req_url_user_remove">user/remove</string>
-    <string name="req_url_stamp_check">stamp/check</string>
-    <string name="req_url_password_chnage">user/change/password</string>
     <!-- TextView Text -->
     <string name="account_view_container">계정관리</string>
     <string name="hidemanage_view_container">숨김관리</string>
