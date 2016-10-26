@@ -431,10 +431,10 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         }
 
         try {
-            kakaoTalkLinkMessageBuilder.addText("농촌여행 스탬프");
+            kakaoTalkLinkMessageBuilder.addText(getString(R.string.FB_Share_Title));
 //            kakaoTalkLinkMessageBuilder.addImage()
-            kakaoTalkLinkMessageBuilder.addAppLink("농촌여행 스탬프로 이동");
-            kakaoTalkLinkMessageBuilder.addWebButton("농촌여행 스탬프로 이동",getString(R.string.FB_Share_APPUrl));
+            kakaoTalkLinkMessageBuilder.addAppLink(getString(R.string.FB_Share_Title2));
+            kakaoTalkLinkMessageBuilder.addWebButton(getString(R.string.FB_Share_Title2),getString(R.string.FB_Share_APPUrl));
             kakaoTalkLinkMessageBuilder.build();
             kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder, getActivity());
         } catch (KakaoParameterException e) {
