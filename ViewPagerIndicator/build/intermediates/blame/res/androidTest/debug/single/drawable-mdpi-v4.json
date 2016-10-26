@@ -4,16 +4,36 @@
         "source": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_selected_focused_holo.9.png"
     },
     {
+        "merged": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_selected_holo.9.png",
+        "source": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_selected_holo.9.png"
+    },
+    {
         "merged": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_selected_pressed_holo.9.png",
         "source": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_selected_pressed_holo.9.png"
+    },
+    {
+        "merged": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_unselected_focused_holo.9.png",
+        "source": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_unselected_focused_holo.9.png"
+    },
+    {
+        "merged": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_selected_pressed_holo.9.png",
+        "source": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_selected_pressed_holo.9.png"
     },
     {
         "merged": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_selected_holo.9.png",
         "source": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_selected_holo.9.png"
     },
     {
+        "merged": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_unselected_holo.9.png",
+        "source": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_unselected_holo.9.png"
+    },
+    {
         "merged": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_unselected_pressed_holo.9.png",
         "source": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_unselected_pressed_holo.9.png"
+    },
+    {
+        "merged": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_unselected_pressed_holo.9.png",
+        "source": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_unselected_pressed_holo.9.png"
     },
     {
         "merged": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_unselected_holo.9.png",
@@ -22,5 +42,9 @@
     {
         "merged": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_unselected_focused_holo.9.png",
         "source": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_unselected_focused_holo.9.png"
+    },
+    {
+        "merged": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/vpi__tab_selected_focused_holo.9.png",
+        "source": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable-mdpi-v4/vpi__tab_selected_focused_holo.9.png"
     }
 ]

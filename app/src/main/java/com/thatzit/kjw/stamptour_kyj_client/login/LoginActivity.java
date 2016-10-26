@@ -68,6 +68,7 @@ import cz.msebera.android.httpclient.Header;
 import static com.facebook.Profile.getCurrentProfile;
 import static com.kakao.auth.Session.getCurrentSession;
 import com.facebook.FacebookSdk;
+import com.thatzit.kjw.stamptour_kyj_client.util.StampAnimationView;
 
 import java.util.Arrays;
 
@@ -145,6 +146,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         mProgressView = findViewById(R.id.login_progress);
         progressWaitDaialog = new ProgressWaitDaialog(this);
         self = this;
+
     }
 
     private boolean checkPermission() {

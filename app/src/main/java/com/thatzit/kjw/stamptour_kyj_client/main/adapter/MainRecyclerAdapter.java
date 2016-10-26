@@ -28,6 +28,9 @@ import com.thatzit.kjw.stamptour_kyj_client.R;
 import com.thatzit.kjw.stamptour_kyj_client.checker.VersoinChecker;
 import com.thatzit.kjw.stamptour_kyj_client.login.LoginActivity;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.StampSealListnenr;
+import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
+import com.thatzit.kjw.stamptour_kyj_client.util.StampAnimationView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,12 +43,17 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     Context context;
     OnItemClickListener clickListener;
     OnItemLongClickListener longClickListener;
+    private StampSealListnenr listnenr;
     private final String TAG ="MainRecyclerAdapter";
     private ObjectAnimator currentAnimation;
     public TransitionDrawable background;
     public Handler handler;
+    private boolean stampFlag = true;
+    private PreferenceManager preferenceManager;
+
     public MainRecyclerAdapter(Context context) {
         this.context = context;
+        preferenceManager = new PreferenceManager(this.context);
 
     }
     public MainRecyclerAdapter(Context context, ArrayList<TownDTO> mListData) {
@@ -67,18 +75,22 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.mListData.remove(position);
     }
     public void removelist(){
-       this.mListData.clear();
+        this.mListData.clear();
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.townlistitem, viewGroup, false);
-            return new NormalViewHolder(view);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.townlistitem, viewGroup, false);
+        return new NormalViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if(viewHolder instanceof NormalViewHolder){
+//            StampAnimationView stampAnimationView = new StampAnimationView(context,position);
+//            stampAnimationView.SetOnStampASealListener(listnenr);
+
             String sdcard= Environment.getExternalStorageDirectory().getAbsolutePath();
             String no;
 //            no = position + 1+"";
@@ -118,8 +130,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if(!mListData.get(position).getStamp_checked().equals("")){
                 ((NormalViewHolder)viewHolder).stamp_checked_imgview.setVisibility(View.VISIBLE);
             }
+
             if(mListData.get(position).isStamp_on()){
+                Log.e("isStamp_on","call");
                 if(mListData.get(position).getStamp_checked().equals("")){
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((NormalViewHolder)viewHolder).region_text_view.setTextColor(context.getColor(R.color.stamp_list_item_text_color_alpha_on));
                     }else{
@@ -141,6 +156,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         }
                     };
                     handler.sendEmptyMessage(0);
+
                 }
             }
         }
@@ -157,7 +173,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
     @Override
     public int getItemCount() {
-            return mListData == null ? 0 : mListData.size();
+        return mListData == null ? 0 : mListData.size();
     }
 
     private TownDTO getItem(int position) {
@@ -174,6 +190,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public ImageView stamp_checked_imgview;
         public NormalViewHolder(View itemView) {
             super(itemView);
+
             town_img_view = (ImageView)itemView.findViewById(R.id.town_img_view);
             name_text_view = (TextView)itemView.findViewById(R.id.town_name_view);
             region_text_view = (TextView)itemView.findViewById(R.id.town_region_view);
@@ -207,5 +224,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
     public void SetOnItemLongClickListener(final OnItemLongClickListener itemLongClickListener) {
         this.longClickListener = itemLongClickListener;
+    }
+
+    public void SetOnStampASealListener(StampSealListnenr listnenr) {
+        this.listnenr = listnenr;
     }
 }
