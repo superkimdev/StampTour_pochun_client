@@ -13,8 +13,8 @@ public enum PreferenceKey {
     LOCALE("locale"),
     GCMTOKEN("gcmtoken"),
     DOWNFLAG("downflag"),
-    FIRSTUSER("firstuser"),
-    AGO_NOTIFICATION_TOWN("ago_notification_town");
+    AGO_NOTIFICATION_TOWN("ago_notification_town"),
+    AGO_IS_STAMPON("ago_is_stampon");
     private String key;
 
     PreferenceKey() {

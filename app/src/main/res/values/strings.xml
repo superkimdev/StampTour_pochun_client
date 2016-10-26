@@ -189,4 +189,7 @@
     <string name="terms_toolbar_title">개인정보취급방침</string>
     <string name="main_list_item_date">날짜</string>
     <string name="main_list_item_number">순서</string>
+    <string name="FB_Share_Title">신안스탬프투어</string>
+    <string name="FB_Share_Description">신안을 여행중입니다.</string>
+    <string name="FB_Share_APPUrl">https://play.google.com/store/apps/details?id=com.thatzit.kjw.stamptour_shinan_client</string>
 </resources>

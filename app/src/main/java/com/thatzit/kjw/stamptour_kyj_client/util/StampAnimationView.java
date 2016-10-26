@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.StampSealListnenr;
 
@@ -23,8 +24,13 @@ public class StampAnimationView extends Dialog implements View.OnClickListener{
     private ImageView waitAnimation;
     private AnimationDrawable frameAnimation;
     private int position;
+    private TownDTO dto;
     private StampSealListnenr listnenr;
     private final String TAG ="MainRecyclerAdapter";
+
+    public int getPosition() {
+        return position;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,11 @@ public class StampAnimationView extends Dialog implements View.OnClickListener{
         setContentView(R.layout.dialog_stamp_seal);
         setAnimationWait();
         Log.e("daaaaaaaaa","onCreate()");
+    }
+
+    public void goShow(TownDTO dto){
+        this.dto = dto;
+        this.show();
     }
 
     public void setAnimationWait() {
@@ -80,17 +91,16 @@ public class StampAnimationView extends Dialog implements View.OnClickListener{
         waitAnimation.setVisibility(View.GONE);
         frameAnimation.stop();
     }
-    public StampAnimationView(Context context, int position) {
+    public StampAnimationView(Context context) {
         super(context,android.R.style.Theme_Translucent_NoTitleBar);
         this.context = context;
-        this.position = position;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.dialog_stamp_seal_imageview:
-                listnenr.OnStampASeal(position);
+                listnenr.OnStampASeal(dto);
                 dismiss();
                 break;
 
@@ -102,3 +112,5 @@ public class StampAnimationView extends Dialog implements View.OnClickListener{
         this.listnenr = listnenr;
     }
 }
+
+

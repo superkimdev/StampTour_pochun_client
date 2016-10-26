@@ -25,9 +25,11 @@ import com.thatzit.kjw.stamptour_kyj_client.main.TempTownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.adapter.MainRecyclerAdapter;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownJson;
+import com.thatzit.kjw.stamptour_kyj_client.main.msgListener.StampSealListnenr;
 import com.thatzit.kjw.stamptour_kyj_client.preference.PreferenceManager;
 import com.thatzit.kjw.stamptour_kyj_client.push.service.event.LocationEvent;
 import com.thatzit.kjw.stamptour_kyj_client.util.ChangeDistanceDoubleToStringUtil;
+import com.thatzit.kjw.stamptour_kyj_client.util.StampAnimationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +45,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by kjw on 16. 8. 25..
  */
-public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
+public class LoadAsyncTask extends AsyncTask<Void, Void, Void>  {
     private final String TAG = "LoadAsyncTask";
     private final TextView sort_mode_textview;
     private final TextView firstline_text_view;
@@ -73,8 +75,14 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     private PreferenceManager preferenceManager;
     private String current_req_url;
     private String accesstoken;
+    private StampAnimationView stampAnimationView;
+    private boolean stampOnOff;
+    private TownDTO stampOnData;
+    private boolean stampFlag =true;
+    private StampSealListnenr listnenr;
+    private TempTownDTO stampCheckedData;
 
-    public LoadAsyncTask(TextView firstline_text_view, TextView secondline_cnt_text_view, TextView secondline_nextcnt_text_view, TextView sort_mode_textview, ArrayList<TempTownDTO> userTownInfo_arr, int sort_mode, LocationEvent locationEvent, MainRecyclerAdapter madapter, Context context) {
+    public LoadAsyncTask(TextView firstline_text_view, TextView secondline_cnt_text_view, TextView secondline_nextcnt_text_view, TextView sort_mode_textview, ArrayList<TempTownDTO> userTownInfo_arr, int sort_mode, LocationEvent locationEvent, MainRecyclerAdapter madapter, Context context,StampAnimationView stampAnimationView) {
         this.context = context;
         this.madapter = madapter;
         this.locationEvent=locationEvent;
@@ -89,12 +97,14 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
         preferenceManager = new PreferenceManager(context);
         sorted_array = new ArrayList<TownDTO>();
 
+        this.stampAnimationView = stampAnimationView;
     }
 
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        if(listnenr!=null)stampAnimationView.SetOnStampASealListener(listnenr);
     }
 
     @Override
@@ -120,10 +130,10 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 TownJson data = list.get(i);
                 TempTownDTO tempTownDTO= userTownInfo_arr.get(i);
                 String region = "";
-                if(data.getRegion().equals("0")){
+                if(data.getRegion().equals("-1")){
                     region = "";
                 }else{
-                    region = data.getRegion();
+                    region = tempTownDTO.getRegion();
                 }
                 if(hidestatue_arr.size()!=0){
                     if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
@@ -141,18 +151,21 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
                 TownJson data = list.get(i);
                 TempTownDTO tempTownDTO= userTownInfo_arr.get(i);
                 String region = "";
-                if(data.getRegion().equals("0")){
+                if(data.getRegion().equals("-1")){
                     region = "";
                 }else{
-                    region = data.getRegion();
+                    region = tempTownDTO.getRegion();
                 }
                 distance = calculate_Distance(i);
+
                 if(distance <= Float.parseFloat(list.get(i).getRange())){
-               // if(distance <= 3558000){
+              // if(Integer.parseInt(list.get(i).getNo()) == 3){
                     Log.e(TAG,"STAMPON"+list.get(i).getName());
                     if(hidestatue_arr.size()!=0){
                         if(hidestatue_arr.get(i)==HideStatus.UNHIDE.getStatus()){
-                            sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),tempTownDTO.getRank_no(),true));
+                            stampCheckedData = tempTownDTO;
+                            stampOnData = new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),tempTownDTO.getRank_no(),true);
+                            sorted_array.add(stampOnData);
                         }
                     }else{
                         sorted_array.add(new TownDTO(data.getNo(),data.getName(),region,String.valueOf(distance),data.getRange(),tempTownDTO.getChecktime(),tempTownDTO.getRank_no(),true));
@@ -207,15 +220,38 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         madapter.removelist();
+
         for(int i=0 ;i<sorted_array.size();i++){
             madapter.additem(sorted_array.get(i));
         }
-//        String space = " ";
-//        String firstline = nick+zosa+space+grade+space+last_string;
-//        firstline_text_view.setText(firstline);
+        if(stampOnData != null){
+            Log.e("values",preferenceManager.getAgoIsStampOn());
+            if(preferenceManager.getAgoIsStampOn().equals("EMPTY")||preferenceManager.getAgoIsStampOn().equals("")) {
+                if (stampCheckedData.getChecktime().equals("")) {
+                    if (!stampAnimationView.isShowing()) {
+                        stampAnimationView.show();
+                        preferenceManager.setAgoIsStampOn(stampOnData.getName());
+                        stampAnimationView.goShow(stampOnData);
+                        Log.e("stampview" + stampOnData.getName(), "call");
+                    }
+                }else{
+                    preferenceManager.setAgoIsStampOn("EMPTY");
+                }
+            }
+        }else{
+            Log.e("stamppview2","STAMPDATANULL");
+            if(stampAnimationView.isShowing())
+            {
+                stampAnimationView.dismiss();
+                preferenceManager.setAgoIsStampOn("EMPTY");
+            }
+
+        }
         sort_mode_textview.setText(mode_title+sorted_array.size());
         sort_mode_textview.setGravity(Gravity.CENTER);
         madapter.notifyDataSetChanged();
+
+
     }
 
     // comparator for distance
@@ -242,4 +278,7 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void> {
             return lhs.getName().compareTo(rhs.getName());
         }
     };
+    public void setOnStampSealListener(StampSealListnenr listener){
+        this.listnenr = listener;
+    }
 }
