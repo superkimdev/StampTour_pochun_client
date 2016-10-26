@@ -46,7 +46,7 @@ public class SplashActivity extends Activity {
             if(!preferenceManger.getFirstStart()){
                 preferenceManger.setFirstStart();
                 startActivity(new Intent(getApplication(), LoginActivity.class));
-                startActivity(new Intent(getApplication(), HelpActivity.class));
+//                startActivity(new Intent(getApplication(), HelpActivity.class));
                 SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
                 return;
             }else{
