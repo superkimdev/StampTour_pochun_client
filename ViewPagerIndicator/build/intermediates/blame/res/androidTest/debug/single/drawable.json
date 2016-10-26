@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable/vpi__tab_indicator.xml",
+        "source": "/Users/kjw/Desktop/StampTour_kyj_Client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable/vpi__tab_indicator.xml"
+    },
+    {
         "merged": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/res/merged/androidTest/debug/drawable/vpi__tab_indicator.xml",
         "source": "/Users/csc-pc/Desktop/stamptour_android/StampTour_pochun_client/ViewPagerIndicator/build/intermediates/bundles/debug/res/drawable/vpi__tab_indicator.xml"
     }
