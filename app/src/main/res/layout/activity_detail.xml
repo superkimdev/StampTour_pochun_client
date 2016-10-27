@@ -85,6 +85,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_below="@id/image_description_subtitle"
                                             android:layout_marginTop="@dimen/image_description_contents_text_margin_top"
+                                            android:layout_marginBottom="20dp"
                                             android:layout_alignStart="@id/image_description_subtitle"
                                             android:id="@+id/image_description_contents"
                                             android:text="@string/image_description_contents"
