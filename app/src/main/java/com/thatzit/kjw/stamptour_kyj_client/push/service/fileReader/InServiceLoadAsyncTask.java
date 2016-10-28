@@ -73,6 +73,7 @@ public class InServiceLoadAsyncTask extends AsyncTask<Void, Void, Void> {
             townlocation.setLongitude(Double.parseDouble(townarr.get(i).getLon()));
             float distance = location.distanceTo(townlocation);
             if(distance <= Float.parseFloat(townarr.get(i).getRange())){
+//            if(townarr.get(i).getNo().equals("1")){
                 Log.e(TAG,"STAMPON"+townarr.get(i).getName());
                 if(preferenceManager.getLoggedIn_Info().getAccesstoken()!=""){
                     sendNotification(townarr.get(i));
