@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.thatzit.kjw.stamptour_kyj_client.R;
+import com.thatzit.kjw.stamptour_kyj_client.checker.LocaleChecker;
 import com.thatzit.kjw.stamptour_kyj_client.main.TownDTO;
 
 import java.util.ArrayList;
@@ -21,17 +22,19 @@ import java.util.Objects;
 public class RankRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "RankRecyclerAdapter";
     Context context;
-
+    private LocaleChecker checker;
     private ArrayList<Object> mListData = new ArrayList<Object>();
     private final int HEADER = 0;
     private final int NORMAL = 2;
     public RankRecyclerAdapter(Context context) {
         this.context = context;
+        this.checker = new LocaleChecker(context);
     }
 
     public RankRecyclerAdapter(Context context, ArrayList<Object> mListData) {
         this.context = context;
         this.mListData = mListData;
+        this.checker = new LocaleChecker(context);
     }
     public Object getmListData(int position) {
         return mListData.get(position);
@@ -80,8 +83,26 @@ public class RankRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((RankRecyclerAdapter.HeaderViewHolder)holder).my_name_textview.setText("");
             ((RankRecyclerAdapter.HeaderViewHolder)holder).my_rank_textview.setText("");
 
-            ((RankRecyclerAdapter.HeaderViewHolder)holder).my_name_textview.setText(dto.getName()+"님은 "+dto.getTotal()+"명 중 ");
-            ((RankRecyclerAdapter.HeaderViewHolder)holder).my_rank_textview.setText(dto.getRank_no()+"위");
+            setRankTextWithLocale((HeaderViewHolder) holder, dto);
+
+        }
+    }
+
+    private void setRankTextWithLocale(HeaderViewHolder holder, RankHeaderDTO dto) {
+        switch (checker.check_return_locale()){
+            case "ko":
+                holder.my_name_textview.setText(dto.getName()+context.getString(R.string.beverb_string)+dto.getTotal()+context.getString(R.string.out_of_string));
+                holder.my_rank_textview.setText(dto.getRank_no()+context.getString(R.string.rank_string));
+                break;
+            case "en":
+                holder.my_name_textview.setText(dto.getName()+context.getString(R.string.beverb_string)+dto.getRank_no()+context.getString(R.string.out_of_string));
+                holder.my_rank_textview.setText(dto.getTotal()+context.getString(R.string.rank_string));
+                break;
+            default:
+                //defalut ko
+                holder.my_name_textview.setText(dto.getName()+context.getString(R.string.beverb_string)+dto.getTotal()+context.getString(R.string.out_of_string));
+                holder.my_rank_textview.setText(dto.getRank_no()+context.getString(R.string.rank_string));
+                break;
         }
     }
 

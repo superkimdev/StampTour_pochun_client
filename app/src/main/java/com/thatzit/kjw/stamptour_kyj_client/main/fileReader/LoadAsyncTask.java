@@ -144,6 +144,8 @@ public class LoadAsyncTask extends AsyncTask<Void, Void, Void>  {
                 }
 
             }
+            Log.e("userlist",userTownInfo_arr.toString());
+            Log.e("list",sorted_array.toString());
             sort_by_mode();
             return null;
         }else{

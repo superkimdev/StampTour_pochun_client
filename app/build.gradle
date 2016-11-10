@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.thatzit.kjw.stamptour_kyj_client"
-        minSdkVersion 20
+        minSdkVersion 19
         targetSdkVersion 23
-        versionCode 7
-        versionName "1.6"
+        versionCode 8
+        versionName "1.7"
     }
     buildTypes {
         release {
@@ -32,6 +32,7 @@ dependencies {
     //GCM 라이브러리
     //google map 라이브러리
     //flexible space with image list library(ObservableScrollView)
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.roughike:bottom-bar:2.0.2'

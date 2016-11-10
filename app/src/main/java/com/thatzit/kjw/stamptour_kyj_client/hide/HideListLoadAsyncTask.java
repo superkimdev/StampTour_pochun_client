@@ -50,10 +50,10 @@ public class HideListLoadAsyncTask extends AsyncTask<Void, Void, Void> {
             TempTownDTO userdata = usertowninfo_arr.get(i);
             int status = preferenceManager.getTownHideStatus(data.getNo());
             String region;
-            if(data.getRegion().equals("0")){
+            if(data.getRegion().equals("-1")){
                 region = "";
             }else{
-                region = data.getRegion();
+                region = userdata.getRegion();
             }
             if(status == HideStatus.HIDE.getStatus()){
 
