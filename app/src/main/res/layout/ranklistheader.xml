@@ -33,7 +33,7 @@
         android:layout_toRightOf="@id/my_rank_textview"
         android:layout_alignBaseline="@id/my_rank_textview"
         android:id="@+id/rank_finish_textview"
-        android:text="입니다."
+        android:text="@string/rank_is_string"
         android:textColor="@color/rank_no_textview_color"
         android:textSize="14sp"
         />

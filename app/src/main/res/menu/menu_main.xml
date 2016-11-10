@@ -5,17 +5,17 @@
     <item
         android:id="@+id/action_sort_region"
         android:orderInCategory="100"
-        android:title="권역"
+        android:title="@string/area_string"
         app:showAsAction="collapseActionView"></item>
     <item
         android:id="@+id/action_sort_name"
         android:orderInCategory="200"
-        android:title="이름"
+        android:title="@string/name_string"
         app:showAsAction="collapseActionView"></item>
     <item
         android:id="@+id/action_sort_distance"
         android:orderInCategory="300"
-        android:title="거리"
+        android:title="@string/distance_string"
         app:showAsAction="collapseActionView"></item>
 
 </menu>

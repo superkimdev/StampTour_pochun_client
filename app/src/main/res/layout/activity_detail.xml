@@ -39,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_marginLeft="118dp"
                 android:id="@+id/detail_town_title_textview"
                 android:text="@string/detail_toolbar_town_name_textview"
                 android:textSize="19sp"

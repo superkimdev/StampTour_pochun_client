@@ -195,4 +195,14 @@
     <string name="FB_Share_Description">포천을 여행중입니다.</string>
     <string name="FB_Share_APPUrl">https://play.google.com/store/apps/details?id=com.thatzit.kjw.stamptour_shinan_client</string>
     <string name="FB_Share_Title2">포천스탬프투어로 이동</string>
+    <string name="beverb_string">"님은 "</string>
+    <string name="out_of_string">"명 중 "</string>
+    <string name="rank_string">위</string>
+    <string name="rank_is_string">입니다.</string>
+    <string name="already_taken_string">이미 찍으셨습니다</string>
+    <string name="distance_string">거리</string>
+    <string name="area_string">권역</string>
+    <string name="name_string">이름</string>
+    <string name="downloding_string">필요한 컨텐츠 다운로드중...</string>
+    <string name="verifying_contents_string">콘텐츠 리소스 확인중...</string>
 </resources>

@@ -1,0 +1,320 @@
+<resources>
+    <string name="app_name">Pocheon\nStampTour</string>
+    <!--OAUTH SERVICE KEY-->
+    <string name="facebook_app_id">1196868970378253</string>
+    <string name="kakao_app_key">527f0df26e167313b802571444d94111</string>
+    <string name="pass_patten">^(?=.*[a-z]+)(?=.*[0-9]+).{6,16}$</string>
+    <string name="email_patten">[\\w\\~\\-\\.]+@[\\w\\~\\-]+(\\.[\\w\\~\\-]+)+</string>
+    <string name="nick_patten">^[a-zA-Z0-9가-힣\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]{2,6}+$</string>
+
+    <!-- PreferenceManager -->
+    <string name="preference_private_name">stamp_tour_kyoungju</string>
+    <!-- Strings related to login -->
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Log in</string>
+    <string name="action_sign_in_short">SignIn</string>
+    <string name="action_join">Sign up</string>
+    <string name="action_find_user">Forgot ID/PW</string>
+    <string name="action_sign_in_facebook">Facebook login</string>
+    <string name="loginTitle">Log in</string>
+    <string name="loginSocialTitle">Social signin</string>
+    <string name="Toast_login_Success">Login Successful</string>
+    <!---->
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <!-- Request Path -->
+    <string name="req_url_loggedin">user/login</string>
+    <string name="req.url_loggedout">user/logout</string>
+    <string name="req_url_user_check_version">user/check/version</string>
+    <string name="req_url_download_zip">town/contents/contents.zip</string>
+    <string name="req_url_regist_device">user/device/regist</string>
+    <string name="req_url_push_test">user/push/test</string>
+    <string name="req_url_town_list">town/list</string>
+    <string name="req_url_current_stamp">user/current/stamp</string>
+    <string name="req_url_user_rank">user/rank</string>
+    <string name="req_url_user_remove">user/remove</string>
+    <string name="req_url_stamp_check">stamp/check</string>
+    <string name="req_url_password_chnage">user/change/password</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+
+    <!-- TextView Text -->
+    <!-- TextView Text -->
+    <string name="account_view_container">Account</string>
+    <string name="hidemanage_view_container">Hide Manage</string>
+    <string name="present_view_container">Event Request</string>
+    <string name="research_view_container">Survey</string>
+    <string name="logout_view_container">Log out</string>
+    <string name="hide_btn">Hiding</string>
+    <string name="sort_btn">Sort</string>
+    <string name="main_toolbar_title">Stamp</string>
+    <string name="main_list_item_name">Name</string>
+    <string name="main_list_item_distance">Distance</string>
+    <string name="main_list_item_region">Region</string>
+    <string name="main_header_secondview_text">Completed</string>
+    <string name="main_header_secondview_next_text">To next event</string>
+    <string name="grade_1">성골</string>
+    <string name="grade_2">진골</string>
+    <string name="grade_pre_text">Ms/Mr</string>
+    <string name="grade_after_text">is grade.</string>
+    <string name="grade_default_text">Mr Hong is Beginner grade.</string>
+    <string name="image_fragment_detail_text">SubTitle</string>
+    <string name="image_description_contents">description</string>
+    <string name="detail_toolbar_town_name_textview">Name</string>
+    <string name="dialog_storage_less">Lack of external memory</string>
+    <string name="confirm">confirm</string>
+    <string name="needsmemory">Required memory:</string>
+    <string name="usablememory">Usable memory:</string>
+    <string name="mode_title0">By Distance</string>
+    <string name="mode_title1">By Name</string>
+    <string name="mode_title2">By Region</string>
+    <string name="share_button_text">Share</string>
+    <string name="password_setting_string">Password should be the mix between english lowercases and numbers from min 6 to max 16.</string>
+    <string name="social_account_text">You use social account.</string>
+    <string name="password_confirm_string">Confirm password</string>
+    <string name="password_string">You use social account.</string>
+    <string name="password_change_confirm_string">Confirm changed password</string>
+    <string name="password_change_input_string">Input  changed password</string>
+    <string name="nick_string">Nickname</string>
+    <string name="default_nick_string">Tom</string>
+    <string name="email_account_string">Email</string>
+    <string name="alert_remove_account_text">If you delete your account, related information will be deleted.</string>
+    <string name="comm_toolbar_title">Account</string>
+    <string name="login_toolbar_title">Log in</string>
+    <string name="hint_eamil_input">Input email</string>
+    <string name="hint_password_input">Input password</string>
+    <string name="rank_toolbar_title">Ranking</string>
+    <string name="account_sub_title">Account information</string>
+    <string name="email">Email</string>
+    <string name="dummy_email">abcd@naver.com</string>
+    <string name="nick">Nickname</string>
+    <string name="dummy_nick">Tom</string>
+    <string name="password_change">Password change</string>
+    <string name="hint_password_input_reword">Input password again</string>
+    <string name="password_guide_text">Password should be the mix between english lowercases and numbers from min 6 to max 16.</string>
+    <string name="account_manage_delete">Cancel account</string>
+    <string name="account_manage_delete_guide">If you delete your account, related information will be deleted.</string>
+    <string name="server_not_good">The connection is not good.</string>
+    <string name="password_change_success">Password change successful</string>
+    <string name="remove_acoount_success">Cancel successful</string>
+    <string name="more_toolbar_title">More</string>
+    <string name="map_toolbar_title">Map</string>
+    <string name="stamp_zone_come_message">You are in stamp zone.</string>
+    <string name="hidelist_toolbar_title">Hiding</string>
+    <string name="btn_undo_hide_text">Unhidden</string>
+    <string name="hide_notfication_text">Hidden</string>
+    <string name="social_join_nick_hint">Input nickname</string>
+    <string name="social_join_confirm_textview_text">Nickname should be within 6 characters.(Nickname is used to find your account.)</string>
+    <string name="btn_sendjoin">Confirm</string>
+    <string name="social_join_accept_textview_text">If you click confirm button, you will be considered to agree to Privacy Policy.</string>
+    <string name="area_name">Name</string>
+    <string name="join_toolbar_title">Sign up</string>
+    <string name="join_normal_email_hint">Input email</string>
+    <string name="join_normal_nick_hint">Input nicknmane</string>
+    <string name="join_normal_confirm_textview_text">Input your own email address</string>
+    <string name="join_normal_confirmpassword_textview_text">Password should be the mix between english lowercases and numbers from min 6 to max 16.</string>
+    <string name="join_normal_duplicate_text_btn">Check duplication</string>
+    <string name="find_id_title_text">Find ID</string>
+    <string name="find_pass_title_text">Find password</string>
+    <string name="find_id_confirm_textview_text">Input signup information</string>
+    <string name="find_id_nick_input_hint">Input nickname</string>
+    <string name="join_normal_please_duplicate_check">Check duplication for nickname and email</string>
+    <string name="join_normal_not_equal_password">Input right password</string>
+    <string name="join_normal_valid_nick">Vaild</string>
+    <string name="join_normal_duplicate_nick">Nickname duplicated</string>
+    <string name="join_normal_valid_email">Vaild</string>
+    <string name="join_normal_duplicate_email">ID duplicated</string>
+    <string name="join_success">Signup successful</string>
+    <string name="validate_failure">Invalid</string>
+    <string name="invalid_email">Email invalid</string>
+    <string name="invalid_password">Password invalid</string>
+    <string name="invalid_nick">Nickname invalid</string>
+    <string name="please_duplicate_check">Check duplication for nickname and email</string>
+    <string name="not_equal_password">Password invalid</string>
+    <string name="find_id_not_text">ID not found</string>
+    <string name="find_pass_not_text">Password not found</string>
+    <string name="survey_toolbar_title">Survey</string>
+    <string name="survey_main_title_text">Are you satisfied with this service?</string>
+    <string name="survey_sub_title_text">Evaluate your satisfaction. The result will be used for service improvement.</string>
+    <string name="survey_grade_verygood_text">Very good</string>
+    <string name="survey_grade_good_text">Good</string>
+    <string name="survey_grade_notbad_text">Not bad</string>
+    <string name="survey_grade_bad_text">Bad</string>
+    <string name="survey_grade_verybad_text">Very bad</string>
+    <string name="survey_not_enough">Select your grade</string>
+    <string name="survey_complete">Complete</string>
+    <string name="survey_aleady">You already completed survey.</string>
+    <string name="gift_manger_title_text">Get a gift with stamp</string>
+    <string name="not_input_socialuser_password">You are social user.</string>
+    <string name="gift_manager_title_text">Get a gift with stamp</string>
+    <string name="gift_manager_toolbar_title_text">Event management</string>
+    <string name="gift_guide_text">Enter correct data</string>
+    <string name="gift_name_text">Enter your name</string>
+    <string name="gift_phone_text">Enter your phone number</string>
+    <string name="gift_toolbar_title_text">Event request</string>
+    <string name="gift_grade_msg_normal_pre">For a gift&#160;</string>
+    <string name="gift_grade_msg_normal_aft">stamp needed</string>
+    <string name="gift_grade_msg_active">Click to request gift</string>
+    <string name="gift_grade_msg_complete">Completed</string>
+    <string name="gift_apply_succ">Request successful</string>
+    <string name="gift_apply_fail">Request failed</string>
+    <string name="input_empty_msg">Enter all required information</string>
+    <string name="terms_msg1">This Privacy Policy (the Policy) explains the way of treatment of the information which is provided or collected in the websites on which this Policy is posted. In addition the Policy also explains the information which is provided or collected in the course of using the applications of the Company which exist in the websites or platforms of other company.
+    Through this Policy, the Company regards personal information of the users as important and inform them of the purpose and method of Company\'s using the personal information provided by the users and the measures taken by the Company for protection of those personal information.
+    This Policy will be effective on Nov 1, 2015 and, in case of modification thereof, the Company will make public notice of it through posting it on the bulletin board of Company\'s website (or individual notice through sending mails, fax or e-mails).
+    </string>
+    <string name="terms_msg2">1. Information to be collected and method of collection
+    (1) Personal information items to be collected
+    Personal information items to be collected by the Company are as follows:
+    - Information provided by the users
+    The Company may collect the information directly provided by the users.
+    + Name, email address, ID, telephone number, address, national information, encoded identification information (CI), identification information of overlapped membership (DI)
+    + For minors, information of legal representatives (name, birth date, CI and DI of legal representatives)
+    - Information collected while the users use services
+    Besides of information directly provided by the users, the Company may collect information in the course that the users use the service provided by the Company.
+    + Information of devices (equipment/device identifier, operation system, hardware version, equipment set-up and telephone number)
+    + Log information (Log data, use time, search word input by users, internet protocol address, cookie and web beacon)
+    + Location information (Information of device location including specific geographical location detected through GPS, Bluetooth or Wi-Fi)
+    + Other created information
+    - Additional procedure for collection of sensitive information
+    If collection of sensitive information is indispensable, the Company may collect it by going through lawful procedure in accordance with relevant laws and regulations. The sensitive information which may be collected by the Company is as follows:
+    + Thoughts and belief
+    + Membership of and withdrawal from labor union or political party
+    + Political opinions
+    + Information of health and sexual life
+    + Genetic information obtained from the result of gene test
+    + Information of criminal record including announcement, exemption and suspension of sentences, care and custody, protective custody, treatment and custody, probation, lapse of suspension of sentence and cancellation of suspension of execution.
+    (2) Method of collection
+    The Company collects the information of users in a way of the followings:
+    - Webpage, written form, fax, telephone calling, e-mailing, tools for collection of created information
+
+    2. Use of collected information
+    The Company uses the collected information of users for the following purposes:
+    - Member management and identification
+    - To detect and deter unauthorized or fraudulent use of or abuse of the Service
+    - Performance of contract and service fee settlement regarding provision of services demanded by the users
+    - Improvement of existing services and development of new services
+    - Making notice of function of company sites or applications or matters on policy change
+    - To help you connect with other users you already know and, with your permission, allow other users to connect with you
+    - To make statistics on member’s service usage, to provide services and place advertisements based on statistical characteristics
+    - To provide information on promotional events as well as opportunity to participate
+    - To comply with applicable laws or legal obligation
+    - Use of information with prior consent of the users (for example, utilization of marketing advertisement)
+    The Company agrees that it will obtain consent from the users, if the Company desires to use the information other than those expressly stated in this Policy.
+    - Period for retention and use of personal information
+    In principle, the Company destructs personal information of users without delay when: the purpose of its collection and use has been achieved; the legal or management needs are satisfied; or users request: Provided that, if it is required to retain the information by relevant laws and regulations, the Company will retain member information for certain period as designated by relevant laws and regulations. The information to be retained as required by relevant laws and regulations are as follows:
+    + Record regarding contract or withdrawal of subscription: 5 years (The Act on Consumer Protection in Electronic Commerce)
+    + Record on payment and supply of goods: 5 years (The Act on Consumer Protection in Electronic Commerce)
+    + Record on consumer complaint or dispute treatment: 3 years (The Act on Consumer Protection in Electronic Commerce)
+    + Record on collection/process, and use of credit information: 3 years (The Act on Use and Protection of Credit Information)
+    + Record on sign/advertisement: 6 months(The Act on Consumer Protection in Electronic Commerce)
+    + Log record of users such as internet/data detecting the place of user connection: 3 months(The Protection of Communications Secrets Act)
+    + Other data for checking communication facts: 12 months (The Protection of Communications Secrets Act)
+    </string>
+    <string name="terms_msg3">
+    3. Sharing collected information
+    Except for the following cases, the Company will not share personal information with a 3rd party:
+    - When the Company shares the information with its affiliates, partners and service providers;
+    + When the Company\'s affiliates, partners and service providers carry out services such as bill payment, execution of orders, products delivery and dispute resolution (including disputes on payment and delivery) for and on behalf of the Company
+    - When the users consent the sharing in advance;
+    + When the user selects to be provided by the information of products and services of certain companies by sharing his or her personal information with those companies
+    + When the user selects to allow his or her personal information to be shared with the sites or platform of other companies such as social networking sites
+    +  Other cases where the user gives prior consent for sharing his or her personal information
+    - When the sharing is required by the laws
+    + If required to be disclosed by the laws and regulations; or
+    + If required to be disclosed by the investigative agencies for detecting crimes in accordance with the procedure and method as prescribed in the laws and regulations
+    </string>
+    <string name="terms_msg4">
+    4. Users\' right to access and option
+    The users or their legal representatives, as main agents of the information, may exercise the following options regarding the collection, use and sharing of personal information by the Company:
+    - Exercise right to access to personal information;
+    - Make corrections or deletion;
+    - Make temporary suspension of treatment of personal information; or
+    - Request the withdrawal of their consent provided before
+    If, in order to exercise the above options, you, as an user, use the menu of \'amendment of member information of webpage or contact the Company by using representative telephone or sending a document or e-mails, or using telephone to the responsible department (or person in charge of management of personal information), the Company will take measures without delay: Provided that the Company may reject the request of you only to the extent that there exists either proper cause as prescribed in the laws or equivalent cause.
+    </string>
+    <string name="terms_msg5">
+    5. Security
+    The Company regards the security of personal information of uses as very important. The company constructs the following security measures to protect the users\' personal information from any unauthorized access, release, use or modification
+    - Encryption of personal information
+    + Transmit users\' personal information by using encrypted communication zone
+    + Store important information such as passwords after encrypting it
+    - Countermeasures against hacking
+    + Install a system in the zone the external access to which is controlled so as to prevent leakage or damage of users\' personal information by hacking or computer virus
+    - Establish and execute internal management plan
+    - Install and operate access control system
+    - Take measures to prevent forging or alteration of access record
+    - Procedure and method of destruction of personal information
+    In principle, the Company destructs the information immediately after the purposes of its collection and use have been achieved without delay: Provided that, if any information is to be retained as required by relevant laws and regulations, the Company retain it for the period as required by those laws and regulations before destruction and, in such event, the personal information which is stored and managed separately will never be used for other purposes. The Company destructs: hard copies of personal information by shredding with a pulverizer or incinerating it; and delete personal information stored in the form of electric file by using technological method making that information not restored.
+    - Technical, managerial and physical measures for protection of personal information
+    In order to prevent the loss, theft, leakage, alteration or damage of personal information of the users, the Company takes technical, managerial and physical measures for securing safety as follows;
+    + Technical measures
+    > Utilize security servers for transmitting encryption of personal information
+    > Take measures of encryption for confidential information
+    > Install and operate access control devices and equipments
+    > Establish and execute internal management plan
+    + Managerial measures
+    > Appoint a staff responsible for protecting personal information
+    > Provide education and training for staffs treating personal information
+    > Establish and execute internal management plan
+    > Establish rules for writing passwords which is hard to be estimated
+    > Ensure safe storage of record of access to personal information processing system
+    > Classify the level of authority to access to personal information processing system
+    + Physical measures
+    > Establish and operate the procedure for access control for the facilities for storing personal information
+    > Store documents and backing storage containing personal information in safe places which have locking device
+    </string>
+    <string name="terms_msg6">
+    6. Protection of personal information of children
+    In principle, the Company does not collect any information from the children under 13 or equivalent minimum age as prescribed in the laws in relevant jurisdiction. The website, products and services of the Company are the ones to be provided to ordinary people, in principle. The website or application of the Company has function to do age limit so that children cannot use it and the Company does not intentionally collect any personal information from children through that function.
+    (Additional procedure for collecting personal information from children) However, if the Company collects any personal information from children under 13 or equivalent minimum age as prescribed in the laws in relevant jurisdiction for the services for unavoidable reason, the Company will go through the additional procedure of the followings for protecting that personal information of children:
+    - Obtain consent from the parents or guardian of children so as to collect personal information of children or directly send the information of products and services of the Company
+    - Give the parents or guardian of children a notice of Company\'s policy of privacy protection for children including the items, purpose and sharing of personal information collected
+    - Grant to legal representatives of children a right to access to personal information of that children/correction or deletion of personal information/temporary suspension of treatment of personal information/ and request for withdrawal of their consent provided before
+    - Limit the amount of personal information exceeding those necessary for participation in online activities
+    </string>
+    <string name="terms_msg7">
+    7. Modification of Privacy Protection Policy
+    The Company has the right to amend or modify this Policy from time to time and, in such case, the Company will make a public notice of it through bulletin board of its website (or through individual notice such as written document, fax or e-mail) and obtain consent from the users if required by relevant laws.
+    </string>
+    <string name="terms_msg8">
+    8. Responsible department of Company
+    The Company designates the following department and person in charge of personal information in order to protect personal information of customers and deal with complaints from customers:
+    - Department responsible for privacy protection and customer service :
+    Staff name : Bumsoo Kim
+    Dept : Development
+    Tel.: 82-10-7638-0901
+    E-mail: thatzit1012@gmail.com
+    </string>
+    <string name="terms_msg9">
+    The latest update date: Nov 1, 2016
+    </string>
+    <string name="terms_toolbar_title">Privacy Policy</string>
+    <string name="main_list_item_date">Date</string>
+    <string name="main_list_item_number">Order</string>
+    <string name="FB_Share_Title">Pocheon StampTour</string>
+    <string name="FB_Share_Description">Travelling Pocheon</string>
+    <string name="FB_Share_Title2">Move to Pocheon StampTour</string>
+    <string name="FB_Share_APPUrl">https://play.google.com/store/apps/details?id=com.thatzit.kjw.stamptour_shinan_client</string>
+    <string name="beverb_string">" is "</string>
+    <string name="out_of_string">" out of "</string>
+    <string name="rank_string"> </string>
+    <string name="rank_is_string"> </string>
+    <string name="already_taken_string">You\'ve already taken it.</string>
+    <string name="distance_string">Distance</string>
+    <string name="area_string">Area</string>
+    <string name="name_string">Name</string>
+    <string name="downloding_string">Downloading required content...</string>
+    <string name="verifying_contents_string">Verifying content resource...</string>
+
+</resources>

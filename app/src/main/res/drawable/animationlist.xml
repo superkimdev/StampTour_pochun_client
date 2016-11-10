@@ -5,5 +5,4 @@
     <item android:drawable="@drawable/stamp_success3" android:duration="310" />
     <item android:drawable="@drawable/stamp_success4" android:duration="310" />
     <item android:drawable="@drawable/stamp_success5" android:duration="310" />
-
 </animation-list>

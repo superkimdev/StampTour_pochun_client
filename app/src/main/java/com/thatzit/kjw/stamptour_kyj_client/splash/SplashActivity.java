@@ -73,7 +73,7 @@ public class SplashActivity extends Activity {
         if(show){
 
             dlg.setProgress(0);
-            dlg.setMessage("콘텐츠 리소스 확인중...");
+            dlg.setMessage(getString(R.string.verifying_contents_string));
             dlg.setCancelable(false);
             dlg.show();
         }else{

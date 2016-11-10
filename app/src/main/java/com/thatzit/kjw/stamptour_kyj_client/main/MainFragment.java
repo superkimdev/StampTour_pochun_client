@@ -328,9 +328,9 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
         ListPopupWindow listPopupWindow = new ListPopupWindow(
                 getActivity());
         ArrayList<String> arGeneral = new ArrayList<String>();
-        arGeneral.add("거리");
-        arGeneral.add("권역");
-        arGeneral.add("이름");
+        arGeneral.add(getString(R.string.distance_string));
+        arGeneral.add(getString(R.string.area_string));
+        arGeneral.add(getString(R.string.name_string));
 
         PopUpAdapter popUpAdapter = new PopUpAdapter(arGeneral, R.layout.popup_item,getActivity());
         listPopupWindow.setAdapter(popUpAdapter);
@@ -662,7 +662,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                         JSONObject resultData = response.getJSONObject(ResponseKey.RESULTDATA.getKey());
                         int res_town_code = resultData.getInt("TOWN_CODE");
                         if(res_town_code == -1){
-                            Toast.makeText(getActivity(),"이미 찍으셨습니다",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), R.string.already_taken_string,Toast.LENGTH_LONG).show();
                             return;
                         }
                         String res_nick = resultData.getString("Nick");

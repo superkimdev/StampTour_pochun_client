@@ -219,7 +219,7 @@ public class VersoinChecker implements Check,DownLoad{
 
         dlg = new ProgressDialog(context,ProgressDialog.STYLE_HORIZONTAL);
         dlg.setProgress(0);
-        dlg.setMessage("필요한 컨텐츠 다운로드중...");
+        dlg.setMessage(context.getString(R.string.downloding_string));
         dlg.setCancelable(false);
         dlg.show();
 
