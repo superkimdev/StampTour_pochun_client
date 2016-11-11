@@ -605,8 +605,8 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
             if(turnOnGpsShow){
                 turnOnGpsShow = false;
                 AlertDialog.Builder gsDialog = new AlertDialog.Builder(getActivity());
-                gsDialog.setTitle("위치 서비스 설정");
-                gsDialog.setMessage("무선 네트워크 사용, GPS 위성 사용을 모두 체크하셔야 정확한 위치 서비스가 가능합니다.\n위치 서비스 기능을 설정하시겠습니까?");
+                gsDialog.setTitle(R.string.location_setting);
+                gsDialog.setMessage(R.string.please_location_setting);
                 gsDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // GPS설정 화면으로 이동
@@ -619,7 +619,7 @@ public class MainFragment extends Fragment implements MainRecyclerAdapter.OnItem
                         return;
                     }
                 }).create().show();
-                //Toast.makeText(getContext(),"GPS켜주세요",Toast.LENGTH_LONG).show();
+
             }
         }
     }

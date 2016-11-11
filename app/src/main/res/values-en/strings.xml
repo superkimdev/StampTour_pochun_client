@@ -51,11 +51,11 @@
     <!-- TextView Text -->
     <!-- TextView Text -->
     <string name="account_view_container">Account</string>
-    <string name="hidemanage_view_container">Hide Manage</string>
+    <string name="hidemanage_view_container">Hidden</string>
     <string name="present_view_container">Event Request</string>
     <string name="research_view_container">Survey</string>
     <string name="logout_view_container">Log out</string>
-    <string name="hide_btn">Hiding</string>
+    <string name="hide_btn">Hidden</string>
     <string name="sort_btn">Sort</string>
     <string name="main_toolbar_title">Stamp</string>
     <string name="main_list_item_name">Name</string>
@@ -110,7 +110,7 @@
     <string name="more_toolbar_title">More</string>
     <string name="map_toolbar_title">Map</string>
     <string name="stamp_zone_come_message">You are in stamp zone.</string>
-    <string name="hidelist_toolbar_title">Hiding</string>
+    <string name="hidelist_toolbar_title">Hidden</string>
     <string name="btn_undo_hide_text">Unhidden</string>
     <string name="hide_notfication_text">Hidden</string>
     <string name="social_join_nick_hint">Input nickname</string>
@@ -311,10 +311,15 @@
     <string name="rank_string"> </string>
     <string name="rank_is_string"> </string>
     <string name="already_taken_string">You\'ve already taken it.</string>
-    <string name="distance_string">Distance</string>
-    <string name="area_string">Area</string>
-    <string name="name_string">Name</string>
+    <string name="distance_string">By Distance</string>
+    <string name="area_string">By Region</string>
+    <string name="name_string">By Name</string>
     <string name="downloding_string">Downloading required content...</string>
     <string name="verifying_contents_string">Verifying content resource...</string>
+    <string name="location_setting">Location Setting</string>
+    <string name="please_location_setting">Could you please turn on both Wi-Fi and GPS for accurate location service?</string>
+    <string name="signin_facebook">Facebook signin</string>
+    <string name="signin_kakao">Kakaotalk signin</string>
+    <string name="loggedout_fail">Please download again in case of repeated logout failure.</string>
 
 </resources>

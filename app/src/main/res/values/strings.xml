@@ -205,4 +205,9 @@
     <string name="name_string">이름</string>
     <string name="downloding_string">필요한 컨텐츠 다운로드중...</string>
     <string name="verifying_contents_string">콘텐츠 리소스 확인중...</string>
+    <string name="location_setting">위치 서비스 설정</string>
+    <string name="please_location_setting">무선 네트워크 사용, GPS 위성 사용을 모두 체크하셔야 정확한 위치 서비스가 가능합니다.\n위치 서비스 기능을 설정하시겠습니까?</string>
+    <string name="signin_facebook">페이스북 로그인</string>
+    <string name="signin_kakao">카카오톡 로그인</string>
+    <string name="loggedout_fail">로그아웃 실패 계속되면 다시 설치해주세요</string>
 </resources>
