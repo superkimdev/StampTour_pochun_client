@@ -144,7 +144,6 @@ public class SocialUser implements SocialLoggedIn_Behavior,SocialLoggedOut_Behav
         RequestParams params = new RequestParams();
         params.put("nick",nick);
         params.put("accesstoken",accesstoken);
-        Toast.makeText(context,"소셜유저 로그아웃",Toast.LENGTH_LONG).show();
         StampRestClient.post(context.getString(R.string.req_url_loggedout),params,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -171,7 +170,7 @@ public class SocialUser implements SocialLoggedIn_Behavior,SocialLoggedOut_Behav
                         context.startActivity(intent);
                         ((MainActivity)context).finish();
                     }else if(code.equals("03")){
-                        Toast.makeText(context,"로그아웃 실패 계속되면 다시 설치해주세요",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, R.string.loggedout_fail,Toast.LENGTH_LONG).show();
                     }
                 }catch (JSONException e){
                     Log.e("NormalUser",e.toString());

@@ -144,7 +144,7 @@
                 android:layout_marginRight="16dp"
                 android:background="@drawable/background_border_search"
                 android:backgroundTint="@color/colorFaceBookBtn"
-                android:text="페이스북 로그인"
+                android:text="@string/signin_facebook"
                 android:textColor="@color/colorFaceBookBtn_text"
                 android:textStyle="bold" />
             <Button
@@ -157,7 +157,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/background_border_search"
                 android:backgroundTint="@color/colorKaKaoBtn"
-                android:text="카카오톡 로그인"
+                android:text="@string/signin_kakao"
                 android:textColor="@color/colorKaKaoBtn_text"
                 android:textStyle="bold" />
 
